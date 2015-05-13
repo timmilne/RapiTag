@@ -415,6 +415,7 @@
                                           // tag programmed successfully
                                           NSLog(@"Tag programmed successfully");
                                           [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
+                                          _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
                                           [self.view bringSubviewToFront:_successImg];
                                           _successImg.hidden = FALSE;
                                           
