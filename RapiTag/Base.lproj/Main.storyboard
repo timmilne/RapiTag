@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MAS-jD-Gfr">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="L5a-u1-tq2">
+            <objects>
+                <navigationController id="MAS-jD-Gfr" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7dp-Ay-jut">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="AEa-fn-Pz3" kind="relationship" relationship="rootViewController" id="Fvr-DH-bYa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JtO-Xq-FhC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="586" y="442"/>
+        </scene>
+        <!--RapiTag-->
+        <scene sceneID="cg6-Xp-4x4">
+            <objects>
+                <viewController id="AEa-fn-Pz3" customClass="EncoderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cEi-k6-MJl"/>
+                        <viewControllerLayoutGuide type="bottom" id="69V-hI-2v7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="an7-rK-mLo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJx-zo-rEL">
+                                <rect key="frame" x="16" y="75" width="42" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFR-y5-Nxf">
+                                <rect key="frame" x="16" y="110" width="42" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nje-y1-jRW">
+                                <rect key="frame" x="16" y="145" width="42" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-7N-RwP">
+                                <rect key="frame" x="71" y="76" width="100" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="uJw-DN-BND"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="kcc-bd-NkZ"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yi3-tK-sWe">
+                                <rect key="frame" x="71" y="111" width="100" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="OWb-CH-4sF"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="J1U-dY-FG0"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zND-Zo-13d">
+                                <rect key="frame" x="71" y="146" width="100" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="xvJ-FW-Ius"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="mxE-n5-g9i"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234567890" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uny-Cx-OPD">
+                                <rect key="frame" x="71" y="181" width="100" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="p5P-E5-UsE"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="haA-fd-G6Y"/>
+                                </connections>
+                            </textField>
+                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="SuccessImage" translatesAutoresizingMaskIntoConstraints="NO" id="2CW-Cg-w6I">
+                                <rect key="frame" x="100" y="50" width="400" height="400"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="FailImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-VF-Mh5">
+                                <rect key="frame" x="100" y="50" width="400" height="400"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9o-K0-LDd">
+                                <rect key="frame" x="16" y="180" width="42" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="3Kt-VF-Mh5" secondAttribute="centerX" id="5sy-u5-k7T"/>
+                            <constraint firstAttribute="centerX" secondItem="2CW-Cg-w6I" secondAttribute="centerX" id="aet-O1-p6r"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="RapiTag" id="pvz-B9-gdj">
+                        <barButtonItem key="leftBarButtonItem" image="RepeatImage" id="6KJ-3Y-PRk">
+                            <connections>
+                                <action selector="reset:" destination="AEa-fn-Pz3" id="n7F-m2-zTe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Encode" id="0Ou-Uo-Q10">
+                            <connections>
+                                <action selector="encodeGID:" destination="AEa-fn-Pz3" id="0Q1-Oy-Yv6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="_clsFld" destination="Yi3-tK-sWe" id="PBJ-i0-rP4"/>
+                        <outlet property="_clsLbl" destination="aFR-y5-Nxf" id="ggG-Sb-lFd"/>
+                        <outlet property="_dptFld" destination="D7J-7N-RwP" id="8sG-ud-BTt"/>
+                        <outlet property="_dptLbl" destination="NJx-zo-rEL" id="CSV-a3-7io"/>
+                        <outlet property="_encodeBtn" destination="0Ou-Uo-Q10" id="W7X-XS-MVy"/>
+                        <outlet property="_failImg" destination="3Kt-VF-Mh5" id="xEH-HE-SIf"/>
+                        <outlet property="_itmFld" destination="zND-Zo-13d" id="rae-9f-jJ9"/>
+                        <outlet property="_itmLbl" destination="nje-y1-jRW" id="Sqf-n9-cgn"/>
+                        <outlet property="_serFld" destination="Uny-Cx-OPD" id="liX-Ic-jCj"/>
+                        <outlet property="_serLbl" destination="p9o-K0-LDd" id="Ano-aR-Ujz"/>
+                        <outlet property="_successImg" destination="2CW-Cg-w6I" id="gWY-Vl-pNW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P1g-kP-TLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321" y="442"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="FailImage" width="200" height="201"/>
+        <image name="RepeatImage" width="26" height="26"/>
+        <image name="SuccessImage" width="200" height="201"/>
+    </resources>
+</document>
