@@ -131,6 +131,7 @@
                         <outlet property="_failImg" destination="3Kt-VF-Mh5" id="xEH-HE-SIf"/>
                         <outlet property="_itmFld" destination="zND-Zo-13d" id="rae-9f-jJ9"/>
                         <outlet property="_itmLbl" destination="nje-y1-jRW" id="Sqf-n9-cgn"/>
+                        <outlet property="_resetBtn" destination="6KJ-3Y-PRk" id="gXN-Fv-nsG"/>
                         <outlet property="_serFld" destination="Uny-Cx-OPD" id="liX-Ic-jCj"/>
                         <outlet property="_serLbl" destination="p9o-K0-LDd" id="Ano-aR-Ujz"/>
                         <outlet property="_successImg" destination="2CW-Cg-w6I" id="gWY-Vl-pNW"/>

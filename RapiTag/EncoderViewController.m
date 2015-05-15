@@ -14,31 +14,28 @@
 
 @interface EncoderViewController ()<AVCaptureMetadataOutputObjectsDelegate, UgiInventoryDelegate>
 {
-    __weak IBOutlet UILabel     *_dptLbl;
-    __weak IBOutlet UILabel     *_clsLbl;
-    __weak IBOutlet UILabel     *_itmLbl;
-    __weak IBOutlet UILabel     *_serLbl;
-    __weak IBOutlet UITextField *_dptFld;
-    __weak IBOutlet UITextField *_clsFld;
-    __weak IBOutlet UITextField *_itmFld;
-    __weak IBOutlet UITextField *_serFld;
+    __weak IBOutlet UILabel         *_dptLbl;
+    __weak IBOutlet UILabel         *_clsLbl;
+    __weak IBOutlet UILabel         *_itmLbl;
+    __weak IBOutlet UILabel         *_serLbl;
+    __weak IBOutlet UITextField     *_dptFld;
+    __weak IBOutlet UITextField     *_clsFld;
+    __weak IBOutlet UITextField     *_itmFld;
+    __weak IBOutlet UITextField     *_serFld;
+    __weak IBOutlet UIBarButtonItem *_resetBtn;
     __weak IBOutlet UIBarButtonItem *_encodeBtn;
-    __weak IBOutlet UIImageView *_successImg;
-    __weak IBOutlet UIImageView *_failImg;
+    __weak IBOutlet UIImageView     *_successImg;
+    __weak IBOutlet UIImageView     *_failImg;
 }
-
 @end
 
 @implementation EncoderViewController {
-    BOOL                        _barcodeFound;
-    BOOL                        _rfidFound;
-    BOOL                        _encoding;
-    
-    AVCaptureSession            *_session;
-    AVCaptureDevice             *_device;
-    AVCaptureDeviceInput        *_input;
-    AVCaptureMetadataOutput     *_output;
-    AVCaptureVideoPreviewLayer  *_prevLayer;
+    EPCEncoder                  *_encode;
+    EPCConverter                *_convert;
+    UgiRfidConfiguration        *_config;
+    NSMutableString             *_oldEPC;
+    NSMutableString             *_newEPC;
+    UIColor                     *_defaultBackgroundColor;
     
     UIView                      *_highlightView;
     UILabel                     *_barcodeLbl;
@@ -46,12 +43,15 @@
     UILabel                     *_batteryLifeLbl;
     UIProgressView              *_batteryLifeView;
     
-    EPCEncoder                  *_encode;
-    EPCConverter                *_convert;
-    UgiRfidConfiguration        *_config;
-    NSMutableString             *_oldEPC;
-    NSMutableString             *_newEPC;
-    UIColor                     *_defaultBackgroundColor;
+    AVCaptureSession            *_session;
+    AVCaptureDevice             *_device;
+    AVCaptureDeviceInput        *_input;
+    AVCaptureMetadataOutput     *_output;
+    AVCaptureVideoPreviewLayer  *_prevLayer;
+    
+    BOOL                        _barcodeFound;
+    BOOL                        _rfidFound;
+    BOOL                        _encoding;
 }
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:0.65]
@@ -64,11 +64,16 @@
     // Also had to add the statusBarStyle entry to info.plist
     self.navigationController.navigationBar.BarStyle = UIStatusBarStyleLightContent;
     
-    // Reset
-    _barcodeFound = FALSE;
-    _rfidFound = FALSE;
-    _encodeBtn.enabled = FALSE;
-    _encoding = FALSE;
+    // Initialize variables
+    _encode = [EPCEncoder alloc];
+    _convert = [EPCConverter alloc];
+    _oldEPC = [[NSMutableString alloc] init];
+    _newEPC = [[NSMutableString alloc] init];
+    _defaultBackgroundColor = UIColorFromRGB(0x000000);
+    
+    // Set scanner configuration used in startInventory
+    _config = [UgiRfidConfiguration configWithInventoryType:UGI_INVENTORY_TYPE_INVENTORY_SHORT_RANGE];
+    [_config setVolume:.2];
     
     // TPM: The barcode scanner example built the UI from scratch.  This made it easier to deal with all
     // the setting programatically, so I've continued with that here...
@@ -89,21 +94,31 @@
     _barcodeLbl = [[UILabel alloc] init];
     _barcodeLbl.frame = CGRectMake(0, self.view.bounds.size.height - 120, self.view.bounds.size.width, 40);
     _barcodeLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _barcodeLbl.textColor = [UIColor whiteColor];
     _barcodeLbl.textAlignment = NSTextAlignmentCenter;
-    _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
     [self.view addSubview:_barcodeLbl];
     
     // RFID label view
     _rfidLbl = [[UILabel alloc] init];
     _rfidLbl.frame = CGRectMake(0, self.view.bounds.size.height - 80, self.view.bounds.size.width, 40);
     _rfidLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    _rfidLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _rfidLbl.textColor = [UIColor whiteColor];
     _rfidLbl.textAlignment = NSTextAlignmentCenter;
-    _rfidLbl.text = @"RFID: (connecting to reader)";
     [self.view addSubview:_rfidLbl];
+    
+    // RFID label
+    _batteryLifeLbl = [[UILabel alloc] init];
+    _batteryLifeLbl.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
+    _batteryLifeLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    _batteryLifeLbl.textColor = [UIColor whiteColor];
+    _batteryLifeLbl.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_batteryLifeLbl];
+    
+    // Battery life label
+    _batteryLifeView = [[UIProgressView alloc] init];
+    _batteryLifeView.frame = CGRectMake(0, self.view.bounds.size.height - 8, self.view.bounds.size.width, 40);
+    _batteryLifeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:_batteryLifeView];
     
     // Initialize the bar code scanner session, device, input, output, and preview layer
     _session = [[AVCaptureSession alloc] init];
@@ -124,43 +139,14 @@
     _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:_prevLayer];
     
-    // Start scanning for barcodes
-    [_session startRunning];
-    
-    // Initiliaze the encoder and converter
-    if (_encode == nil) _encode = [EPCEncoder alloc];
-    if (_convert == nil) _convert = [EPCConverter alloc];
-    
-    // Register with the default NotificationCenter
+    // Register with the default NotificationCenter for RFID reads
     // TPM there was a typo in the online documentation fixed here
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionStateChanged:)
                                                  name:[Ugi singleton].NOTIFICAION_NAME_CONNECTION_STATE_CHANGED
                                                object:nil];
     
-    // RFID label
-    _batteryLifeLbl = [[UILabel alloc] init];
-    _batteryLifeLbl.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
-    _batteryLifeLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    _batteryLifeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    _batteryLifeLbl.textColor = [UIColor whiteColor];
-    _batteryLifeLbl.textAlignment = NSTextAlignmentCenter;
-    _batteryLifeLbl.text = @"RFID Battery Life";
-    [self.view addSubview:_batteryLifeLbl];
-    
-    // Battery life label
-    _batteryLifeView = [[UIProgressView alloc] init];
-    _batteryLifeView.frame = CGRectMake(0, self.view.bounds.size.height - 8, self.view.bounds.size.width, 40);
-    _batteryLifeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    _batteryLifeView.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    [self.view addSubview:_batteryLifeView];
-    
-    // Pop the subviews to the front
-    [self.view bringSubviewToFront:_highlightView];
-    [self.view bringSubviewToFront:_barcodeLbl];
-    [self.view bringSubviewToFront:_rfidLbl];
-    [self.view bringSubviewToFront:_batteryLifeLbl];
-    [self.view bringSubviewToFront:_batteryLifeView];
+    // Pop the subviews to the front of the preview view
     [self.view bringSubviewToFront:_dptLbl];
     [self.view bringSubviewToFront:_clsLbl];
     [self.view bringSubviewToFront:_itmLbl];
@@ -169,32 +155,31 @@
     [self.view bringSubviewToFront:_clsFld];
     [self.view bringSubviewToFront:_itmFld];
     [self.view bringSubviewToFront:_serFld];
+    [self.view bringSubviewToFront:_highlightView];
+    [self.view bringSubviewToFront:_barcodeLbl];
+    [self.view bringSubviewToFront:_rfidLbl];
+    [self.view bringSubviewToFront:_batteryLifeLbl];
+    [self.view bringSubviewToFront:_batteryLifeView];
     
-    // Send the result images to the back
-    [self.view sendSubviewToBack:_successImg];
-    [self.view sendSubviewToBack:_failImg];
-    
-    // Set scanner configuration used in startInventory
-    _config = [UgiRfidConfiguration configWithInventoryType:UGI_INVENTORY_TYPE_INVENTORY_SHORT_RANGE];
-    [_config setVolume:.2];
-    
-    // Set the variables
-    _oldEPC = [[NSMutableString alloc] init];
-    _newEPC = [[NSMutableString alloc] init];
-    [_oldEPC setString:@""];
-    [_newEPC setString:@""];
-    _defaultBackgroundColor = [self.view backgroundColor];
+    // Reset initializes all the variables and colors
+    [self reset:_resetBtn];
     
     // Update the encoder
     [self updateAll];
+    
+    // Start scanning for barcodes
+    [_session startRunning];
 }
 
 - (IBAction)reset:(id)sender {
-    // Reset
+    // Reset all controls and variables
     _barcodeFound = FALSE;
     _rfidFound = FALSE;
     _encodeBtn.enabled = FALSE;
     _encoding = FALSE;
+    [_oldEPC setString:@""];
+    [_newEPC setString:@""];
+    [self.view setBackgroundColor:_defaultBackgroundColor];
     
     _dptFld.text = @"";
     _clsFld.text = @"";
@@ -205,6 +190,7 @@
     _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _rfidLbl.text = @"RFID: (connecting to reader)";
     _rfidLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    
     // Update the battery life
     UgiBatteryInfo batteryInfo;
     if ([[Ugi singleton] getBatteryInfo:&batteryInfo]) {
@@ -220,9 +206,6 @@
         _batteryLifeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
         _batteryLifeLbl.text = @"RFID Battery Life";
     }
-    
-    // Set the background color
-    [self.view setBackgroundColor:_defaultBackgroundColor];
     
     // Send the result images to the back
     [self.view sendSubviewToBack:_successImg];
