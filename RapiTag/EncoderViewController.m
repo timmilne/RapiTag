@@ -75,20 +75,20 @@
     _config = [UgiRfidConfiguration configWithInventoryType:UGI_INVENTORY_TYPE_INVENTORY_SHORT_RANGE];
     [_config setVolume:.2];
     
+    // Set the label background colors
+    _dptLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    _clsLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    _itmLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    _serLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    
     // TPM: The barcode scanner example built the UI from scratch.  This made it easier to deal with all
-    // the setting programatically, so I've continued with that here...
+    // the settings programatically, so I've continued with that here...
     // Barcode highlight view
     _highlightView = [[UIView alloc] init];
     _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
     _highlightView.layer.borderColor = [UIColor greenColor].CGColor;
     _highlightView.layer.borderWidth = 3;
     [self.view addSubview:_highlightView];
-    
-    // Set the labels
-    _dptLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    _clsLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    _itmLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    _serLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     
     // Barcode label view
     _barcodeLbl = [[UILabel alloc] init];
