@@ -116,7 +116,7 @@
                                 <action selector="reset:" destination="AEa-fn-Pz3" id="n7F-m2-zTe"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Encode" id="0Ou-Uo-Q10">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="EncodeImage" id="0Ou-Uo-Q10">
                             <connections>
                                 <action selector="encodeGID:" destination="AEa-fn-Pz3" id="0Q1-Oy-Yv6"/>
                             </connections>
@@ -143,6 +143,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="EncodeImage" width="26" height="26"/>
         <image name="FailImage" width="200" height="201"/>
         <image name="RepeatImage" width="26" height="26"/>
         <image name="SuccessImage" width="200" height="201"/>

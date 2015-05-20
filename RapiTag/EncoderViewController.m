@@ -106,7 +106,7 @@
     _rfidLbl.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_rfidLbl];
     
-    // RFID label
+    // Battery Life label
     _batteryLifeLbl = [[UILabel alloc] init];
     _batteryLifeLbl.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
     _batteryLifeLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
