@@ -22,6 +22,7 @@
 		B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A91B018EE500B9B47F /* MediaPlayer.framework */; };
 		B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AB1B018EEE00B9B47F /* AVFoundation.framework */; };
 		B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AD1B018EF800B9B47F /* AudioToolbox.framework */; };
+		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		B70244A91B018EE500B9B47F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B70244AB1B018EEE00B9B47F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B70244AD1B018EF800B9B47F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B7117D3E1B33362A00968426 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		B7117D3F1B33362A00968426 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				B70244681B018CF600B9B47F /* AppDelegate.m */,
 				B70244891B018D7700B9B47F /* EncoderViewController.h */,
 				B702448A1B018D7700B9B47F /* EncoderViewController.m */,
+				B7117D3E1B33362A00968426 /* NavigationController.h */,
+				B7117D3F1B33362A00968426 /* NavigationController.m */,
 				B702446D1B018CF600B9B47F /* Main.storyboard */,
 				B70244701B018CF600B9B47F /* Images.xcassets */,
 				B70244721B018CF600B9B47F /* LaunchScreen.xib */,
@@ -302,6 +307,7 @@
 				B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */,
 				B70244911B018E1900B9B47F /* EPCConverter.m in Sources */,
 				B70244691B018CF600B9B47F /* AppDelegate.m in Sources */,
+				B7117D401B33362A00968426 /* NavigationController.m in Sources */,
 				B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */,
 				B70244661B018CF600B9B47F /* main.m in Sources */,
 			);
@@ -508,6 +514,7 @@
 				B70244851B018CF600B9B47F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B70244861B018CF600B9B47F /* Build configuration list for PBXNativeTarget "RapiTagTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +523,7 @@
 				B70244881B018CF600B9B47F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

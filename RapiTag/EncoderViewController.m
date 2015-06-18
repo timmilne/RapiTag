@@ -62,7 +62,7 @@
     
     // Set the status bar to white (iOS bug)
     // Also had to add the statusBarStyle entry to info.plist
-    self.navigationController.navigationBar.BarStyle = UIStatusBarStyleLightContent;
+    self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
     
     // Initialize variables
     _encode = [EPCEncoder alloc];
@@ -169,6 +169,27 @@
     
     // Start scanning for barcodes
     [_session startRunning];
+}
+
+// Adjust the preview layer on orientation changes
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    switch ((int)orientation) {
+        case UIInterfaceOrientationPortrait:
+            [_prevLayer.connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            [_prevLayer.connection setVideoOrientation:AVCaptureVideoOrientationPortraitUpsideDown];
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            [_prevLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            [_prevLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+            break;
+    }
 }
 
 - (IBAction)reset:(id)sender {
