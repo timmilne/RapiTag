@@ -358,6 +358,7 @@
         NSString *chkdgt = [_encode calculateCheckDigit:barcode];
         _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@%@", barcode, chkdgt];
         _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+        _barcodeFound = TRUE;
     }
     else if ([dpt length] == 0 && [cls length] == 0 && [itm length] == 0) {
         _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (scanning for barcodes)"];
