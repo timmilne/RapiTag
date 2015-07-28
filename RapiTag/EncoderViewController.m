@@ -7,10 +7,10 @@
 //
 
 #import "EncoderViewController.h"
-#import <AVFoundation/AVFoundation.h>   // Barcode capture tools
-#import "Ugi.h"                         // uGrokit goodies
-#import "EPCEncoder.h"                  // To encode the scanned barcode for comparison
-#import "Converter.h"                   // To convert to binary for comparison
+#import <AVFoundation/AVFoundation.h> // Barcode capture tools
+#import "Ugi.h"                       // uGrokit goodies
+#import "EPCEncoder.h"                // To encode the scanned barcode for comparison
+#import "Converter.h"                 // To convert to binary for comparison
 
 @interface EncoderViewController ()<AVCaptureMetadataOutputObjectsDelegate, UgiInventoryDelegate>
 {
@@ -150,23 +150,15 @@
                                                object:nil];
     
     // Pop the subviews to the front of the preview view
-    [self.view bringSubviewToFront:_dptLbl];
-    [self.view bringSubviewToFront:_clsLbl];
-    [self.view bringSubviewToFront:_itmLbl];
-    [self.view bringSubviewToFront:_serLbl];
-    [self.view bringSubviewToFront:_gtinLbl];
-    [self.view bringSubviewToFront:_dptFld];
-    [self.view bringSubviewToFront:_clsFld];
-    [self.view bringSubviewToFront:_itmFld];
-    [self.view bringSubviewToFront:_serFld];
-    [self.view bringSubviewToFront:_gtinFld];
     [self.view bringSubviewToFront:_highlightView];
     [self.view bringSubviewToFront:_barcodeLbl];
     [self.view bringSubviewToFront:_rfidLbl];
     [self.view bringSubviewToFront:_batteryLifeLbl];
     [self.view bringSubviewToFront:_batteryLifeView];
+    [self.view bringSubviewToFront:_successImg];
+    [self.view bringSubviewToFront:_failImg];
     
-    // Reset initializes all the variables and colors
+    // Reset initializes all the variables and colors and pops the remaining views
     [self reset:_resetBtn];
     
     // Update the encoder
@@ -210,7 +202,7 @@
     _dptFld.text = @"";
     _clsFld.text = @"";
     _itmFld.text = @"";
-    _serFld.text = @"1234567890";
+    _serFld.text = @"1";
     _gtinFld.text = @"";
     
     _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
@@ -234,12 +226,6 @@
         _batteryLifeLbl.text = @"RFID Battery Life";
     }
     
-    // Send the result images to the back
-    [self.view sendSubviewToBack:_successImg];
-    [self.view sendSubviewToBack:_failImg];
-    _successImg.hidden = TRUE;
-    _failImg.hidden = TRUE;
-    
     // Bring the input views to the front
     [self.view bringSubviewToFront:_dptLbl];
     [self.view bringSubviewToFront:_clsLbl];
@@ -251,6 +237,10 @@
     [self.view bringSubviewToFront:_itmFld];
     [self.view bringSubviewToFront:_serFld];
     [self.view bringSubviewToFront:_gtinFld];
+    
+    // Hide the result images (treat these different for landscape mode)
+    _successImg.hidden = TRUE;
+    _failImg.hidden = TRUE;
     
     // Stop inventory if active
     [[Ugi singleton].activeInventory stopInventory];
@@ -286,6 +276,13 @@
         if (detectionString != nil)
         {
             // Tell the uGrokit to beep...
+            
+            // Assume false until verified
+            _barcodeFound = FALSE;
+            
+            // New input data
+            _successImg.hidden = TRUE;
+            _failImg.hidden = TRUE;
             
             // Grab the barcode
             _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
@@ -359,16 +356,21 @@
             else {
                 //Unsupported barcode
                 _barcodeLbl.text = @"Barcode: unsupported barcode";
+                _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+                _barcodeFound = FALSE;
             }
         }
-        else
+        else {
             _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
+            _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+            _barcodeFound = FALSE;
+        }
     }
     
     _highlightView.frame = highlightViewRect;
     
-    // If we have a barcode and an RFID tag read, ready to encode
-    if (_barcodeFound && _rfidFound) [self readyToEncode];
+    // Check to see if ready to encode
+    [self readyToEncode];
 }
 
 // Delegate to dimiss keyboard after return
@@ -380,6 +382,10 @@
 
 // All the edit fields point here, after you end the edit and hit return
 - (IBAction)update:(id)sender {
+    // New input data
+    _successImg.hidden = TRUE;
+    _failImg.hidden = TRUE;
+    
     [self updateAll];
 }
 
@@ -437,6 +443,7 @@
         else {
             _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid DPCI)"];
             _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+            _barcodeFound = FALSE;
         }
     }
     else if ([ser length] > 0 && [gtin length] > 0) {
@@ -459,27 +466,33 @@
         else {
             _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid GTIN)"];
             _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+            _barcodeFound = FALSE;
         }
     }
     else {
         _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (scanning for barcodes)"];
         _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+        _barcodeFound = FALSE;
     }
     
     // Set the background color
     [self.view setBackgroundColor:_defaultBackgroundColor];
     
-    // If we have a barcode and an RFID tag read, ready to encode
-    if (_barcodeFound && _rfidFound) [self readyToEncode];
+    // Check to see if ready to encode
+    [self readyToEncode];
 }
 
 - (void)readyToEncode {
-    // Enable the encode button
-    _encodeBtn.enabled = TRUE;
+    // If we have a valid barcode and an RFID tag read, we are ready to encode so enable the encode button
+    _encodeBtn.enabled = (_barcodeFound && _rfidFound);
 }
 
 - (IBAction)encode:(id)sender {
     _encoding = TRUE;
+    
+    // New encoding attempt
+    _successImg.hidden = TRUE;
+    _failImg.hidden = TRUE;
 
     NSString *ser  = [_serFld text];
     NSString *gtin = [_gtinFld text];
@@ -518,18 +531,21 @@
                                    withPassword:UGI_NO_PASSWORD
                                   whenCompleted:^(UgiTag *tag, UgiTagAccessReturnValues result) {
                                       if (result == UGI_TAG_ACCESS_OK) {
-                                          // tag programmed successfully
+                                          // Tag programmed successfully
                                           NSLog(@"Tag programmed successfully");
                                           [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
                                           _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
-                                          [self.view bringSubviewToFront:_successImg];
-                                          _successImg.hidden = FALSE;
                                           
-                                      } else {
-                                          // tag programming was unsuccessful
+                                          // Increment the serial number for another run and update
+                                          NSInteger serInt = [[_serFld text] intValue];
+                                          [_serFld setText:[NSString stringWithFormat:@"%d", (++serInt)]];
+                                          [self updateAll];
+                                          _successImg.hidden = FALSE;
+                                      }
+                                      else {
+                                          // Tag programming was unsuccessful
                                           NSLog(@"Tag programming UNSUCCESSFUL");
                                           [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
-                                          [self.view bringSubviewToFront:_failImg];
                                           _failImg.hidden = FALSE;
                                           
                                       }
@@ -569,6 +585,10 @@
    withDetailedPerReadData:(NSArray *)detailedPerReadData {
     // Tag was found for the first time
     
+    // New input data
+    _successImg.hidden = TRUE;
+    _failImg.hidden = TRUE;
+    
     // Set the old EPC
     [_oldEPC setString:[tag.epc toString]];
 
@@ -581,9 +601,10 @@
         _encoding = FALSE;
     }
     else {
-        // If we have a barcode and an RFID tag read, ready to encode
-        if (_barcodeFound && _rfidFound) [self readyToEncode];
         _rfidFound = TRUE;
+        
+        // Check to see if ready to encode
+        [self readyToEncode];
     }
 }
 

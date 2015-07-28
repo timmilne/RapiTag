@@ -10,28 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RapiTag/EncoderViewController.m"
-            timestampString = "459751588.794569"
+            timestampString = "459807310.205794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
-            landmarkName = "-readyToEncode"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
+            landmarkName = "-endEncode:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RapiTag/EncoderViewController.m"
-            timestampString = "459751588.794569"
+            timestampString = "459807400.190548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "473"
-            endingLineNumber = "473"
-            landmarkName = "-updateAll"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
+            landmarkName = "-readyToEncode"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
