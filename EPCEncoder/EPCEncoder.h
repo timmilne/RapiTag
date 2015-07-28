@@ -12,26 +12,34 @@
 
 #import <Foundation/Foundation.h>
 
+// Global values
+static NSString *SGTIN_URI_Prefix = @"urn:epc:tag:sgtin-96:1.";
+static NSString *SGTIN_Bin_Prefix = @"00110000";
+static NSString *GID_URI_Prefix   = @"urn:epc:tag:gid-96:";
+static NSString *GID_Bin_Prefix   = @"00110101";
+
 @interface EPCEncoder : NSObject
 
 @property NSString *dpt;
 @property NSString *cls;
 @property NSString *itm;
 @property NSString *ser;
+@property NSString *gtin;
 @property NSString *sgtin_bin;
 @property NSString *sgtin_hex;
 @property NSString *sgtin_uri;
-@property NSString *giai_bin;
-@property NSString *giai_hex;
-@property NSString *giai_uri;
 @property NSString *gid_bin;
 @property NSString *gid_hex;
 @property NSString *gid_uri;
 
-- (void)withDpt:(NSString *)Dpt
-        cls:(NSString *)Cls
-        itm:(NSString *)Itm
-        ser:(NSString *)Ser;
+- (void)withDpt:(NSString *)dpt
+        cls:(NSString *)cls
+        itm:(NSString *)itm
+        ser:(NSString *)ser;
+
+- (void)withGTIN:(NSString *)gtin
+        ser:(NSString *)ser
+        partBin:(NSString *)partBin;
 
 - (NSString *)calculateCheckDigit:(NSString *)upc;
 

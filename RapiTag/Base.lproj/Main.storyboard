@@ -55,35 +55,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-7N-RwP">
-                                <rect key="frame" x="71" y="76" width="100" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                <connections>
-                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="uJw-DN-BND"/>
-                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="kcc-bd-NkZ"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yi3-tK-sWe">
-                                <rect key="frame" x="71" y="111" width="100" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                <connections>
-                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="OWb-CH-4sF"/>
-                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="J1U-dY-FG0"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zND-Zo-13d">
-                                <rect key="frame" x="71" y="146" width="100" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                <connections>
-                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="xvJ-FW-Ius"/>
-                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="mxE-n5-g9i"/>
-                                </connections>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234567890" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uny-Cx-OPD">
-                                <rect key="frame" x="71" y="181" width="100" height="30"/>
+                                <rect key="frame" x="71" y="181" width="120" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                 <connections>
@@ -103,6 +76,48 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GTIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jQ-WR-BF2">
+                                <rect key="frame" x="16" y="220" width="40" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uWd-ak-3C2">
+                                <rect key="frame" x="71" y="216" width="120" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="O7w-Ui-30k"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="NI7-uY-8hj"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-7N-RwP">
+                                <rect key="frame" x="71" y="76" width="120" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="uJw-DN-BND"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="kcc-bd-NkZ"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yi3-tK-sWe">
+                                <rect key="frame" x="71" y="111" width="120" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="OWb-CH-4sF"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="J1U-dY-FG0"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zND-Zo-13d">
+                                <rect key="frame" x="71" y="146" width="120" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="xvJ-FW-Ius"/>
+                                    <outlet property="delegate" destination="AEa-fn-Pz3" id="mxE-n5-g9i"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -118,7 +133,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="EncodeImage" id="0Ou-Uo-Q10">
                             <connections>
-                                <action selector="encodeGID:" destination="AEa-fn-Pz3" id="0Q1-Oy-Yv6"/>
+                                <action selector="encode:" destination="AEa-fn-Pz3" id="3O2-gP-afA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -129,6 +144,8 @@
                         <outlet property="_dptLbl" destination="NJx-zo-rEL" id="CSV-a3-7io"/>
                         <outlet property="_encodeBtn" destination="0Ou-Uo-Q10" id="W7X-XS-MVy"/>
                         <outlet property="_failImg" destination="3Kt-VF-Mh5" id="xEH-HE-SIf"/>
+                        <outlet property="_gtinFld" destination="uWd-ak-3C2" id="Hui-6a-8jn"/>
+                        <outlet property="_gtinLbl" destination="1jQ-WR-BF2" id="Sb8-4K-cMd"/>
                         <outlet property="_itmFld" destination="zND-Zo-13d" id="rae-9f-jJ9"/>
                         <outlet property="_itmLbl" destination="nje-y1-jRW" id="Sqf-n9-cgn"/>
                         <outlet property="_resetBtn" destination="6KJ-3Y-PRk" id="gXN-Fv-nsG"/>

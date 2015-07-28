@@ -14,7 +14,7 @@
 		B70244741B018CF600B9B47F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B70244721B018CF600B9B47F /* LaunchScreen.xib */; };
 		B70244801B018CF600B9B47F /* RapiTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B702447F1B018CF600B9B47F /* RapiTagTests.m */; };
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
-		B70244911B018E1900B9B47F /* EPCConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448E1B018E1900B9B47F /* EPCConverter.m */; };
+		B70244911B018E1900B9B47F /* Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448E1B018E1900B9B47F /* Converter.m */; };
 		B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B70244901B018E1900B9B47F /* EPCEncoder.m */; };
 		B70244941B018E2200B9B47F /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244931B018E2200B9B47F /* libUGrokItApi.a */; };
 		B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */; };
@@ -49,8 +49,8 @@
 		B702447F1B018CF600B9B47F /* RapiTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RapiTagTests.m; sourceTree = "<group>"; };
 		B70244891B018D7700B9B47F /* EncoderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncoderViewController.h; sourceTree = "<group>"; };
 		B702448A1B018D7700B9B47F /* EncoderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncoderViewController.m; sourceTree = "<group>"; };
-		B702448D1B018E1900B9B47F /* EPCConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPCConverter.h; sourceTree = "<group>"; };
-		B702448E1B018E1900B9B47F /* EPCConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCConverter.m; sourceTree = "<group>"; };
+		B702448D1B018E1900B9B47F /* Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Converter.h; sourceTree = "<group>"; };
+		B702448E1B018E1900B9B47F /* Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Converter.m; sourceTree = "<group>"; };
 		B702448F1B018E1900B9B47F /* EPCEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPCEncoder.h; sourceTree = "<group>"; };
 		B70244901B018E1900B9B47F /* EPCEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoder.m; sourceTree = "<group>"; };
 		B70244931B018E2200B9B47F /* libUGrokItApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUGrokItApi.a; sourceTree = SOURCE_ROOT; };
@@ -174,8 +174,8 @@
 		B702448C1B018E1900B9B47F /* EPCEncoder */ = {
 			isa = PBXGroup;
 			children = (
-				B702448D1B018E1900B9B47F /* EPCConverter.h */,
-				B702448E1B018E1900B9B47F /* EPCConverter.m */,
+				B702448D1B018E1900B9B47F /* Converter.h */,
+				B702448E1B018E1900B9B47F /* Converter.m */,
 				B702448F1B018E1900B9B47F /* EPCEncoder.h */,
 				B70244901B018E1900B9B47F /* EPCEncoder.m */,
 			);
@@ -305,7 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */,
-				B70244911B018E1900B9B47F /* EPCConverter.m in Sources */,
+				B70244911B018E1900B9B47F /* Converter.m in Sources */,
 				B70244691B018CF600B9B47F /* AppDelegate.m in Sources */,
 				B7117D401B33362A00968426 /* NavigationController.m in Sources */,
 				B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */,

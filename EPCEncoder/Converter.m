@@ -8,12 +8,12 @@
 //  All inputs and outputs are NSStrings
 //
 
-#import "EPCConverter.h"
+#import "Converter.h"
 
 // NSString
 @import Foundation;
 
-@implementation EPCConverter {
+@implementation Converter {
     NSDictionary *_dictBin2Hex;
     NSDictionary *_dictHex2Bin;
 }

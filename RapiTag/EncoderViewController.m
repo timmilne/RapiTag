@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>   // Barcode capture tools
 #import "Ugi.h"                         // uGrokit goodies
 #import "EPCEncoder.h"                  // To encode the scanned barcode for comparison
-#import "EPCConverter.h"                // To convert to binary for comparison
+#import "Converter.h"                   // To convert to binary for comparison
 
 @interface EncoderViewController ()<AVCaptureMetadataOutputObjectsDelegate, UgiInventoryDelegate>
 {
@@ -18,10 +18,12 @@
     __weak IBOutlet UILabel         *_clsLbl;
     __weak IBOutlet UILabel         *_itmLbl;
     __weak IBOutlet UILabel         *_serLbl;
+    __weak IBOutlet UILabel         *_gtinLbl;
     __weak IBOutlet UITextField     *_dptFld;
     __weak IBOutlet UITextField     *_clsFld;
     __weak IBOutlet UITextField     *_itmFld;
     __weak IBOutlet UITextField     *_serFld;
+    __weak IBOutlet UITextField     *_gtinFld;
     __weak IBOutlet UIBarButtonItem *_resetBtn;
     __weak IBOutlet UIBarButtonItem *_encodeBtn;
     __weak IBOutlet UIImageView     *_successImg;
@@ -31,7 +33,7 @@
 
 @implementation EncoderViewController {
     EPCEncoder                  *_encode;
-    EPCConverter                *_convert;
+    Converter                   *_convert;
     UgiRfidConfiguration        *_config;
     NSMutableString             *_oldEPC;
     NSMutableString             *_newEPC;
@@ -66,7 +68,7 @@
     
     // Initialize variables
     _encode = [EPCEncoder alloc];
-    _convert = [EPCConverter alloc];
+    _convert = [Converter alloc];
     _oldEPC = [[NSMutableString alloc] init];
     _newEPC = [[NSMutableString alloc] init];
     _defaultBackgroundColor = UIColorFromRGB(0x000000);
@@ -80,6 +82,7 @@
     _clsLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _itmLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _serLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    _gtinLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     
     // TPM: The barcode scanner example built the UI from scratch.  This made it easier to deal with all
     // the settings programatically, so I've continued with that here...
@@ -151,10 +154,12 @@
     [self.view bringSubviewToFront:_clsLbl];
     [self.view bringSubviewToFront:_itmLbl];
     [self.view bringSubviewToFront:_serLbl];
+    [self.view bringSubviewToFront:_gtinLbl];
     [self.view bringSubviewToFront:_dptFld];
     [self.view bringSubviewToFront:_clsFld];
     [self.view bringSubviewToFront:_itmFld];
     [self.view bringSubviewToFront:_serFld];
+    [self.view bringSubviewToFront:_gtinFld];
     [self.view bringSubviewToFront:_highlightView];
     [self.view bringSubviewToFront:_barcodeLbl];
     [self.view bringSubviewToFront:_rfidLbl];
@@ -206,6 +211,7 @@
     _clsFld.text = @"";
     _itmFld.text = @"";
     _serFld.text = @"1234567890";
+    _gtinFld.text = @"";
     
     _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
     _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
@@ -233,6 +239,18 @@
     [self.view sendSubviewToBack:_failImg];
     _successImg.hidden = TRUE;
     _failImg.hidden = TRUE;
+    
+    // Bring the input views to the front
+    [self.view bringSubviewToFront:_dptLbl];
+    [self.view bringSubviewToFront:_clsLbl];
+    [self.view bringSubviewToFront:_itmLbl];
+    [self.view bringSubviewToFront:_serLbl];
+    [self.view bringSubviewToFront:_gtinLbl];
+    [self.view bringSubviewToFront:_dptFld];
+    [self.view bringSubviewToFront:_clsFld];
+    [self.view bringSubviewToFront:_itmFld];
+    [self.view bringSubviewToFront:_serFld];
+    [self.view bringSubviewToFront:_gtinFld];
     
     // Stop inventory if active
     [[Ugi singleton].activeInventory stopInventory];
@@ -273,7 +291,6 @@
             _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
             _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
             
-            // Now, take the dpt, cls and itm, and encode a reference
             NSString *barcode;
             barcode = detectionString;
             
@@ -281,6 +298,7 @@
             if (barcode.length == 14) barcode = [barcode substringFromIndex:2];
             NSString *mnf = [barcode substringToIndex:2];
             if (barcode.length == 12 && [mnf isEqualToString:@"49"]) {
+                // Take the dpt, cls and itm, and encode a reference
                 NSRange dptRange = {2, 3};
                 NSRange clsRange = {5, 2};
                 NSRange itmRange = {7, 4};
@@ -295,12 +313,53 @@
                 [_dptFld setText:dpt];
                 [_itmFld setText:itm];
                 [_clsFld setText:cls];
+                [_gtinFld setText:@""];
+                
+                // Show DPCI
+                [self.view bringSubviewToFront:_dptLbl];
+                [self.view bringSubviewToFront:_clsLbl];
+                [self.view bringSubviewToFront:_itmLbl];
+                [self.view bringSubviewToFront:_dptFld];
+                [self.view bringSubviewToFront:_clsFld];
+                [self.view bringSubviewToFront:_itmFld];
+                
+                // Hide GTIN
+                [self.view sendSubviewToBack:_gtinLbl];
+                [self.view sendSubviewToBack:_gtinFld];
+                
+                _barcodeFound = TRUE;
+            }
+            else if (barcode.length == 12) {
+                // Take the gtin and encode a reference
+                NSString *gtin = barcode;
+                NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
+                
+                [_encode withGTIN:gtin ser:ser partBin:@"101"];
+                
+                // Set the interface
+                [_gtinFld setText:barcode];
+                [_dptFld setText:@""];
+                [_clsFld setText:@""];
+                [_itmFld setText:@""];
+                
+                // Show GTIN
+                [self.view bringSubviewToFront:_gtinLbl];
+                [self.view bringSubviewToFront:_gtinFld];
+                
+                // Hide DPCI
+                [self.view sendSubviewToBack:_dptLbl];
+                [self.view sendSubviewToBack:_clsLbl];
+                [self.view sendSubviewToBack:_itmLbl];
+                [self.view sendSubviewToBack:_dptFld];
+                [self.view sendSubviewToBack:_clsFld];
+                [self.view sendSubviewToBack:_itmFld];
+                
+                _barcodeFound = TRUE;
             }
             else {
                 //Unsupported barcode
                 _barcodeLbl.text = @"Barcode: unsupported barcode";
             }
-            _barcodeFound = TRUE;
         }
         else
             _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
@@ -325,10 +384,11 @@
 }
 
 - (void)updateAll {
-    NSString *dpt = [_dptFld text];
-    NSString *cls = [_clsFld text];
-    NSString *itm = [_itmFld text];
-    NSString *ser = [_serFld text];
+    NSString *dpt  = [_dptFld text];
+    NSString *cls  = [_clsFld text];
+    NSString *itm  = [_itmFld text];
+    NSString *ser  = [_serFld text];
+    NSString *gtin = [_gtinFld text];
     
     // Make sure the inputs are not too long (especially the Serial Number)
     if ([dpt length] > 3) {
@@ -348,25 +408,62 @@
         ser = [ser substringToIndex:10];
         [_serFld setText:ser];
     }
-    
-    // Update the EPCEncoder object
-    [_encode withDpt:dpt cls:cls itm:itm ser:ser];
-    
-    if ([dpt length] == 3 && [cls length] == 2 && [itm length] == 4) {
-        // Build the barcode
-        NSString *barcode = [NSString stringWithFormat:@"49%@%@%@",dpt,cls,itm];
-        NSString *chkdgt = [_encode calculateCheckDigit:barcode];
-        _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@%@", barcode, chkdgt];
-        _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-        _barcodeFound = TRUE;
+    if ([ser length] > 10) {
+        // GID serial number max = 10
+        ser = [ser substringToIndex:10];
+        [_serFld setText:ser];
     }
-    else if ([dpt length] == 0 && [cls length] == 0 && [itm length] == 0) {
-        _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (scanning for barcodes)"];
-        _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    if ([gtin length] > 14) {
+        gtin = [gtin substringToIndex:14];
+        [_gtinFld setText:gtin];
+    }
+    
+    if ([dpt length] > 0 && [cls length] > 0 && [itm length] > 0 && [ser length] > 0) {
+        // Update the EPCEncoder object
+        [_encode withDpt:dpt cls:cls itm:itm ser:ser];
+        
+        if ([dpt length] == 3 && [cls length] == 2 && [itm length] == 4) {
+            // Build the barcode
+            NSString *barcode = [NSString stringWithFormat:@"49%@%@%@",dpt,cls,itm];
+            NSString *chkdgt = [_encode calculateCheckDigit:barcode];
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@%@", barcode, chkdgt];
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+            _barcodeFound = TRUE;
+            
+            // Hide GTIN
+            [self.view sendSubviewToBack:_gtinLbl];
+            [self.view sendSubviewToBack:_gtinFld];
+        }
+        else {
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid DPCI)"];
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+        }
+    }
+    else if ([ser length] > 0 && [gtin length] > 0) {
+        // Update the EPCEncoder object
+        [_encode withGTIN:gtin ser:ser partBin:@"101"];
+        
+        if ([gtin length] == 14 || [gtin length] == 12) {
+            _barcodeLbl.text = gtin;
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+            _barcodeFound = TRUE;
+            
+            // Hide DPCI
+            [self.view sendSubviewToBack:_dptLbl];
+            [self.view sendSubviewToBack:_clsLbl];
+            [self.view sendSubviewToBack:_itmLbl];
+            [self.view sendSubviewToBack:_dptFld];
+            [self.view sendSubviewToBack:_clsFld];
+            [self.view sendSubviewToBack:_itmFld];
+        }
+        else {
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid GTIN)"];
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+        }
     }
     else {
-        _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid DPCI)"];
-        _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+        _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (scanning for barcodes)"];
+        _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     }
     
     // Set the background color
@@ -381,9 +478,13 @@
     _encodeBtn.enabled = TRUE;
 }
 
-- (IBAction)encodeGID:(id)sender {
+- (IBAction)encode:(id)sender {
     _encoding = TRUE;
-    [self beginEncode:[_encode gid_hex]];
+
+    NSString *ser  = [_serFld text];
+    NSString *gtin = [_gtinFld text];
+    
+    [self beginEncode:([ser length] > 0 && [gtin length] > 0)?[_encode sgtin_hex]:[_encode gid_hex]];
 }
 
 - (void)beginEncode:(NSString *)hex {

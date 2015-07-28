@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EPCConverter : NSObject
+@interface Converter : NSObject
 
 - (NSString *)Dec2Bin:(NSString *)dec;
 - (NSString *)Bin2Dec:(NSString *)bin;
