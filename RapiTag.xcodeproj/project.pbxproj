@@ -23,6 +23,8 @@
 		B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AB1B018EEE00B9B47F /* AVFoundation.framework */; };
 		B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AD1B018EF800B9B47F /* AudioToolbox.framework */; };
 		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
+		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
+		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		B70244AD1B018EF800B9B47F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B7117D3E1B33362A00968426 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B7117D3F1B33362A00968426 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		B77C52E71B7F0B200049D701 /* ConverterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterTests.m; sourceTree = "<group>"; };
+		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,8 @@
 		B702447C1B018CF600B9B47F /* RapiTagTests */ = {
 			isa = PBXGroup;
 			children = (
+				B77C52E71B7F0B200049D701 /* ConverterTests.m */,
+				B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */,
 				B702447F1B018CF600B9B47F /* RapiTagTests.m */,
 				B702447D1B018CF600B9B47F /* Supporting Files */,
 			);
@@ -317,6 +323,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */,
+				B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */,
 				B70244801B018CF600B9B47F /* RapiTagTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
