@@ -25,12 +25,12 @@ static NSString *GID_Bin_Prefix   = @"00110101";
 @property NSString *itm;
 @property NSString *ser;
 @property NSString *gtin;
-@property NSString *sgtin_bin;
-@property NSString *sgtin_hex;
-@property NSString *sgtin_uri;
 @property NSString *gid_bin;
 @property NSString *gid_hex;
 @property NSString *gid_uri;
+@property NSString *sgtin_bin;
+@property NSString *sgtin_hex;
+@property NSString *sgtin_uri;
 
 - (void)withDpt:(NSString *)dpt
         cls:(NSString *)cls

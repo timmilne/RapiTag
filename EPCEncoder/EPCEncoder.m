@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Tim.Milne. All rights reserved.
 //
 //  This object takes Target's Department, Class, Item and a Serial Number
-//  and encodes it in GS1's SGTIN, GIAI, and GID formats.  Output available
-//  in binary, hex, and URI formats
+//  and encodes it in GS1's GID format, or a GTIN and encodes it in GS1's SGTIN format.
+//  Output available in binary, hex, and URI formats
 //
 
 #import "EPCEncoder.h"
@@ -37,6 +37,9 @@
     [self setItm:itm];
     [self setSer:ser];
     [self setGtin:@""];
+    [self setSgtin_bin:@""];
+    [self setSgtin_hex:@""];
+    [self setSgtin_uri:@""];
     
     // Make sure the inputs are not too long (especially the Serial Number)
     if ([_dpt length] > 3) {
@@ -103,6 +106,9 @@
     [self setItm:@""];
     [self setSer:ser];
     [self setGtin:gtin];
+    [self setGid_bin:@""];
+    [self setGid_hex:@""];
+    [self setGid_uri:@""];
     
     int mgrBinLen   = 0;
     int mgrDecLen   = 0;
@@ -126,7 +132,7 @@
         mgrBinLen   = 34;
         mgrDecLen   = 10;
         itmBinLen   = 10;
-        itmDecLen   = 2;
+        itmDecLen   = 3;
     }
     else if ([partBin isEqualToString:@"011"]) {
         mgrBinLen   = 30;
@@ -165,8 +171,8 @@
         _ser = [_ser substringToIndex:11];
     }
     
-    // SGTIN - e.g. urn:epc:tag:sgtin-96:1.04928100.08570.12345
-    //              3030259932085E8000003039
+    // SGTIN - e.g. urn:epc:tag:sgtin-96:1.0043935.046062.12345
+    //              303402AE7C2CFB8000003039
     //
     // A UPC 12 can be promoted to an EAN14 by right shifting and adding two zeros to the front.
     // One of these zeroes is an indicator digit, which is '0' for items, and this will be moved
@@ -181,14 +187,14 @@
     // 24-4 bits are the 0 prefixed Item: 0 + digits x-13 of gtin (NO CHECK DIGIT)
     // 38 bits are the serial number (guaranteed 11 digits)
     // = 96 bits
-    NSString *mgrDec = [NSString stringWithFormat:@"0%@", [_gtin substringWithRange:NSMakeRange(2, (mgrDecLen-1))]];
+    NSString *mgrDec = [NSString stringWithFormat:@"0%@", [_gtin substringWithRange:NSMakeRange(2,(mgrDecLen-1))]];
     NSString *mgrBin = [_convert Dec2Bin:(mgrDec)];
     for (int i=(int)[mgrBin length]; i<(int)mgrBinLen; i++) {
         mgrBin = [NSString stringWithFormat:@"0%@", mgrBin];
     }
     
     // Drop the check digit!!
-    NSString *itmDec = [NSString stringWithFormat:@"0%@", [_gtin substringWithRange:NSMakeRange(8, (itmDecLen - 1))]];
+    NSString *itmDec = [NSString stringWithFormat:@"0%@", [_gtin substringWithRange:NSMakeRange((2+(mgrDecLen-1)),itmDecLen-1)]];
     NSString *itmBin = [_convert Dec2Bin:(itmDec)];
     for (int i=(int)[itmBin length]; i<(int)itmBinLen; i++) {
         itmBin = [NSString stringWithFormat:@"0%@", itmBin];
@@ -202,8 +208,8 @@
     [self setSgtin_uri:[NSString stringWithFormat:@"%@%@.%@.%@",SGTIN_URI_Prefix,mgrDec,itmDec,_ser]];
     
     // Check with http://www.kentraub.net/tools/tagxlate/EPCEncoderDecoder.html
-    //    NSString *SGTIN_Hex_Ken_str = @"3030259932085E8000003039";
-    //    NSString *GSTIN_Bin_Ken_str = [self Hex2Bin:SGTIN_Hex_Ken_str];
+    //    NSString *SGTIN_Hex_Ken_str = @"303402AE7C2CFB8000003039";
+    //    NSString *SGTIN_Bin_Ken_str = [self Hex2Bin:SGTIN_Hex_Ken_str];
 }
 
 // Quick Check Digit calculator
