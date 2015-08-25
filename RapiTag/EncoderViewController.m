@@ -109,7 +109,7 @@
     _rfidLbl.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_rfidLbl];
     
-    // Battery Life label
+    // Battery life label
     _batteryLifeLbl = [[UILabel alloc] init];
     _batteryLifeLbl.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
     _batteryLifeLbl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -117,7 +117,7 @@
     _batteryLifeLbl.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_batteryLifeLbl];
     
-    // Battery life label
+    // Battery life view
     _batteryLifeView = [[UIProgressView alloc] init];
     _batteryLifeView.frame = CGRectMake(0, self.view.bounds.size.height - 8, self.view.bounds.size.width, 40);
     _batteryLifeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -168,7 +168,9 @@
     [_session startRunning];
 }
 
-// Adjust the preview layer on orientation changes
+/*!
+ * @discussion Adjust the preview layer on orientation changes
+ */
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -189,6 +191,10 @@
     }
 }
 
+/*!
+ * @discussion Press reset button to reset the interface and reader and begin reading.
+ * @param sender An id for the sender control
+ */
 - (IBAction)reset:(id)sender {
     // Reset all controls and variables
     _barcodeFound = FALSE;
@@ -253,6 +259,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Barcode scanner
+#pragma mark - Barcode Scanner Delegates
+
+/*!
+ * @discussion Check for a valid scanned barcode, only proceed if a valid barcode found.  Check for ready to encode.
+ */
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     CGRect highlightViewRect = CGRectZero;
@@ -275,8 +287,6 @@
         
         if (detectionString != nil)
         {
-            // Tell the uGrokit to beep...
-            
             // Assume false until verified
             _barcodeFound = FALSE;
             
@@ -287,21 +297,18 @@
             // Grab the barcode
             _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
             _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-            
             NSString *barcode;
             barcode = detectionString;
             
+            // Quick length checks, chop to 12 for now (remove leading zeros)
             if (barcode.length == 13) barcode = [barcode substringFromIndex:1];
             if (barcode.length == 14) barcode = [barcode substringFromIndex:2];
-            NSString *mnf = [barcode substringToIndex:2];
-            if (barcode.length == 12 && [mnf isEqualToString:@"49"]) {
-                // Take the dpt, cls and itm, and encode a reference
-                NSRange dptRange = {2, 3};
-                NSRange clsRange = {5, 2};
-                NSRange itmRange = {7, 4};
-                NSString *dpt = [barcode substringWithRange:dptRange];
-                NSString *cls = [barcode substringWithRange:clsRange];
-                NSString *itm = [barcode substringWithRange:itmRange];
+            
+            // Owned brand, encode DPCI in a GID
+            if (barcode.length == 12 && [[barcode substringToIndex:2] isEqualToString:@"49"]) {
+                NSString *dpt = [barcode substringWithRange:NSMakeRange(2,3)];
+                NSString *cls = [barcode substringWithRange:NSMakeRange(5,2)];
+                NSString *itm = [barcode substringWithRange:NSMakeRange(7,4)];
                 NSString *ser = ([_serFld.text length])?[_serFld text]:@"0";
                 
                 [_encode withDpt:dpt cls:cls itm:itm ser:ser];
@@ -326,7 +333,9 @@
                 
                 _barcodeFound = TRUE;
             }
-            else if (barcode.length == 12) {
+            
+            // National brand, encode GTIN in an SGTIN
+            else if ((barcode.length == 12) || (barcode.length == 14)) {
                 // Take the gtin and encode a reference
                 NSString *gtin = barcode;
                 NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
@@ -353,13 +362,17 @@
                 
                 _barcodeFound = TRUE;
             }
+            
+            // Unsupported barcode
             else {
-                //Unsupported barcode
+                
                 _barcodeLbl.text = @"Barcode: unsupported barcode";
                 _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
                 _barcodeFound = FALSE;
             }
         }
+        
+        // Still scanning for barcodes
         else {
             _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
             _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
@@ -373,14 +386,21 @@
     [self readyToEncode];
 }
 
-// Delegate to dimiss keyboard after return
-// Set the delegate of any input text field to the ViewController class
+// Text field delegates
+#pragma mark - Text Fields
+
+/*!
+ * @discussion Delegate to dimiss keyboard after return.
+ * Set the delegate of any input text field to the ViewController class
+ */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
 }
 
-// All the edit fields point here, after you end the edit and hit return
+/*!
+ * @discussion Update the interface - All the edit fields point here, after you end the edit and hit return.
+ */
 - (IBAction)update:(id)sender {
     // New input data
     _successImg.hidden = TRUE;
@@ -389,6 +409,9 @@
     [self updateAll];
 }
 
+/*!
+ * @discussion Update all elements for any input change.  Check input and check ready to encode.
+ */
 - (void)updateAll {
     NSString *dpt  = [_dptFld text];
     NSString *cls  = [_clsFld text];
@@ -482,11 +505,21 @@
     [self readyToEncode];
 }
 
+// Encode
+#pragma mark - Encode
+
+/*!
+ * @discussion Check for ready to encode - Enable the encode button if all input ready.
+ */
 - (void)readyToEncode {
     // If we have a valid barcode and an RFID tag read, we are ready to encode so enable the encode button
     _encodeBtn.enabled = (_barcodeFound && _rfidFound);
 }
 
+/*!
+ * @discussion Encode handler - Prepare to encode.
+ * @param sender The ID of the sender object (not used)
+ */
 - (IBAction)encode:(id)sender {
     _encoding = TRUE;
     
@@ -500,6 +533,10 @@
     [self beginEncode:([ser length] > 0 && [gtin length] > 0)?[_encode sgtin_hex]:[_encode gid_hex]];
 }
 
+/*!
+ * @discussion Begin the encoding process.
+ * @param hex The new tag number to encode (hex)
+ */
 - (void)beginEncode:(NSString *)hex {
     [_newEPC setString:hex];
     
@@ -516,6 +553,10 @@
     }
 }
 
+/*!
+ * @discussion End the encoding process.
+ * @param hex The Old EPC (will be replaced)
+ */
 -(void)endEncode:(NSString *)hex {
     [_oldEPC setString:hex];
     
@@ -578,9 +619,15 @@
 }
  */
 
-// Implemented uGrokit delegates
+// uGrokit RFID Reader
+#pragma mark - uGrokit Delegates
 
-// New tag found
+/*!
+ * @discussion New tag found with uGrokit reader.
+ * Display the tag, stop the reader and check if ready to encode.
+ * @param tag The RFID tag
+ * @param detailedPerReadData The detailed data about the RFID tag
+ */
 - (void) inventoryTagFound:(UgiTag *)tag
    withDetailedPerReadData:(NSArray *)detailedPerReadData {
     // Tag was found for the first time
@@ -608,13 +655,16 @@
     }
 }
 
-// State changed method
+/*!
+ * @discussion State changed with uGrokit reader - Adjust to the new state.
+ * Listen for one of the following:
+ *    UGI_CONNECTION_STATE_NOT_CONNECTED -          Nothing connected to audio port
+ *    UGI_CONNECTION_STATE_CONNECTING -             Something connected to audio port, trying to connect
+ *    UGI_CONNECTION_STATE_INCOMPATIBLE_READER -    Connected to an reader with incompatible firmware
+ *    UGI_CONNECTION_STATE_CONNECTED -              Connected to reader
+ * @param notification The notification info
+ */
 - (void)connectionStateChanged:(NSNotification *) notification {
-    // Listen for one of the following:
-    //    UGI_CONNECTION_STATE_NOT_CONNECTED,        //!< Nothing connected to audio port
-    //    UGI_CONNECTION_STATE_CONNECTING,           //!< Something connected to audio port, trying to connect
-    //    UGI_CONNECTION_STATE_INCOMPATIBLE_READER,  //!< Connected to an reader with incompatible firmware
-    //    UGI_CONNECTION_STATE_CONNECTED             //!< Connected to reader
     NSNumber *n = notification.object;
     UgiConnectionStates connectionState = n.intValue;
     if (connectionState == UGI_CONNECTION_STATE_CONNECTED) {

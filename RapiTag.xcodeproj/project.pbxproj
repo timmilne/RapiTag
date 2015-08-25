@@ -110,16 +110,10 @@
 			isa = PBXGroup;
 			children = (
 				B70244621B018CF600B9B47F /* RapiTag */,
+				B702448C1B018E1900B9B47F /* EPCEncoder */,
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
 				B70244611B018CF600B9B47F /* Products */,
-				B702448C1B018E1900B9B47F /* EPCEncoder */,
-				B70244931B018E2200B9B47F /* libUGrokItApi.a */,
-				B70244951B018E3D00B9B47F /* include */,
-				B70244AD1B018EF800B9B47F /* AudioToolbox.framework */,
-				B70244AB1B018EEE00B9B47F /* AVFoundation.framework */,
-				B70244A91B018EE500B9B47F /* MediaPlayer.framework */,
-				B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */,
-				B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */,
+				B7801CE41B8B9BC1001E1E6C /* uGrokit */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,6 +202,20 @@
 				B70244A41B018E3D00B9B47F /* UgiUtil.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		B7801CE41B8B9BC1001E1E6C /* uGrokit */ = {
+			isa = PBXGroup;
+			children = (
+				B70244931B018E2200B9B47F /* libUGrokItApi.a */,
+				B70244951B018E3D00B9B47F /* include */,
+				B70244AB1B018EEE00B9B47F /* AVFoundation.framework */,
+				B70244AD1B018EF800B9B47F /* AudioToolbox.framework */,
+				B70244A91B018EE500B9B47F /* MediaPlayer.framework */,
+				B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */,
+				B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */,
+			);
+			name = uGrokit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
