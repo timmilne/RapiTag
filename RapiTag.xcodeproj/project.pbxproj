@@ -16,7 +16,6 @@
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
 		B70244911B018E1900B9B47F /* Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448E1B018E1900B9B47F /* Converter.m */; };
 		B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B70244901B018E1900B9B47F /* EPCEncoder.m */; };
-		B70244941B018E2200B9B47F /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244931B018E2200B9B47F /* libUGrokItApi.a */; };
 		B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */; };
 		B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */; };
 		B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A91B018EE500B9B47F /* MediaPlayer.framework */; };
@@ -25,6 +24,7 @@
 		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
 		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
+		B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,22 +55,6 @@
 		B702448E1B018E1900B9B47F /* Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Converter.m; sourceTree = "<group>"; };
 		B702448F1B018E1900B9B47F /* EPCEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPCEncoder.h; sourceTree = "<group>"; };
 		B70244901B018E1900B9B47F /* EPCEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoder.m; sourceTree = "<group>"; };
-		B70244931B018E2200B9B47F /* libUGrokItApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUGrokItApi.a; sourceTree = SOURCE_ROOT; };
-		B70244961B018E3D00B9B47F /* Ugi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi.h; sourceTree = "<group>"; };
-		B70244971B018E3D00B9B47F /* Ugi_antennaTuning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_antennaTuning.h; sourceTree = "<group>"; };
-		B70244981B018E3D00B9B47F /* Ugi_firmwareUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_firmwareUpdate.h; sourceTree = "<group>"; };
-		B70244991B018E3D00B9B47F /* Ugi_regions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_regions.h; sourceTree = "<group>"; };
-		B702449A1B018E3D00B9B47F /* UgiConfigurationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiConfigurationDelegate.h; sourceTree = "<group>"; };
-		B702449B1B018E3D00B9B47F /* UgiDefaultConfigurationUi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiDefaultConfigurationUi.h; sourceTree = "<group>"; };
-		B702449C1B018E3D00B9B47F /* UgiEpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiEpc.h; sourceTree = "<group>"; };
-		B702449D1B018E3D00B9B47F /* UgiInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiInventory.h; sourceTree = "<group>"; };
-		B702449E1B018E3D00B9B47F /* UgiInventoryDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiInventoryDelegate.h; sourceTree = "<group>"; };
-		B702449F1B018E3D00B9B47F /* UgiJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiJson.h; sourceTree = "<group>"; };
-		B70244A01B018E3D00B9B47F /* UgiRfidConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiRfidConfiguration.h; sourceTree = "<group>"; };
-		B70244A11B018E3D00B9B47F /* UgiTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiTag.h; sourceTree = "<group>"; };
-		B70244A21B018E3D00B9B47F /* UgiTagReadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiTagReadState.h; sourceTree = "<group>"; };
-		B70244A31B018E3D00B9B47F /* UgiUiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiUiUtil.h; sourceTree = "<group>"; };
-		B70244A41B018E3D00B9B47F /* UgiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiUtil.h; sourceTree = "<group>"; };
 		B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B70244A91B018EE500B9B47F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -80,6 +64,22 @@
 		B7117D3F1B33362A00968426 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B77C52E71B7F0B200049D701 /* ConverterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterTests.m; sourceTree = "<group>"; };
 		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
+		B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUGrokItApi.a; path = uGrokit/libUGrokItApi.a; sourceTree = "<group>"; };
+		B7801CE71B8BF3CD001E1E6C /* Ugi_antennaTuning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_antennaTuning.h; path = uGrokit/include/Ugi_antennaTuning.h; sourceTree = SOURCE_ROOT; };
+		B7801CE81B8BF3CD001E1E6C /* Ugi_firmwareUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_firmwareUpdate.h; path = uGrokit/include/Ugi_firmwareUpdate.h; sourceTree = SOURCE_ROOT; };
+		B7801CE91B8BF3CD001E1E6C /* Ugi_regions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_regions.h; path = uGrokit/include/Ugi_regions.h; sourceTree = SOURCE_ROOT; };
+		B7801CEA1B8BF3CD001E1E6C /* Ugi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi.h; path = uGrokit/include/Ugi.h; sourceTree = SOURCE_ROOT; };
+		B7801CEB1B8BF3CD001E1E6C /* UgiConfigurationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiConfigurationDelegate.h; path = uGrokit/include/UgiConfigurationDelegate.h; sourceTree = SOURCE_ROOT; };
+		B7801CEC1B8BF3CD001E1E6C /* UgiDefaultConfigurationUi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiDefaultConfigurationUi.h; path = uGrokit/include/UgiDefaultConfigurationUi.h; sourceTree = SOURCE_ROOT; };
+		B7801CED1B8BF3CD001E1E6C /* UgiEpc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiEpc.h; path = uGrokit/include/UgiEpc.h; sourceTree = SOURCE_ROOT; };
+		B7801CEE1B8BF3CD001E1E6C /* UgiInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiInventory.h; path = uGrokit/include/UgiInventory.h; sourceTree = SOURCE_ROOT; };
+		B7801CEF1B8BF3CD001E1E6C /* UgiInventoryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiInventoryDelegate.h; path = uGrokit/include/UgiInventoryDelegate.h; sourceTree = SOURCE_ROOT; };
+		B7801CF01B8BF3CD001E1E6C /* UgiJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiJson.h; path = uGrokit/include/UgiJson.h; sourceTree = SOURCE_ROOT; };
+		B7801CF11B8BF3CD001E1E6C /* UgiRfidConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiRfidConfiguration.h; path = uGrokit/include/UgiRfidConfiguration.h; sourceTree = SOURCE_ROOT; };
+		B7801CF21B8BF3CD001E1E6C /* UgiTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiTag.h; path = uGrokit/include/UgiTag.h; sourceTree = SOURCE_ROOT; };
+		B7801CF31B8BF3CD001E1E6C /* UgiTagReadState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiTagReadState.h; path = uGrokit/include/UgiTagReadState.h; sourceTree = SOURCE_ROOT; };
+		B7801CF41B8BF3CD001E1E6C /* UgiUiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUiUtil.h; path = uGrokit/include/UgiUiUtil.h; sourceTree = SOURCE_ROOT; };
+		B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUtil.h; path = uGrokit/include/UgiUtil.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,11 +87,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B70244941B018E2200B9B47F /* libUGrokItApi.a in Frameworks */,
 				B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */,
 				B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */,
 				B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */,
 				B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */,
+				B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */,
 				B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,21 +185,21 @@
 		B70244951B018E3D00B9B47F /* include */ = {
 			isa = PBXGroup;
 			children = (
-				B70244961B018E3D00B9B47F /* Ugi.h */,
-				B70244971B018E3D00B9B47F /* Ugi_antennaTuning.h */,
-				B70244981B018E3D00B9B47F /* Ugi_firmwareUpdate.h */,
-				B70244991B018E3D00B9B47F /* Ugi_regions.h */,
-				B702449A1B018E3D00B9B47F /* UgiConfigurationDelegate.h */,
-				B702449B1B018E3D00B9B47F /* UgiDefaultConfigurationUi.h */,
-				B702449C1B018E3D00B9B47F /* UgiEpc.h */,
-				B702449D1B018E3D00B9B47F /* UgiInventory.h */,
-				B702449E1B018E3D00B9B47F /* UgiInventoryDelegate.h */,
-				B702449F1B018E3D00B9B47F /* UgiJson.h */,
-				B70244A01B018E3D00B9B47F /* UgiRfidConfiguration.h */,
-				B70244A11B018E3D00B9B47F /* UgiTag.h */,
-				B70244A21B018E3D00B9B47F /* UgiTagReadState.h */,
-				B70244A31B018E3D00B9B47F /* UgiUiUtil.h */,
-				B70244A41B018E3D00B9B47F /* UgiUtil.h */,
+				B7801CE71B8BF3CD001E1E6C /* Ugi_antennaTuning.h */,
+				B7801CE81B8BF3CD001E1E6C /* Ugi_firmwareUpdate.h */,
+				B7801CE91B8BF3CD001E1E6C /* Ugi_regions.h */,
+				B7801CEA1B8BF3CD001E1E6C /* Ugi.h */,
+				B7801CEB1B8BF3CD001E1E6C /* UgiConfigurationDelegate.h */,
+				B7801CEC1B8BF3CD001E1E6C /* UgiDefaultConfigurationUi.h */,
+				B7801CED1B8BF3CD001E1E6C /* UgiEpc.h */,
+				B7801CEE1B8BF3CD001E1E6C /* UgiInventory.h */,
+				B7801CEF1B8BF3CD001E1E6C /* UgiInventoryDelegate.h */,
+				B7801CF01B8BF3CD001E1E6C /* UgiJson.h */,
+				B7801CF11B8BF3CD001E1E6C /* UgiRfidConfiguration.h */,
+				B7801CF21B8BF3CD001E1E6C /* UgiTag.h */,
+				B7801CF31B8BF3CD001E1E6C /* UgiTagReadState.h */,
+				B7801CF41B8BF3CD001E1E6C /* UgiUiUtil.h */,
+				B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 		B7801CE41B8B9BC1001E1E6C /* uGrokit */ = {
 			isa = PBXGroup;
 			children = (
-				B70244931B018E2200B9B47F /* libUGrokItApi.a */,
+				B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */,
 				B70244951B018E3D00B9B47F /* include */,
 				B70244AB1B018EEE00B9B47F /* AVFoundation.framework */,
 				B70244AD1B018EF800B9B47F /* AudioToolbox.framework */,
@@ -454,6 +454,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/uGrokit",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,6 +471,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/uGrokit",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
