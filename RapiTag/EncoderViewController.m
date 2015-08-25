@@ -193,7 +193,7 @@
 
 /*!
  * @discussion Press reset button to reset the interface and reader and begin reading.
- * @param sender An id for the sender control
+ * @param sender The ID of the sender object (not used)
  */
 - (IBAction)reset:(id)sender {
     // Reset all controls and variables
