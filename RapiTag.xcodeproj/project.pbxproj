@@ -29,6 +29,10 @@
 		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
 		B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */; };
+		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
+		B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */; };
+		B785F8901BA0D7E50020C753 /* include in Resources */ = {isa = PBXBuildFile; fileRef = B785F88E1BA0D7E50020C753 /* include */; };
+		B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +93,10 @@
 		B7801CF31B8BF3CD001E1E6C /* UgiTagReadState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiTagReadState.h; path = uGrokit/include/UgiTagReadState.h; sourceTree = SOURCE_ROOT; };
 		B7801CF41B8BF3CD001E1E6C /* UgiUiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUiUtil.h; path = uGrokit/include/UgiUiUtil.h; sourceTree = SOURCE_ROOT; };
 		B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUtil.h; path = uGrokit/include/UgiUtil.h; sourceTree = SOURCE_ROOT; };
+		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		B785F88E1BA0D7E50020C753 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Zebra/include; sourceTree = "<group>"; };
+		B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsymbolrfid-sdk.a"; path = "Zebra/libsymbolrfid-sdk.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,9 @@
 				B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */,
 				B71237DD1B8FFC6B00EBDA19 /* NewRelicAgent.framework in Frameworks */,
 				B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */,
+				B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */,
+				B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */,
+				B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,11 +133,14 @@
 		B70244571B018CF600B9B47F = {
 			isa = PBXGroup;
 			children = (
+				B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */,
+				B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */,
 				B70244621B018CF600B9B47F /* RapiTag */,
 				B702448C1B018E1900B9B47F /* EPCEncoder */,
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
 				B70244611B018CF600B9B47F /* Products */,
 				B7801CE41B8B9BC1001E1E6C /* uGrokit */,
+				B785F8891BA0D6060020C753 /* Zebra */,
 				B71237DA1B8FFC3300EBDA19 /* NewRelic */,
 			);
 			sourceTree = "<group>";
@@ -244,6 +258,15 @@
 			name = uGrokit;
 			sourceTree = "<group>";
 		};
+		B785F8891BA0D6060020C753 /* Zebra */ = {
+			isa = PBXGroup;
+			children = (
+				B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */,
+				B785F88E1BA0D7E50020C753 /* include */,
+			);
+			name = Zebra;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,6 +351,7 @@
 				B702446F1B018CF600B9B47F /* Main.storyboard in Resources */,
 				B70244741B018CF600B9B47F /* LaunchScreen.xib in Resources */,
 				B70244711B018CF600B9B47F /* Images.xcassets in Resources */,
+				B785F8901BA0D7E50020C753 /* include in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,10 +527,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/uGrokit",
+					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "include/**";
+				USER_HEADER_SEARCH_PATHS = "uGrokit/include/** Zebra/include/**";
 			};
 			name = Debug;
 		};
@@ -525,10 +550,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/uGrokit",
+					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "include/**";
+				USER_HEADER_SEARCH_PATHS = "uGrokit/include/** Zebra/include/**";
 			};
 			name = Release;
 		};
