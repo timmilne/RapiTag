@@ -35,7 +35,7 @@ enum {
     SRFID_OPMODE_ALL                       = 0x03
 };
 
-/* connection/scanner types */
+/* connection/device types */
 enum {
     SRFID_CONNTYPE_INVALID                 = 0x00,
     SRFID_CONNTYPE_MFI                     = 0x01,
