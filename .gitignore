@@ -1,2 +1,8 @@
-#Stop tacking this
+#Stop tracking this
 *.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
+
+#Ignore any directories and files from the Fortify commands:
+# sourceanalyzer -b RapiTag xcodebuild -project RapiTag.xcodeproj -sdk iphonesimulator
+# sourceanalyzer -b RapiTag -scan -f RapiTag.fpr
+/build/
+*.fpr
