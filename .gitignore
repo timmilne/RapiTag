@@ -6,3 +6,4 @@
 # sourceanalyzer -b RapiTag -scan -f RapiTag.fpr
 /build/
 *.fpr
+*.fbs
