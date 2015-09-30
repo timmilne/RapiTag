@@ -7,6 +7,7 @@
 # sourceanalyzer -b RapiTag -export-build-session build/RapiTag.fbs (to upload to scan server)
 # sourceanalyzer -b RapiTag -scan -f build/RapiTag.fpr (only used for local scans)
 # sourceanalyzer -64 -Xmx2000M -b RapiTag -logfile build/build.log xcodebuild -project RapiTag.xcodeproj -sdk iphonesimulator (to create build logs)
+# sourceanalyzer -64 -Xmx2000M -b RapiTag -logfile build/build.log -scan -f build/RapiTag.fpr (only used for local scans)
 /build/
 *.fbs
 *.fpr
