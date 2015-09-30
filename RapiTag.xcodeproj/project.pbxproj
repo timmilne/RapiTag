@@ -31,7 +31,6 @@
 		B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */; };
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
 		B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */; };
-		B785F8901BA0D7E50020C753 /* include in Resources */ = {isa = PBXBuildFile; fileRef = B785F88E1BA0D7E50020C753 /* include */; };
 		B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +74,21 @@
 		B71237E61B8FFCCC00EBDA19 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		B71237E81B8FFCD800EBDA19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B71237EC1B8FFD2900EBDA19 /* RapiTag-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RapiTag-Prefix.pch"; sourceTree = "<group>"; };
+		B77B31DC1BBC0C150017348E /* Ugi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi.h; sourceTree = "<group>"; };
+		B77B31DD1BBC0C150017348E /* Ugi_antennaTuning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_antennaTuning.h; sourceTree = "<group>"; };
+		B77B31DE1BBC0C150017348E /* Ugi_firmwareUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_firmwareUpdate.h; sourceTree = "<group>"; };
+		B77B31DF1BBC0C150017348E /* Ugi_regions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_regions.h; sourceTree = "<group>"; };
+		B77B31E01BBC0C150017348E /* UgiConfigurationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiConfigurationDelegate.h; sourceTree = "<group>"; };
+		B77B31E11BBC0C150017348E /* UgiDefaultConfigurationUi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiDefaultConfigurationUi.h; sourceTree = "<group>"; };
+		B77B31E21BBC0C150017348E /* UgiEpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiEpc.h; sourceTree = "<group>"; };
+		B77B31E31BBC0C150017348E /* UgiInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiInventory.h; sourceTree = "<group>"; };
+		B77B31E41BBC0C150017348E /* UgiInventoryDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiInventoryDelegate.h; sourceTree = "<group>"; };
+		B77B31E51BBC0C150017348E /* UgiJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiJson.h; sourceTree = "<group>"; };
+		B77B31E61BBC0C150017348E /* UgiRfidConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiRfidConfiguration.h; sourceTree = "<group>"; };
+		B77B31E71BBC0C150017348E /* UgiTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiTag.h; sourceTree = "<group>"; };
+		B77B31E81BBC0C150017348E /* UgiTagReadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiTagReadState.h; sourceTree = "<group>"; };
+		B77B31E91BBC0C150017348E /* UgiUiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiUiUtil.h; sourceTree = "<group>"; };
+		B77B31EA1BBC0C150017348E /* UgiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiUtil.h; sourceTree = "<group>"; };
 		B77C52E71B7F0B200049D701 /* ConverterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterTests.m; sourceTree = "<group>"; };
 		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
 		B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUGrokItApi.a; path = uGrokit/libUGrokItApi.a; sourceTree = "<group>"; };
@@ -95,7 +109,6 @@
 		B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUtil.h; path = uGrokit/include/UgiUtil.h; sourceTree = SOURCE_ROOT; };
 		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
-		B785F88E1BA0D7E50020C753 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Zebra/include; sourceTree = "<group>"; };
 		B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsymbolrfid-sdk.a"; path = "Zebra/libsymbolrfid-sdk.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -244,6 +257,29 @@
 			name = NewRelic;
 			sourceTree = "<group>";
 		};
+		B77B31DB1BBC0C150017348E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B77B31DC1BBC0C150017348E /* Ugi.h */,
+				B77B31DD1BBC0C150017348E /* Ugi_antennaTuning.h */,
+				B77B31DE1BBC0C150017348E /* Ugi_firmwareUpdate.h */,
+				B77B31DF1BBC0C150017348E /* Ugi_regions.h */,
+				B77B31E01BBC0C150017348E /* UgiConfigurationDelegate.h */,
+				B77B31E11BBC0C150017348E /* UgiDefaultConfigurationUi.h */,
+				B77B31E21BBC0C150017348E /* UgiEpc.h */,
+				B77B31E31BBC0C150017348E /* UgiInventory.h */,
+				B77B31E41BBC0C150017348E /* UgiInventoryDelegate.h */,
+				B77B31E51BBC0C150017348E /* UgiJson.h */,
+				B77B31E61BBC0C150017348E /* UgiRfidConfiguration.h */,
+				B77B31E71BBC0C150017348E /* UgiTag.h */,
+				B77B31E81BBC0C150017348E /* UgiTagReadState.h */,
+				B77B31E91BBC0C150017348E /* UgiUiUtil.h */,
+				B77B31EA1BBC0C150017348E /* UgiUtil.h */,
+			);
+			name = include;
+			path = uGrokit/include;
+			sourceTree = "<group>";
+		};
 		B7801CE41B8B9BC1001E1E6C /* uGrokit */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */,
-				B785F88E1BA0D7E50020C753 /* include */,
+				B77B31DB1BBC0C150017348E /* include */,
 			);
 			name = Zebra;
 			sourceTree = "<group>";
@@ -351,7 +387,6 @@
 				B702446F1B018CF600B9B47F /* Main.storyboard in Resources */,
 				B70244741B018CF600B9B47F /* LaunchScreen.xib in Resources */,
 				B70244711B018CF600B9B47F /* Images.xcassets in Resources */,
-				B785F8901BA0D7E50020C753 /* include in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
