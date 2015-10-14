@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "EPCEncoder.h"
+#import <EPCEncoder/EPCEncoder.h>     // To encode the scanned barcode for comparison
 
 @interface EPCEncoderTests : XCTestCase
 {

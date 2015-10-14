@@ -14,8 +14,6 @@
 		B70244741B018CF600B9B47F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B70244721B018CF600B9B47F /* LaunchScreen.xib */; };
 		B70244801B018CF600B9B47F /* RapiTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B702447F1B018CF600B9B47F /* RapiTagTests.m */; };
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
-		B70244911B018E1900B9B47F /* Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448E1B018E1900B9B47F /* Converter.m */; };
-		B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B70244901B018E1900B9B47F /* EPCEncoder.m */; };
 		B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */; };
 		B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */; };
 		B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A91B018EE500B9B47F /* MediaPlayer.framework */; };
@@ -32,6 +30,8 @@
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
 		B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */; };
 		B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */; };
+		B7D5C9BD1BCE0C6A00EDCCC0 /* EPCEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */; };
+		B7D5C9BE1BCE0CC300EDCCC0 /* EPCEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,10 +58,6 @@
 		B702447F1B018CF600B9B47F /* RapiTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RapiTagTests.m; sourceTree = "<group>"; };
 		B70244891B018D7700B9B47F /* EncoderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncoderViewController.h; sourceTree = "<group>"; };
 		B702448A1B018D7700B9B47F /* EncoderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncoderViewController.m; sourceTree = "<group>"; };
-		B702448D1B018E1900B9B47F /* Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Converter.h; sourceTree = "<group>"; };
-		B702448E1B018E1900B9B47F /* Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Converter.m; sourceTree = "<group>"; };
-		B702448F1B018E1900B9B47F /* EPCEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPCEncoder.h; sourceTree = "<group>"; };
-		B70244901B018E1900B9B47F /* EPCEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoder.m; sourceTree = "<group>"; };
 		B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B70244A91B018EE500B9B47F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -110,6 +106,7 @@
 		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsymbolrfid-sdk.a"; path = "Zebra/libsymbolrfid-sdk.a"; sourceTree = "<group>"; };
+		B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EPCEncoder.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +118,7 @@
 				B71237E71B8FFCCC00EBDA19 /* libc++.dylib in Frameworks */,
 				B71237E31B8FFCB100EBDA19 /* CoreTelephony.framework in Frameworks */,
 				B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */,
+				B7D5C9BD1BCE0C6A00EDCCC0 /* EPCEncoder.framework in Frameworks */,
 				B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */,
 				B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */,
 				B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */,
@@ -137,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7D5C9BE1BCE0CC300EDCCC0 /* EPCEncoder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +148,8 @@
 				B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */,
 				B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */,
 				B70244621B018CF600B9B47F /* RapiTag */,
-				B702448C1B018E1900B9B47F /* EPCEncoder */,
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
+				B7D5C9BB1BCE0C4B00EDCCC0 /* EPCEncoder */,
 				B70244611B018CF600B9B47F /* Products */,
 				B7801CE41B8B9BC1001E1E6C /* uGrokit */,
 				B785F8891BA0D6060020C753 /* Zebra */,
@@ -211,17 +210,6 @@
 				B702447E1B018CF600B9B47F /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B702448C1B018E1900B9B47F /* EPCEncoder */ = {
-			isa = PBXGroup;
-			children = (
-				B702448D1B018E1900B9B47F /* Converter.h */,
-				B702448E1B018E1900B9B47F /* Converter.m */,
-				B702448F1B018E1900B9B47F /* EPCEncoder.h */,
-				B70244901B018E1900B9B47F /* EPCEncoder.m */,
-			);
-			path = EPCEncoder;
 			sourceTree = "<group>";
 		};
 		B70244951B018E3D00B9B47F /* include */ = {
@@ -301,6 +289,14 @@
 				B77B31DB1BBC0C150017348E /* include */,
 			);
 			name = Zebra;
+			sourceTree = "<group>";
+		};
+		B7D5C9BB1BCE0C4B00EDCCC0 /* EPCEncoder */ = {
+			isa = PBXGroup;
+			children = (
+				B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */,
+			);
+			name = EPCEncoder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,10 +417,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */,
-				B70244911B018E1900B9B47F /* Converter.m in Sources */,
 				B70244691B018CF600B9B47F /* AppDelegate.m in Sources */,
 				B7117D401B33362A00968426 /* NavigationController.m in Sources */,
-				B70244921B018E1900B9B47F /* EPCEncoder.m in Sources */,
 				B70244661B018CF600B9B47F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,6 +594,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -619,6 +614,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = RapiTagTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

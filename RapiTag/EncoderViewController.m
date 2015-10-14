@@ -8,8 +8,8 @@
 
 #import "EncoderViewController.h"
 #import <AVFoundation/AVFoundation.h> // Barcode capture tools
-#import "EPCEncoder.h"                // To encode the scanned barcode for comparison
-#import "Converter.h"                 // To convert to binary for comparison
+#import <EPCEncoder/EPCEncoder.h>     // To encode the scanned barcode for comparison
+#import <EPCEncoder/Converter.h>      // To convert to binary for comparison
 #import "Ugi.h"                       // uGrokit goodies
 #import "RfidSdkFactory.h"            // Zebra reader
 
