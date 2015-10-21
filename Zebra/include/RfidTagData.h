@@ -33,6 +33,7 @@
     NSMutableString *m_OperationStatus;
     SRFID_MEMORYBANK m_MemoryBank;
     NSMutableString *m_MemoryBankData;
+    NSMutableString *m_PermaLockData;
 }
 
 - (NSString*)getTagId;
@@ -61,5 +62,7 @@
 - (void)setMemoryBank:(SRFID_MEMORYBANK)val;
 - (NSString*)getMemoryBankData;
 - (void)setMemoryBankData:(NSString*)val;
+- (void)setPermaLockData:(NSString*)val;
+- (NSString*)getPermaLockData;
 
 @end

@@ -28,6 +28,7 @@
 #import "RfidStopTriggerConfig.h"
 #import "RfidRegulatoryConfig.h"
 #import "RfidPreFilter.h"
+#import "RfidAttribute.h"
 
 #ifndef __RFID_SDK_API__
 #define __RFID_SDK_API__
@@ -47,6 +48,7 @@
 
 - (SRFID_RESULT) srfidEstablishCommunicationSession:(int)readerID;
 - (SRFID_RESULT) srfidTerminateCommunicationSession:(int)readerID;
+- (SRFID_RESULT) srfidEstablishAsciiConnection:(int)readerID aPassword:(NSString*)password;
 
 - (SRFID_RESULT) srfidEnableAvailableReadersDetection:(BOOL)enable;
 - (SRFID_RESULT) srfidEnableAutomaticSessionReestablishment:(BOOL)enable;
@@ -106,7 +108,19 @@
 - (SRFID_RESULT) srfidKillTag:(int)readerID aTagID:(NSString*)tagID aAccessTagData:(srfidTagData**)accessTagData aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidLockTag:(int)readerID aTagID:(NSString*)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aAccessPermissions:(SRFID_ACCESSPERMISSION)accessPermissions aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
 
+- (SRFID_RESULT) srfidBlockErase:(int)readerID aTagID:(NSString *)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidBlockPermaLock:(int)readerID aTagID:(NSString *)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aDoLock:(BOOL)doLock aBlockPtr:(short)blockPtr aBlockRange:(short)blockRange aBlockMask:(NSString *)blockMask aPassword:(long)password aStatusMessage:(NSString **)statusMessage;
+
 - (SRFID_RESULT) srfidRequestBatteryStatus:(int)readerID;
+
+- (SRFID_RESULT) srfidGetBatchModeConfig:(int)readerID aBatchModeConfig:(SRFID_BATCHMODECONFIG*)batchModeConfig aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidSetBatchModeConfig:(int)readerID aBatchModeConfig:(SRFID_BATCHMODECONFIG)batchModeConfig aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidgetTags:(int)readerID aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidGetConfigurations;
+
+- (SRFID_RESULT) srfidPurgeTags:(int)readerID aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidSetAttribute:(int)readerId attributeNumber:(int)attrNum attributeValue:(int)attrVal attributeType:(NSString*)attrType aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidGetAttribute:(int)readerID aAttrNum:(int)attrNum aAttrInfo:(srfidAttribute**)attrInfo aStatusMessage:(NSString**)statusMessage;
 
 @end
 

@@ -28,7 +28,7 @@
 - (void)srfidEventCommunicationSessionEstablished:(srfidReaderInfo*)activeReader;
 - (void)srfidEventCommunicationSessionTerminated:(int)readerID;
 - (void)srfidEventReadNotify:(int)readerID aTagData:(srfidTagData*)tagData;
-- (void)srfidEventStatusNotify:(int)readerID aEvent:(SRFID_EVENT_STATUS)event;
+- (void)srfidEventStatusNotify:(int)readerID aEvent:(SRFID_EVENT_STATUS)event aNotification:(id)notificationData;
 - (void)srfidEventProximityNotify:(int)readerID aProximityPercent:(int)proximityPercent;
 - (void)srfidEventTriggerNotify:(int)readerID aTriggerEvent:(SRFID_TRIGGEREVENT)triggerEvent;
 - (void)srfidEventBatteryNotity:(int)readerID aBatteryEvent:(srfidBatteryEvent*)batteryEvent;

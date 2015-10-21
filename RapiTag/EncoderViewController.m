@@ -188,7 +188,7 @@
     // Set Zebra scanner configurations used in srfidStartRapidRead
     _zebraReaderConnected = FALSE;
     _readerID = -1;
-    [self initializeZebraRfidSdkWithAppSettings];
+    [self zebraInitializeRfidSdkWithAppSettings];
 }
 
 /*!
@@ -295,7 +295,7 @@
 /*!
  * @discussion Initialize the Zebra reader and start a rapid read.
  */
-- (void)initializeZebraRfidSdkWithAppSettings
+- (void)zebraInitializeRfidSdkWithAppSettings
 {
     _rfidSdkApi = [srfidSdkFactory createRfidSdkApiInstance];
     [_rfidSdkApi srfidSetDelegate:self];
@@ -995,9 +995,36 @@
     NSString *statusMessage = nil;
     [_rfidSdkApi srfidSetBeeperConfig:[activeReader getReaderID] aBeeperConfig:SRFID_BEEPERCONFIG_LOW aStatusMessage:&statusMessage];
     
-    // Now read tags
+    // Set the reader
     _readerID = [activeReader getReaderID];
-    [self zebraRapidRead];
+    
+    // Establish ASCII connection
+    if ([_rfidSdkApi srfidEstablishAsciiConnection:_readerID aPassword:nil] == SRFID_RESULT_SUCCESS)
+    {
+        // Success, now read tags
+        [self zebraRapidRead];
+    }
+    else
+    {
+        // Error, alert
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Zebra Error"
+                              message:@"Failed to establish connection with Zebra RFID reader"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [alert show];
+                       });
+        
+        // Terminate sesssion
+        [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
+        _readerID = -1;
+        _rfidLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+        _rfidLbl.text = @"RFID: Zebra connection failed";
+    }
 }
 
 /*!
@@ -1088,7 +1115,7 @@
 {
     NSLog(@"Zebra Reader Session Terminated - ID: %d\n", readerID);
 }
-- (void)srfidEventStatusNotify:(int)readerID aEvent:(SRFID_EVENT_STATUS)event
+- (void)srfidEventStatusNotify:(int)readerID aEvent:(SRFID_EVENT_STATUS)event aNotification:(id)notificationData
 {
     NSLog(@"Zebra Reader - Event status notify: %d\n", event);
 }

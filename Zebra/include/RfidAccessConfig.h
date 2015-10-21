@@ -19,14 +19,11 @@
 @interface srfidAccessConfig : NSObject
 {
     BOOL m_DoSelect;
-    BOOL m_EnableSummaryNotify;
     short m_Power;
 }
 
 - (BOOL)getDoSelect;
 - (void)setDoSelect:(BOOL)val;
-- (BOOL)getEnableSummaryNotify;
-- (void)setEnableSummaryNotify:(BOOL)val;
 - (short)getPower;
 - (void)setPower:(short)val;
 

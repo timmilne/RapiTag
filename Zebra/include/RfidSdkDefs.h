@@ -25,7 +25,9 @@ typedef enum {
     SRFID_RESULT_INVALID_PARAMS            = 0x04,
     SRFID_RESULT_RESPONSE_TIMEOUT          = 0x05,
     SRFID_RESULT_NOT_SUPPORTED             = 0x06,
-    SRFID_RESULT_RESPONSE_ERROR            = 0x07
+    SRFID_RESULT_RESPONSE_ERROR            = 0x07,
+    SRFID_RESULT_WRONG_ASCII_PASSWORD      = 0x08,
+    SRFID_RESULT_ASCII_CONNECTION_REQUIRED = 0x09,
 } SRFID_RESULT;
 
 /* operating modes of SDK */
@@ -42,6 +44,16 @@ enum {
     SRFID_CONNTYPE_BTLE                    = 0x02
 };
 
+/* Batch Mode */
+
+typedef enum
+{
+    SRFID_BATCHMODECONFIG_DISABLE                       = 0x00,
+    SRFID_BATCHMODECONFIG_AUTO                         = 0x01,
+    SRFID_BATCHMODECONFIG_ENABLE                      = 0x02,
+} SRFID_BATCHMODECONFIG;
+
+
 /* notifications/events masks */
 enum {
     SRFID_EVENT_READER_APPEARANCE           = (0x01 << 1),
@@ -53,12 +65,13 @@ enum {
     SRFID_EVENT_MASK_PROXIMITY              = (0x01 << 7),
     SRFID_EVENT_MASK_TRIGGER                = (0x01 << 8),
     SRFID_EVENT_MASK_BATTERY                = (0x01 << 9),
+    SRFID_EVENT_MASK_STATUS_OPERENDSUMMARY  = (0x01 << 10),
 };
 
 /* supported device models */
 enum {
     SRFID_DEVMODEL_INVALID                 = 0x00,
-    SRFID_DEVMODEL_RFID_GENX               = 0x01,
+    SRFID_DEVMODEL_RFID_RFD8500            = 0x01,
 };
 
 /* invalid device id */
@@ -66,8 +79,10 @@ enum {
 
 /* return values */
 typedef enum {
-    SRFID_EVENT_STATUS_OPERATION_START      = 0x00,
-    SRFID_EVENT_STATUS_OPERATION_STOP       = 0x01,
+    SRFID_EVENT_STATUS_OPERATION_START       = 0x00,
+    SRFID_EVENT_STATUS_OPERATION_STOP        = 0x01,
+    SRFID_EVENT_STATUS_OPERATION_BATCHMODE   = 0x02,
+    SRFID_EVENT_STATUS_OPERATION_END_SUMMARY = 0x03
 } SRFID_EVENT_STATUS;
 
 

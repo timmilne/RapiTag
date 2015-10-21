@@ -22,6 +22,7 @@
     NSString *m_DeviceVersion;
     NSString *m_BluetoothVersion;
     NSString *m_NGEVersion;
+    NSString *m_PL33;
 }
 
 - (NSString*)getDeviceVersion;
@@ -30,6 +31,8 @@
 - (void)setBluetoothVersion:(NSString*)val;
 - (NSString*)getNGEVersion;
 - (void)setNGEVersion:(NSString*)val;
+- (NSString*)getPL33;
+- (void)setPL33:(NSString*)val;
 
 @end
 
