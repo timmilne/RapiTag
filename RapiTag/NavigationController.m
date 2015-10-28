@@ -59,7 +59,7 @@
  */
 
 // For all orientations, this will suffice.
--(NSUInteger)supportedInterfaceOrientations{
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
     
     /*
      NSInteger orientationMask = 0;
