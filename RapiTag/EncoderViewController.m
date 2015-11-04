@@ -5,6 +5,14 @@
 //  Created by Tim.Milne on 5/11/15.
 //  Copyright (c) 2015 Tim.Milne. All rights reserved.
 //
+//  Barcode scanner code from:
+//  http://www.infragistics.com/community/blogs/torrey-betts/archive/2013/10/10/scanning-barcodes-with-ios-7-objective-c.aspx
+//
+//  uGrokit RFID scanner code from:
+//  http://dev.ugrokit.com/ios.html
+//
+//  Zebra RFID scanner code from:
+//  http://compass.motorolasolutions.com
 
 #import "EncoderViewController.h"
 #import <AVFoundation/AVFoundation.h> // Barcode capture tools
@@ -63,7 +71,7 @@
     srfidStopTriggerConfig      *_stopTriggerConfig;
     srfidReportConfig           *_reportConfig;
     srfidAccessConfig           *_accessConfig;
-    srfidDynamicPowerConfig     *_dpoConfig;
+    srfidDynamicPowerConfig     *_dpoConfig;            // Only for writing tags
 }
 @end
 
@@ -266,7 +274,7 @@
 // reader flags for that session.  Until then, all protocols are attempted until a tag is found.
     
     // If no connection open, open it now and start scanning for RFID tags
-    // Before we know what reader, we try all, so test the double negative
+    // Before we know what reader, we try all, so test the negative
     
     // uGrokit Reader
     if (!_zebraReaderConnected) {
@@ -317,7 +325,7 @@
     _stopTriggerConfig  = [[srfidStopTriggerConfig alloc] init];
     _reportConfig       = [[srfidReportConfig alloc] init];
     _accessConfig       = [[srfidAccessConfig alloc] init];
-    _dpoConfig          = [[srfidDynamicPowerConfig alloc] init];
+    _dpoConfig          = [[srfidDynamicPowerConfig alloc] init]; // Only for writing tags
     
     // Configure start and stop triggers parameters to start and stop actual
     // operation immediately on a corresponding response
@@ -345,7 +353,7 @@
     [_accessConfig setPower:120];
     [_accessConfig setDoSelect:NO];
     
-    // Configure dynamic power options (must be off for reading)
+    // Configure dynamic power options (must be off for writing)
     [_dpoConfig setDynamicPowerOptimizationEnabled:FALSE];
     
     // See if a reader is already connected and try and read a tag
