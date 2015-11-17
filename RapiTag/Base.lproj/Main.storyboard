@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MAS-jD-Gfr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MAS-jD-Gfr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -118,6 +119,18 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Replacement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkj-qL-Vwg">
+                                <rect key="frame" x="387" y="76" width="101" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1J4-yG-zFl">
+                                <rect key="frame" x="501" y="76" width="51" height="31"/>
+                                <connections>
+                                    <action selector="update:" destination="AEa-fn-Pz3" eventType="touchUpInside" id="Orm-V9-qwS"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -148,6 +161,7 @@
                         <outlet property="_gtinLbl" destination="1jQ-WR-BF2" id="Sb8-4K-cMd"/>
                         <outlet property="_itmFld" destination="zND-Zo-13d" id="rae-9f-jJ9"/>
                         <outlet property="_itmLbl" destination="nje-y1-jRW" id="Sqf-n9-cgn"/>
+                        <outlet property="_replaceSwt" destination="1J4-yG-zFl" id="gKr-0s-ZJc"/>
                         <outlet property="_resetBtn" destination="6KJ-3Y-PRk" id="gXN-Fv-nsG"/>
                         <outlet property="_serFld" destination="Uny-Cx-OPD" id="liX-Ic-jCj"/>
                         <outlet property="_serLbl" destination="p9o-K0-LDd" id="Ano-aR-Ujz"/>

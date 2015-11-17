@@ -37,6 +37,9 @@ static NSString *GID_Bin_Prefix   = @"00110101";
         itm:(NSString *)itm
         ser:(NSString *)ser;
 
+- (void)gidWithGTIN:(NSString *)gtin
+            ser:(NSString *)ser;
+
 - (void)withGTIN:(NSString *)gtin
         ser:(NSString *)ser
         partBin:(NSString *)partBin;

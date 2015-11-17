@@ -37,6 +37,7 @@
     __weak IBOutlet UIBarButtonItem *_encodeBtn;
     __weak IBOutlet UIImageView     *_successImg;
     __weak IBOutlet UIImageView     *_failImg;
+    __weak IBOutlet UISwitch        *_replaceSwt;
     
     BOOL                        _barcodeFound;
     BOOL                        _rfidFound;
@@ -504,6 +505,22 @@
                 NSString *itm = [barcode substringWithRange:NSMakeRange(7,4)];
                 NSString *ser = ([_serFld.text length])?[_serFld text]:@"0";
                 
+                // If this is a replacement tag, check the commissioning authority
+                if (_replaceSwt.on == TRUE) {
+                    for (int i=(int)[ser length]; i<10; i++) {
+                        ser = [NSString stringWithFormat:@"0%@", ser];
+                    }
+                    
+                    // Make sure it starts with 01, 02, 03, 04
+                    if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
+                          [[ser substringToIndex:2] isEqualToString:@"02"] ||
+                          [[ser substringToIndex:2] isEqualToString:@"03"] ||
+                          [[ser substringToIndex:2] isEqualToString:@"04"])) {
+                        ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
+                    }
+                    [_serFld setText:ser];
+                }
+                
                 [_encode withDpt:dpt cls:cls itm:itm ser:ser];
                 
                 // Set the interface
@@ -523,6 +540,50 @@
                 // Hide GTIN
                 [self.view sendSubviewToBack:_gtinLbl];
                 [self.view sendSubviewToBack:_gtinFld];
+                
+                _barcodeFound = TRUE;
+            }
+            
+            // For replacement tags, encode any National brand GTINs in our custom GID format
+            else if (_replaceSwt.on == TRUE && ((barcode.length == 12) || (barcode.length == 14))) {
+                // Take the gtin and encode a reference
+                NSString *gtin = barcode;
+                NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
+                
+                // This is a replacement tag, check the commissioning authority
+                // GID serial numbers are 10 digits long
+                for (int i=(int)[ser length]; i<10; i++) {
+                    ser = [NSString stringWithFormat:@"0%@", ser];
+                }
+                
+                // Make sure it starts with 01, 02, 03, 04
+                if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
+                      [[ser substringToIndex:2] isEqualToString:@"02"] ||
+                      [[ser substringToIndex:2] isEqualToString:@"03"] ||
+                      [[ser substringToIndex:2] isEqualToString:@"04"])) {
+                    ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
+                }
+                [_serFld setText:ser];
+                
+                [_encode gidWithGTIN:gtin ser:ser];
+                    
+                // Set the interface
+                [_gtinFld setText:barcode];
+                [_dptFld setText:@""];
+                [_clsFld setText:@""];
+                [_itmFld setText:@""];
+                
+                // Show GTIN
+                [self.view bringSubviewToFront:_gtinLbl];
+                [self.view bringSubviewToFront:_gtinFld];
+                
+                // Hide DPCI
+                [self.view sendSubviewToBack:_dptLbl];
+                [self.view sendSubviewToBack:_clsLbl];
+                [self.view sendSubviewToBack:_itmLbl];
+                [self.view sendSubviewToBack:_dptFld];
+                [self.view sendSubviewToBack:_clsFld];
+                [self.view sendSubviewToBack:_itmFld];
                 
                 _barcodeFound = TRUE;
             }
@@ -630,17 +691,28 @@
         ser = [ser substringToIndex:10];
         [_serFld setText:ser];
     }
-    if ([ser length] > 10) {
-        // GID serial number max = 10
-        ser = [ser substringToIndex:10];
-        [_serFld setText:ser];
-    }
     if ([gtin length] > 14) {
         gtin = [gtin substringToIndex:14];
         [_gtinFld setText:gtin];
     }
     
     if ([dpt length] > 0 && [cls length] > 0 && [itm length] > 0 && [ser length] > 0) {
+        // If this is a replacement tag, check the commissioning authority
+        if (_replaceSwt.on == TRUE) {
+            for (int i=(int)[ser length]; i<10; i++) {
+                ser = [NSString stringWithFormat:@"0%@", ser];
+            }
+            
+            // Make sure it starts with 01, 02, 03, 04
+            if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
+                  [[ser substringToIndex:2] isEqualToString:@"02"] ||
+                  [[ser substringToIndex:2] isEqualToString:@"03"] ||
+                  [[ser substringToIndex:2] isEqualToString:@"04"])) {
+                ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
+            }
+            [_serFld setText:ser];
+        }
+        
         // Update the EPCEncoder object
         [_encode withDpt:dpt cls:cls itm:itm ser:ser];
         
@@ -662,12 +734,55 @@
             _barcodeFound = FALSE;
         }
     }
+    
+    // For replacement tags, encode any National brand GTINs in our custom GID format
+    else if (_replaceSwt.on == TRUE && ([ser length] > 0 && [gtin length] > 0)) {
+        
+        // This is a replacement tag, check the commissioning authority
+        // GID serial numbers are 10 digits long
+        for (int i=(int)[ser length]; i<10; i++) {
+            ser = [NSString stringWithFormat:@"0%@", ser];
+        }
+        
+        // Make sure it starts with 01, 02, 03, 04
+        if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
+              [[ser substringToIndex:2] isEqualToString:@"02"] ||
+              [[ser substringToIndex:2] isEqualToString:@"03"] ||
+              [[ser substringToIndex:2] isEqualToString:@"04"])) {
+            ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
+        }
+        [_serFld setText:ser];
+        
+        // Update the EPCEncoder object
+        [_encode gidWithGTIN:gtin ser:ser];
+        
+        if ([gtin length] == 14 || [gtin length] == 12) {
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", gtin];
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+            _barcodeFound = TRUE;
+            
+            // Hide DPCI
+            [self.view sendSubviewToBack:_dptLbl];
+            [self.view sendSubviewToBack:_clsLbl];
+            [self.view sendSubviewToBack:_itmLbl];
+            [self.view sendSubviewToBack:_dptFld];
+            [self.view sendSubviewToBack:_clsFld];
+            [self.view sendSubviewToBack:_itmFld];
+        }
+        else {
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: (invalid GTIN)"];
+            _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+            _barcodeFound = FALSE;
+        }
+        
+        _barcodeFound = TRUE;
+    }
     else if ([ser length] > 0 && [gtin length] > 0) {
         // Update the EPCEncoder object
         [_encode withGTIN:gtin ser:ser partBin:@"101"];
         
         if ([gtin length] == 14 || [gtin length] == 12) {
-            _barcodeLbl.text = gtin;
+            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", gtin];
             _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
             _barcodeFound = TRUE;
             
@@ -723,7 +838,7 @@
     NSString *ser  = [_serFld text];
     NSString *gtin = [_gtinFld text];
     
-    [self beginEncode:([ser length] > 0 && [gtin length] > 0)?[_encode sgtin_hex]:[_encode gid_hex]];
+    [self beginEncode:([ser length] > 0 && [gtin length] > 0 && _replaceSwt.on == FALSE)?[_encode sgtin_hex]:[_encode gid_hex]];
 }
 
 /*!
@@ -782,6 +897,7 @@
                                               NSLog(@"Tag programmed successfully\n");
                                               [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
                                               _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
+                                              _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
                                               
                                               // Increment the serial number for another run and update
                                               NSInteger serInt = [[_serFld text] intValue];
@@ -842,6 +958,7 @@
                 NSLog(@"Tag programmed successfully\n");
                 [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
                 _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
+                _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
                 
                 // Increment the serial number for another run and update
                 NSInteger serInt = [[_serFld text] intValue];
