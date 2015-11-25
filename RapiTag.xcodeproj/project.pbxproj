@@ -145,8 +145,6 @@
 		B70244571B018CF600B9B47F = {
 			isa = PBXGroup;
 			children = (
-				B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */,
-				B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */,
 				B70244621B018CF600B9B47F /* RapiTag */,
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
 				B7D5C9BB1BCE0C4B00EDCCC0 /* EPCEncoder */,
@@ -287,6 +285,8 @@
 			children = (
 				B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */,
 				B77B31DB1BBC0C150017348E /* include */,
+				B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */,
+				B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */,
 			);
 			name = Zebra;
 			sourceTree = "<group>";
