@@ -464,12 +464,26 @@
     CGRect highlightViewRect = CGRectZero;
     AVMetadataMachineReadableCodeObject *barCodeObject;
     NSString *detectionString = nil;
-    NSArray *barCodeTypes = @[AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode39Mod43Code,
-                              AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeCode128Code,
-                              AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
+    NSString *type;
+    
+// TPM don't check all barcode types, but these are the ones iOS supports.
+    NSArray *barCodeTypes = @[AVMetadataObjectTypeUPCECode,
+//                              AVMetadataObjectTypeCode39Code,
+//                              AVMetadataObjectTypeCode39Mod43Code,
+                              AVMetadataObjectTypeEAN13Code,
+                              AVMetadataObjectTypeEAN8Code,
+//                              AVMetadataObjectTypeCode93Code,
+//                              AVMetadataObjectTypeCode128Code, // Some blank tags use 128 codes, but don't know how they work
+//                              AVMetadataObjectTypePDF417Code,
+//                              AVMetadataObjectTypeQRCode,
+//                              AVMetadataObjectTypeAztecCode,
+//                              AVMetadataObjectTypeInterleaved2of5Code,
+//                              AVMetadataObjectTypeITF14Code,
+                              AVMetadataObjectTypeDataMatrixCode // Avery and Checkpoint tags
+                              ];
     
     for (AVMetadataObject *metadata in metadataObjects) {
-        for (NSString *type in barCodeTypes) {
+        for (type in barCodeTypes) {
             if ([metadata.type isEqualToString:type])
             {
                 barCodeObject = (AVMetadataMachineReadableCodeObject *)[_prevLayer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
@@ -481,32 +495,119 @@
         
         if (detectionString != nil)
         {
-            // Assume false until verified
-            _barcodeFound = FALSE;
-            
-            // New input data
-            _successImg.hidden = TRUE;
-            _failImg.hidden = TRUE;
-            
-            // Grab the barcode
-            _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
-            _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-            NSString *barcode;
-            barcode = detectionString;
-            
-            // Quick length checks, chop to 12 for now (remove leading zeros)
-            if (barcode.length == 13) barcode = [barcode substringFromIndex:1];
-            if (barcode.length == 14) barcode = [barcode substringFromIndex:2];
-            
-            // Owned brand, encode DPCI in a GID
-            if (barcode.length == 12 && [[barcode substringToIndex:2] isEqualToString:@"49"]) {
-                NSString *dpt = [barcode substringWithRange:NSMakeRange(2,3)];
-                NSString *cls = [barcode substringWithRange:NSMakeRange(5,2)];
-                NSString *itm = [barcode substringWithRange:NSMakeRange(7,4)];
-                NSString *ser = ([_serFld.text length])?[_serFld text]:@"0";
+            // Scan scan barcodes (might not need to check for length)
+            if ((type == AVMetadataObjectTypeDataMatrixCode && detectionString.length == 24) ||
+                (type == AVMetadataObjectTypeCode128Code    && detectionString.length == 17) ){
+
+                // New input data
+                _successImg.hidden = TRUE;
+                _failImg.hidden = TRUE;
                 
-                // If this is a replacement tag, check the commissioning authority
-                if (_replaceSwt.on == TRUE) {
+                // Set the old EPC
+                [_oldEPC setString:detectionString];
+                
+                // Get the RFID tag
+                _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _oldEPC];
+                _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+                _rfidFound = TRUE;
+                
+                // TPM - This logic assumes that once you've read a tag with one type of reader, you won't switch
+                // to another.  If you change readers, restart the app.  The first reader to scan a tag sets the
+                // reader flags for that session.  Until then, all protocols are attempted until a tag is found.
+                
+                // With a Data Matrix barcode scan, stop any and all readers
+                // Before we know what reader, we try all, so test the negative
+                
+                // uGrokit Reader
+                if (!_zebraReaderConnected) {
+                    [[Ugi singleton].activeInventory stopInventory];
+                    [[Ugi singleton] closeConnection];
+                }
+                
+                // Zebra Reader
+                if (!_ugiReaderConnected) {
+                    [_rfidSdkApi srfidStopRapidRead:_readerID aStatusMessage:nil];
+                    [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
+                    _readerID = -1;
+                }
+                
+                // Log the read barcode
+                NSLog(@"\nData Matrix label read: %@\n", _oldEPC);
+            }
+                
+            // All the rest are UPC or EAN barcodes
+            else {
+                // Assume false until verified
+                _barcodeFound = FALSE;
+                
+                // New input data
+                _successImg.hidden = TRUE;
+                _failImg.hidden = TRUE;
+                
+                // Grab the barcode
+                _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
+                _barcodeLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+                NSString *barcode;
+                barcode = detectionString;
+                
+                // Quick length checks, chop to 12 for now (remove leading zeros)
+                if (barcode.length == 13) barcode = [barcode substringFromIndex:1];
+                if (barcode.length == 14) barcode = [barcode substringFromIndex:2];
+                
+                // Owned brand, encode DPCI in a GID
+                if (barcode.length == 12 && [[barcode substringToIndex:2] isEqualToString:@"49"]) {
+                    NSString *dpt = [barcode substringWithRange:NSMakeRange(2,3)];
+                    NSString *cls = [barcode substringWithRange:NSMakeRange(5,2)];
+                    NSString *itm = [barcode substringWithRange:NSMakeRange(7,4)];
+                    NSString *ser = ([_serFld.text length])?[_serFld text]:@"0";
+                    
+                    // If this is a replacement tag, check the commissioning authority
+                    if (_replaceSwt.on == TRUE) {
+                        for (int i=(int)[ser length]; i<10; i++) {
+                            ser = [NSString stringWithFormat:@"0%@", ser];
+                        }
+                        
+                        // Make sure it starts with 01, 02, 03, 04
+                        if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
+                              [[ser substringToIndex:2] isEqualToString:@"02"] ||
+                              [[ser substringToIndex:2] isEqualToString:@"03"] ||
+                              [[ser substringToIndex:2] isEqualToString:@"04"])) {
+                            ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
+                        }
+                        [_serFld setText:ser];
+                    }
+                    
+                    [_encode withDpt:dpt cls:cls itm:itm ser:ser];
+                    
+                    // Set the interface
+                    [_dptFld setText:dpt];
+                    [_itmFld setText:itm];
+                    [_clsFld setText:cls];
+                    [_gtinFld setText:@""];
+                    
+                    // Show DPCI
+                    [self.view bringSubviewToFront:_dptLbl];
+                    [self.view bringSubviewToFront:_clsLbl];
+                    [self.view bringSubviewToFront:_itmLbl];
+                    [self.view bringSubviewToFront:_dptFld];
+                    [self.view bringSubviewToFront:_clsFld];
+                    [self.view bringSubviewToFront:_itmFld];
+                    
+                    // Hide GTIN
+                    [self.view sendSubviewToBack:_gtinLbl];
+                    [self.view sendSubviewToBack:_gtinFld];
+                    
+                    _barcodeFound = TRUE;
+                }
+                
+                // For replacement tags, encode any National brand GTINs in our custom GID format
+                else if (_replaceSwt.on == TRUE && ((barcode.length == 12) || (barcode.length == 14))) {
+                    // Take the gtin and encode a reference
+                    NSString *gtin = barcode;
+                    NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
+                    
+                    // This is a replacement tag, check the commissioning authority
+                    // GID serial numbers are 10 digits long
                     for (int i=(int)[ser length]; i<10; i++) {
                         ser = [NSString stringWithFormat:@"0%@", ser];
                     }
@@ -519,110 +620,66 @@
                         ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
                     }
                     [_serFld setText:ser];
-                }
-                
-                [_encode withDpt:dpt cls:cls itm:itm ser:ser];
-                
-                // Set the interface
-                [_dptFld setText:dpt];
-                [_itmFld setText:itm];
-                [_clsFld setText:cls];
-                [_gtinFld setText:@""];
-                
-                // Show DPCI
-                [self.view bringSubviewToFront:_dptLbl];
-                [self.view bringSubviewToFront:_clsLbl];
-                [self.view bringSubviewToFront:_itmLbl];
-                [self.view bringSubviewToFront:_dptFld];
-                [self.view bringSubviewToFront:_clsFld];
-                [self.view bringSubviewToFront:_itmFld];
-                
-                // Hide GTIN
-                [self.view sendSubviewToBack:_gtinLbl];
-                [self.view sendSubviewToBack:_gtinFld];
-                
-                _barcodeFound = TRUE;
-            }
-            
-            // For replacement tags, encode any National brand GTINs in our custom GID format
-            else if (_replaceSwt.on == TRUE && ((barcode.length == 12) || (barcode.length == 14))) {
-                // Take the gtin and encode a reference
-                NSString *gtin = barcode;
-                NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
-                
-                // This is a replacement tag, check the commissioning authority
-                // GID serial numbers are 10 digits long
-                for (int i=(int)[ser length]; i<10; i++) {
-                    ser = [NSString stringWithFormat:@"0%@", ser];
-                }
-                
-                // Make sure it starts with 01, 02, 03, 04
-                if (!([[ser substringToIndex:2] isEqualToString:@"01"] ||
-                      [[ser substringToIndex:2] isEqualToString:@"02"] ||
-                      [[ser substringToIndex:2] isEqualToString:@"03"] ||
-                      [[ser substringToIndex:2] isEqualToString:@"04"])) {
-                    ser = [NSString stringWithFormat:@"01%@", [ser substringFromIndex:2]];
-                }
-                [_serFld setText:ser];
-                
-                [_encode gidWithGTIN:gtin ser:ser];
                     
-                // Set the interface
-                [_gtinFld setText:barcode];
-                [_dptFld setText:@""];
-                [_clsFld setText:@""];
-                [_itmFld setText:@""];
+                    [_encode gidWithGTIN:gtin ser:ser];
+                    
+                    // Set the interface
+                    [_gtinFld setText:barcode];
+                    [_dptFld setText:@""];
+                    [_clsFld setText:@""];
+                    [_itmFld setText:@""];
+                    
+                    // Show GTIN
+                    [self.view bringSubviewToFront:_gtinLbl];
+                    [self.view bringSubviewToFront:_gtinFld];
+                    
+                    // Hide DPCI
+                    [self.view sendSubviewToBack:_dptLbl];
+                    [self.view sendSubviewToBack:_clsLbl];
+                    [self.view sendSubviewToBack:_itmLbl];
+                    [self.view sendSubviewToBack:_dptFld];
+                    [self.view sendSubviewToBack:_clsFld];
+                    [self.view sendSubviewToBack:_itmFld];
+                    
+                    _barcodeFound = TRUE;
+                }
                 
-                // Show GTIN
-                [self.view bringSubviewToFront:_gtinLbl];
-                [self.view bringSubviewToFront:_gtinFld];
+                // National brand, encode GTIN in an SGTIN
+                else if ((barcode.length == 12) || (barcode.length == 14)) {
+                    // Take the gtin and encode a reference
+                    NSString *gtin = barcode;
+                    NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
+                    
+                    [_encode withGTIN:gtin ser:ser partBin:@"101"];
+                    
+                    // Set the interface
+                    [_gtinFld setText:barcode];
+                    [_dptFld setText:@""];
+                    [_clsFld setText:@""];
+                    [_itmFld setText:@""];
+                    
+                    // Show GTIN
+                    [self.view bringSubviewToFront:_gtinLbl];
+                    [self.view bringSubviewToFront:_gtinFld];
+                    
+                    // Hide DPCI
+                    [self.view sendSubviewToBack:_dptLbl];
+                    [self.view sendSubviewToBack:_clsLbl];
+                    [self.view sendSubviewToBack:_itmLbl];
+                    [self.view sendSubviewToBack:_dptFld];
+                    [self.view sendSubviewToBack:_clsFld];
+                    [self.view sendSubviewToBack:_itmFld];
+                    
+                    _barcodeFound = TRUE;
+                }
                 
-                // Hide DPCI
-                [self.view sendSubviewToBack:_dptLbl];
-                [self.view sendSubviewToBack:_clsLbl];
-                [self.view sendSubviewToBack:_itmLbl];
-                [self.view sendSubviewToBack:_dptFld];
-                [self.view sendSubviewToBack:_clsFld];
-                [self.view sendSubviewToBack:_itmFld];
-                
-                _barcodeFound = TRUE;
-            }
-            
-            // National brand, encode GTIN in an SGTIN
-            else if ((barcode.length == 12) || (barcode.length == 14)) {
-                // Take the gtin and encode a reference
-                NSString *gtin = barcode;
-                NSString *ser  = ([_serFld.text length])?[_serFld text]:@"0";
-                
-                [_encode withGTIN:gtin ser:ser partBin:@"101"];
-                
-                // Set the interface
-                [_gtinFld setText:barcode];
-                [_dptFld setText:@""];
-                [_clsFld setText:@""];
-                [_itmFld setText:@""];
-                
-                // Show GTIN
-                [self.view bringSubviewToFront:_gtinLbl];
-                [self.view bringSubviewToFront:_gtinFld];
-                
-                // Hide DPCI
-                [self.view sendSubviewToBack:_dptLbl];
-                [self.view sendSubviewToBack:_clsLbl];
-                [self.view sendSubviewToBack:_itmLbl];
-                [self.view sendSubviewToBack:_dptFld];
-                [self.view sendSubviewToBack:_clsFld];
-                [self.view sendSubviewToBack:_itmFld];
-                
-                _barcodeFound = TRUE;
-            }
-            
-            // Unsupported barcode
-            else {
-                
-                _barcodeLbl.text = @"Barcode: unsupported barcode";
-                _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
-                _barcodeFound = FALSE;
+                // Unsupported barcode
+                else {
+                    
+                    _barcodeLbl.text = @"Barcode: unsupported barcode";
+                    _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
+                    _barcodeFound = FALSE;
+                }
             }
         }
         
@@ -821,7 +878,7 @@
  */
 - (void)readyToEncode {
     // If we have a valid barcode and an RFID tag read, we are ready to encode so enable the encode button
-    _encodeBtn.enabled = (_barcodeFound && _rfidFound);
+    _encodeBtn.enabled = (_barcodeFound && _rfidFound && (_ugiReaderConnected || _zebraReaderConnected));
 }
 
 /*!
