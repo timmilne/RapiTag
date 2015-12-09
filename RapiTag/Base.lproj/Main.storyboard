@@ -120,13 +120,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Replacement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkj-qL-Vwg">
-                                <rect key="frame" x="387" y="76" width="101" height="31"/>
+                                <rect key="frame" x="323" y="66" width="101" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1J4-yG-zFl">
-                                <rect key="frame" x="501" y="76" width="51" height="31"/>
+                                <rect key="frame" x="323" y="95" width="51" height="31"/>
                                 <connections>
                                     <action selector="update:" destination="AEa-fn-Pz3" eventType="touchUpInside" id="Orm-V9-qwS"/>
                                 </connections>
