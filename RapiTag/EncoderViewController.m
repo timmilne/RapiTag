@@ -8,9 +8,6 @@
 //  Barcode scanner code from:
 //  http://www.infragistics.com/community/blogs/torrey-betts/archive/2013/10/10/scanning-barcodes-with-ios-7-objective-c.aspx
 //
-//  uGrokit RFID scanner code from:
-//  http://dev.ugrokit.com/ios.html
-//
 //  Zebra RFID scanner code from:
 //  http://compass.motorolasolutions.com
 
@@ -18,10 +15,9 @@
 #import <AVFoundation/AVFoundation.h> // Barcode capture tools
 #import <EPCEncoder/EPCEncoder.h>     // To encode the scanned barcode for comparison
 #import <EPCEncoder/Converter.h>      // To convert to binary for comparison
-#import "Ugi.h"                       // uGrokit goodies
 #import "RfidSdkFactory.h"            // Zebra reader
 
-@interface EncoderViewController ()<AVCaptureMetadataOutputObjectsDelegate, UgiInventoryDelegate, srfidISdkApiDelegate>
+@interface EncoderViewController ()<AVCaptureMetadataOutputObjectsDelegate, srfidISdkApiDelegate>
 {
     __weak IBOutlet UILabel         *_dptLbl;
     __weak IBOutlet UILabel         *_clsLbl;
@@ -38,41 +34,39 @@
     __weak IBOutlet UIImageView     *_successImg;
     __weak IBOutlet UIImageView     *_failImg;
     __weak IBOutlet UISwitch        *_replaceSwt;
+    __weak IBOutlet UISwitch        *_scanScanEncodeSwt;
     
-    BOOL                        _barcodeFound;
-    BOOL                        _rfidFound;
-    BOOL                        _encoding;
-    BOOL                        _tagEncoded;
-    NSMutableString             *_oldEPC;
-    NSMutableString             *_newEPC;
-    UIColor                     *_defaultBackgroundColor;
+    BOOL                            _barcodeFound;
+    BOOL                            _rfidFound;
+    BOOL                            _encoding;
+    BOOL                            _tagEncoded;
+    NSMutableString                 *_oldEPC;
+    NSMutableString                 *_newEPC;
+    NSMutableString                 *_lastDetectionString;
+    UIColor                         *_defaultBackgroundColor;
     
-    AVCaptureSession            *_session;
-    AVCaptureDevice             *_device;
-    AVCaptureDeviceInput        *_input;
-    AVCaptureMetadataOutput     *_output;
-    AVCaptureVideoPreviewLayer  *_prevLayer;
+    AVCaptureSession                *_session;
+    AVCaptureDevice                 *_device;
+    AVCaptureDeviceInput            *_input;
+    AVCaptureMetadataOutput         *_output;
+    AVCaptureVideoPreviewLayer      *_prevLayer;
     
-    UIView                      *_highlightView;
-    UILabel                     *_barcodeLbl;
-    UILabel                     *_rfidLbl;
-    UILabel                     *_batteryLifeLbl;
-    UIProgressView              *_batteryLifeView;
+    UIView                          *_highlightView;
+    UILabel                         *_barcodeLbl;
+    UILabel                         *_rfidLbl;
+    UILabel                         *_batteryLifeLbl;
+    UIProgressView                  *_batteryLifeView;
     
-    EPCEncoder                  *_encode;
-    Converter                   *_convert;
+    EPCEncoder                      *_encode;
+    Converter                       *_convert;
     
-    BOOL                        _ugiReaderConnected;
-    UgiRfidConfiguration        *_ugiConfig;
-    
-    BOOL                        _zebraReaderConnected;
-    id <srfidISdkApi>           _rfidSdkApi;
-    int                         _readerID;
-    srfidStartTriggerConfig     *_startTriggerConfig;
-    srfidStopTriggerConfig      *_stopTriggerConfig;
-    srfidReportConfig           *_reportConfig;
-    srfidAccessConfig           *_accessConfig;
-    srfidDynamicPowerConfig     *_dpoConfig;            // Only for writing tags
+    id <srfidISdkApi>               _rfidSdkApi;
+    int                             _zebraReaderID;
+    srfidStartTriggerConfig         *_startTriggerConfig;
+    srfidStopTriggerConfig          *_stopTriggerConfig;
+    srfidReportConfig               *_reportConfig;
+    srfidAccessConfig               *_accessConfig;
+    srfidDynamicPowerConfig         *_dpoConfig;            // Only for writing tags
 }
 @end
 
@@ -93,13 +87,10 @@
     _convert = [Converter alloc];
     _oldEPC = [[NSMutableString alloc] init];
     _newEPC = [[NSMutableString alloc] init];
+    _lastDetectionString = [[NSMutableString alloc] init];
     _barcodeFound = FALSE;
     _rfidFound = FALSE;
     _defaultBackgroundColor = UIColorFromRGB(0x000000);
-    
-    // Set scanner configuration used in startInventory
-    _ugiConfig = [UgiRfidConfiguration configWithInventoryType:UGI_INVENTORY_TYPE_INVENTORY_SHORT_RANGE];
-    [_ugiConfig setVolume:.2];
     
     // Set the label background colors
     _dptLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
@@ -114,7 +105,7 @@
     // Barcode highlight view
     _highlightView = [[UIView alloc] init];
     _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
-    _highlightView.layer.borderColor = [UIColor greenColor].CGColor;
+    _highlightView.layer.borderColor = [UIColor redColor].CGColor;
     _highlightView.layer.borderWidth = 3;
     [self.view addSubview:_highlightView];
     
@@ -169,13 +160,6 @@
     _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:_prevLayer];
     
-    // Register with the default NotificationCenter for RFID reads
-    // TPM there was a typo in the online documentation fixed here
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(connectionStateChanged:)
-                                                 name:[Ugi singleton].NOTIFICAION_NAME_CONNECTION_STATE_CHANGED
-                                               object:nil];
-    
     // Pop the subviews to the front of the preview view
     [self.view bringSubviewToFront:_highlightView];
     [self.view bringSubviewToFront:_barcodeLbl];
@@ -195,8 +179,7 @@
     [_session startRunning];
     
     // Set Zebra scanner configurations used in srfidStartRapidRead
-    _zebraReaderConnected = FALSE;
-    _readerID = -1;
+    _zebraReaderID = -1;
     [self zebraInitializeRfidSdkWithAppSettings];
 }
 
@@ -228,8 +211,9 @@
  * @param sender The ID of the sender object (not used)
  */
 - (IBAction)reset:(id)sender {
-    // TPM - uncomment this to test a NewRelic crash
-    //    [NewRelic crashNow:@"Crashed on Reset"];
+    
+// TPM - uncomment this line to test a NewRelic crash
+//    [NewRelic crashNow:@"Crashed on Reset"];
     
     // Reset all controls and variables
     _barcodeFound = FALSE;
@@ -243,12 +227,10 @@
     _dptFld.text = @"";
     _clsFld.text = @"";
     _itmFld.text = @"";
-    _serFld.text = @"1";
     _gtinFld.text = @"";
     
     _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
     _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-    _rfidLbl.text = @"RFID: (connecting to reader)";
     _rfidLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _batteryLifeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _batteryLifeLbl.text = @"RFID Battery Life";
@@ -270,26 +252,41 @@
     _successImg.hidden = TRUE;
     _failImg.hidden = TRUE;
     
-// TPM - This logic assumes that once you've read a tag with one type of reader, you won't switch
-// to another.  If you change readers, restart the app.  The first reader to scan a tag sets the
-// reader flags for that session.  Until then, all protocols are attempted until a tag is found.
-    
-    // If no connection open, open it now and start scanning for RFID tags
-    // Before we know what reader, we try all, so test the negative
-    
-    // uGrokit Reader
-    if (!_zebraReaderConnected) {
-        [[Ugi singleton].activeInventory stopInventory];
-        [[Ugi singleton] closeConnection];
-        [[Ugi singleton] openConnection];  // Does a lot of things, including check battery life, and start an inventory
+    // If scanScanEncode is enabled, reset these differently
+    if (_scanScanEncodeSwt.on == TRUE) {
+        // DON'T reset these controls and variables
+//        _tagEncoded = FALSE;                  // Set only in endEncode
+//        [_lastDetectionString setString:@""]; // Read a barcode only once in captureOutput - must read a different barcode each time
+//        _serFld.text = @"1";                  // Incremented after successful tag write
+        
+        // Scanning for labels
+        _rfidLbl.text = @"RFID: (scanning for labels)";
+        
+        // We don't read tags in scan scan encode mode
+        
+        // Update the battery life
+        if (_zebraReaderID > 0) {
+            [_rfidSdkApi srfidRequestBatteryStatus:_zebraReaderID];
+        }
     }
     
-    // Zebra Reader
-    if (!_ugiReaderConnected) {
-        [_rfidSdkApi srfidStopRapidRead:_readerID aStatusMessage:nil];
-        [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
-        _readerID = -1;
+    // Regular reset, scan for a tag
+    else {
+        // Reset these additional controls and variables
+        _tagEncoded = FALSE;
+        [_lastDetectionString setString:@""];
+        _serFld.text = @"1";
+        
+        // Scanning for tags
+        _rfidLbl.text = @"RFID: (connecting to reader)";
+        
+        // If no connection open, open it now and start scanning for RFID tags
+        [_rfidSdkApi srfidStopRapidRead:_zebraReaderID aStatusMessage:nil];
+        [_rfidSdkApi srfidTerminateCommunicationSession:_zebraReaderID];
+        _zebraReaderID = -1;
         [self zebraRapidRead];
+        
+        // Asking for RFID scans triggers battery life updates, so no need to do that here
     }
 }
 
@@ -366,7 +363,7 @@
  */
 - (void)zebraRapidRead
 {
-    if (_readerID < 0) {
+    if (_zebraReaderID < 0) {
         // Get an available reader (must connect with bluetooth settings outside of app)
         NSMutableArray *readers = [[NSMutableArray alloc] init];
         [_rfidSdkApi srfidGetAvailableReadersList:&readers];
@@ -379,15 +376,21 @@
             }
         }
     }
+    else if (_scanScanEncodeSwt.on == TRUE) {
+        [_rfidSdkApi srfidRequestBatteryStatus:_zebraReaderID];
+        
+        // Don't read RFID tags in scan scan encode mode, set the label and scan for barcode labels
+        _rfidLbl.text = @"RFID: (scanning for labels)";
+        _rfidLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
+    }
     else {
-        [_rfidSdkApi srfidRequestBatteryStatus:_readerID];
-        _zebraReaderConnected = TRUE;
+        [_rfidSdkApi srfidRequestBatteryStatus:_zebraReaderID];
         
         NSString *error_response = nil;
         
         do {
             // Set start trigger parameters
-            SRFID_RESULT result = [_rfidSdkApi srfidSetStartTriggerConfiguration:_readerID
+            SRFID_RESULT result = [_rfidSdkApi srfidSetStartTriggerConfiguration:_zebraReaderID
                                                               aStartTriggeConfig:_startTriggerConfig
                                                                   aStatusMessage:&error_response];
             if (SRFID_RESULT_SUCCESS == result) {
@@ -399,7 +402,7 @@
             }
             
             // Set stop trigger parameters
-            result = [_rfidSdkApi srfidSetStopTriggerConfiguration:_readerID
+            result = [_rfidSdkApi srfidSetStopTriggerConfiguration:_zebraReaderID
                                                  aStopTriggeConfig:_stopTriggerConfig
                                                     aStatusMessage:&error_response];
             if (SRFID_RESULT_SUCCESS == result) {
@@ -411,7 +414,7 @@
             }
             
             // Set dynamice power options parameters (must be off for writing tags)
-            result  = [_rfidSdkApi srfidSetDpoConfiguration:_readerID
+            result  = [_rfidSdkApi srfidSetDpoConfiguration:_zebraReaderID
                                           aDpoConfiguration:_dpoConfig
                                              aStatusMessage:&error_response];
             
@@ -427,7 +430,7 @@
             error_response = nil;
             
             // Request performing of rapid read operation
-            result = [_rfidSdkApi srfidStartRapidRead:_readerID
+            result = [_rfidSdkApi srfidStartRapidRead:_zebraReaderID
                                         aReportConfig:_reportConfig
                                         aAccessConfig:_accessConfig
                                        aStatusMessage:&error_response];
@@ -440,7 +443,7 @@
                 // Stop an operation after 1 minute
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 *
                                                                           NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [_rfidSdkApi srfidStopRapidRead:_readerID aStatusMessage:nil];
+                    [_rfidSdkApi srfidStopRapidRead:_zebraReaderID aStatusMessage:nil];
                 });
             }
             else if (SRFID_RESULT_RESPONSE_ERROR == result) {
@@ -449,7 +452,7 @@
             else {
                 NSLog(@"Zebra Request failed\n");
             }
-        } while (0);
+        } while (0); // Only do this once, but break on any errors (Objective-C GO TO :)
     }
 }
 
@@ -473,7 +476,7 @@
                               AVMetadataObjectTypeEAN13Code,
                               AVMetadataObjectTypeEAN8Code,
 //                              AVMetadataObjectTypeCode93Code,
-//                              AVMetadataObjectTypeCode128Code, // Some blank tags use 128 codes, but don't know how they work
+//                              AVMetadataObjectTypeCode128Code, // Some use 128 codes, don't know how they work
 //                              AVMetadataObjectTypePDF417Code,
 //                              AVMetadataObjectTypeQRCode,
 //                              AVMetadataObjectTypeAztecCode,
@@ -493,15 +496,19 @@
             }
         }
         
-        if (detectionString != nil)
-        {
+        // Update before returning
+        _highlightView.frame = highlightViewRect;
+        
+        if (detectionString != nil) {
+            // Don't keep processing the same barcode
+            if ([_lastDetectionString isEqualToString:detectionString]) return;
+            [_lastDetectionString setString:detectionString];
+            
             // Scan scan barcodes (might not need to check for length)
             if ((type == AVMetadataObjectTypeDataMatrixCode && detectionString.length == 24) ||
                 (type == AVMetadataObjectTypeCode128Code    && detectionString.length == 17) ){
 
                 // New input data
-                _successImg.hidden = TRUE;
-                _failImg.hidden = TRUE;
                 
                 // Set the old EPC
                 [_oldEPC setString:detectionString];
@@ -511,25 +518,8 @@
                 _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
                 _rfidFound = TRUE;
                 
-                // TPM - This logic assumes that once you've read a tag with one type of reader, you won't switch
-                // to another.  If you change readers, restart the app.  The first reader to scan a tag sets the
-                // reader flags for that session.  Until then, all protocols are attempted until a tag is found.
-                
-                // With a Data Matrix barcode scan, stop any and all readers
-                // Before we know what reader, we try all, so test the negative
-                
-                // uGrokit Reader
-                if (!_zebraReaderConnected) {
-                    [[Ugi singleton].activeInventory stopInventory];
-                    [[Ugi singleton] closeConnection];
-                }
-                
-                // Zebra Reader
-                if (!_ugiReaderConnected) {
-                    [_rfidSdkApi srfidStopRapidRead:_readerID aStatusMessage:nil];
-                    [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
-                    _readerID = -1;
-                }
+                // With a Data Matrix barcode scan, stop the RFID reader
+                [_rfidSdkApi srfidStopRapidRead:_zebraReaderID aStatusMessage:nil];
                 
                 // Log the read barcode
                 NSLog(@"\nData Matrix label read: %@\n", _oldEPC);
@@ -539,10 +529,6 @@
             else {
                 // Assume false until verified
                 _barcodeFound = FALSE;
-                
-                // New input data
-                _successImg.hidden = TRUE;
-                _failImg.hidden = TRUE;
                 
                 // Grab the barcode
                 _barcodeLbl.text = [NSString stringWithFormat:@"Barcode: %@", detectionString];
@@ -598,6 +584,9 @@
                     [self.view sendSubviewToBack:_gtinFld];
                     
                     _barcodeFound = TRUE;
+                    
+                    // Log the read barcode
+                    NSLog(@"\nBar code read read: %@\n", barcode);
                 }
                 
                 // For replacement tags, encode any National brand GTINs in our custom GID format
@@ -642,6 +631,9 @@
                     [self.view sendSubviewToBack:_itmFld];
                     
                     _barcodeFound = TRUE;
+                    
+                    // Log the read barcode
+                    NSLog(@"\nBar code read read: %@\n", barcode);
                 }
                 
                 // National brand, encode GTIN in an SGTIN
@@ -671,6 +663,9 @@
                     [self.view sendSubviewToBack:_itmFld];
                     
                     _barcodeFound = TRUE;
+                    
+                    // Log the read barcode
+                    NSLog(@"\nBar code read read: %@\n", barcode);
                 }
                 
                 // Unsupported barcode
@@ -679,6 +674,9 @@
                     _barcodeLbl.text = @"Barcode: unsupported barcode";
                     _barcodeLbl.backgroundColor = UIColorFromRGB(0xCC0000);
                     _barcodeFound = FALSE;
+                    
+                    // Log the unsupported barcode
+                    NSLog(@"\nUnsupported barcode: %@\n", barcode);
                 }
             }
         }
@@ -691,6 +689,7 @@
         }
     }
     
+    // This clears the scan rectangle if empty
     _highlightView.frame = highlightViewRect;
     
     // Check to see if ready to encode
@@ -867,7 +866,7 @@
     [self.view setBackgroundColor:_defaultBackgroundColor];
     
     // Check to see if ready to encode
-    [self readyToEncode];
+    if (_scanScanEncodeSwt.on == FALSE) [self readyToEncode];
 }
 
 // Encode
@@ -877,8 +876,29 @@
  * @discussion Check for ready to encode - Enable the encode button if all input ready.
  */
 - (void)readyToEncode {
-    // If we have a valid barcode and an RFID tag read, we are ready to encode so enable the encode button
-    _encodeBtn.enabled = (_barcodeFound && _rfidFound && (_ugiReaderConnected || _zebraReaderConnected));
+    // If we have a valid barcode, an RFID tag, and a reader is connected, we are ready to encode
+    BOOL conditionsMet = (_barcodeFound && _rfidFound && ([_oldEPC length] > 0));
+    
+    // If scanScanEncode is enabled, automatically encode the tag now
+    if (_scanScanEncodeSwt.on == TRUE && conditionsMet) {
+        [self encode:_scanScanEncodeSwt];
+        
+        if (_tagEncoded) {
+            [self reset:_scanScanEncodeSwt];
+            
+            // Adjust the result images after reset
+            dispatch_async(dispatch_get_main_queue(),
+                           ^{
+                               _successImg.hidden = !(_tagEncoded);
+                               _failImg.hidden = _tagEncoded;
+                           });
+        }
+    }
+    
+    // Otherwise, enable or disable the manual encode button based on the conditions
+    else {
+        _encodeBtn.enabled = conditionsMet;
+    }
 }
 
 /*!
@@ -907,18 +927,8 @@
     
     if ([_oldEPC length] == 0) {
         // The only way we got here is after a successful tag read, otherwise the encode button wouldn't be active
-        // so this code block really should never be hit, and we should know which reader...
-        if (_ugiReaderConnected) {
-            // No reader, no encoding
-            if (![[Ugi singleton] isAnythingPluggedIntoAudioJack]) return;
-            if (![[Ugi singleton] inOpenConnection]) return;
-        
-            // Start scanning for RFID tags - when a tag is found, the inventoryTagFound delegate will be called
-            [[Ugi singleton] startInventory:self withConfiguration:_ugiConfig];
-        }
-        else if (_zebraReaderConnected) {
-            [self zebraRapidRead];
-        }
+        // so this code block really should never be hit.
+        [self zebraRapidRead];
     }
     else {
         [self endEncode:_oldEPC];
@@ -934,221 +944,79 @@
     
     if ([_newEPC length] == 0) return;
     
+    // Test tag reset: check for one of the special reset barcodes, if found, encode with the reset value
+    if ([[_gtinFld text] isEqual:@"999999999962"]){
+        [_newEPC setString:@"3BF0000000271471148F0E9C"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999979"]){
+        [_newEPC setString:@"3BF0000000271471148F0E9D"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999986"]){
+        [_newEPC setString:@"3BF0000000271471148F0E9E"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999993"]){
+        [_newEPC setString:@"3BF0000000271471148F0E9F"];
+    }
+    
     // Assume failure (many ways to fail)
     _tagEncoded = FALSE;
     
-    // Encode it with the new number
-    // uGrokit Reader
-    if (_ugiReaderConnected) {
-        
-        // Set the programming inputs
-        UgiEpc *oldEpc = [UgiEpc epcFromString:_oldEPC];
-        UgiEpc *newEpc = [UgiEpc epcFromString:_newEPC];
-        
-        [[Ugi singleton].activeInventory programTag:oldEpc
-                                              toEpc:newEpc
-                                       withPassword:UGI_NO_PASSWORD
-                                      whenCompleted:^(UgiTag *tag, UgiTagAccessReturnValues result) {
-                                          if (result == UGI_TAG_ACCESS_OK) {
-                                              // Tag programmed successfully
-                                              NSLog(@"Tag programmed successfully\n");
-                                              [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
-                                              _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
-                                              _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-                                              
-                                              // Increment the serial number for another run and update
-                                              NSInteger serInt = [[_serFld text] intValue];
-                                              [_serFld setText:[NSString stringWithFormat:@"%d", (int)(++serInt)]];
-                                              [self updateAll];
-                                              _successImg.hidden = FALSE;
-                                              _tagEncoded = TRUE;
-                                          }
-                                          else {
-                                              // Tag programming was unsuccessful
-                                              NSLog(@"Tag programming UNSUCCESSFUL\n");
-                                              [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
-                                              _failImg.hidden = FALSE;
-                                          }
-                                          // Stop the RFID reader
-                                          [[Ugi singleton].activeInventory stopInventory];
-                                          
-                                          // Update the battery life
-                                          UgiBatteryInfo batteryInfo;
-                                          if ([[Ugi singleton] getBatteryInfo:&batteryInfo]) {
-                                              _batteryLifeView.progress = (batteryInfo.percentRemaining)/100.;
-                                              _batteryLifeLbl.backgroundColor =
-                                              (batteryInfo.percentRemaining > 20)?UIColorFromRGB(0xA4CD39):
-                                              (batteryInfo.percentRemaining > 5 )?UIColorFromRGB(0xCC9900):
-                                                                                  UIColorFromRGB(0xCC0000);
-                                              _batteryLifeLbl.text = [NSString stringWithFormat:@"RFID Battery Life: %d%%", batteryInfo.percentRemaining];
-                                          }
-                                      }];
-    }
+    // Allocate object for storing results of access operation
+    srfidTagData *access_result = [[srfidTagData alloc] init];
     
-    // Zebra reader
-    if (_zebraReaderConnected) {
-        // Allocate object for storing results of access operation
-        srfidTagData *access_result = [[srfidTagData alloc] init];
-        
-        // An object for storage of error response received from RFID reader
-        NSString *error_response = nil;
-        
-        // Write _newEPC to the EPC memory bank of a tag specified by _oldEPC
-        SRFID_RESULT result = [_rfidSdkApi srfidWriteTag:_readerID
-                                                  aTagID:_oldEPC
-                                          aAccessTagData:&access_result
-                                             aMemoryBank:SRFID_MEMORYBANK_EPC
-                                                 aOffset:2                      // Not sure where 2 came from....
-                                                   aData:_newEPC
-                                               aPassword:0x00
-                                           aDoBlockWrite:NO
-                                          aStatusMessage:&error_response];
-        
-        if (SRFID_RESULT_SUCCESS == result) {
-            // Check result code of access operation
-            if (NO == [access_result getOperationSucceed]) {
-                NSLog(@"Tag programming UNSUCCESSFUL with error: %@\n", [access_result getOperationStatus]);
-                [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
-                _failImg.hidden = FALSE;
-            }
-            else {
-                NSLog(@"Tag programmed successfully\n");
-                [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
-                _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
-                _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-                
-                // Increment the serial number for another run and update
-                NSInteger serInt = [[_serFld text] intValue];
-                [_serFld setText:[NSString stringWithFormat:@"%d", (int)(++serInt)]];
-                [self updateAll];
-                _successImg.hidden = FALSE;
-                _tagEncoded = TRUE;
-            }
-        }
-        else if (SRFID_RESULT_RESPONSE_ERROR == result) {
-            NSLog(@"Tag programming UNSUCCESSFUL with error response from RFID reader: %@\n", error_response);
-            [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
-            _failImg.hidden = FALSE;
-        }
-        else if (SRFID_RESULT_RESPONSE_TIMEOUT == result) {
-            NSLog(@"Tag programming UNSUCCESSFUL: Timeout occurred\n");
+    // An object for storage of error response received from RFID reader
+    NSString *error_response = nil;
+    
+    // Write _newEPC to the EPC memory bank of a tag specified by _oldEPC
+    SRFID_RESULT result = [_rfidSdkApi srfidWriteTag:_zebraReaderID
+                                              aTagID:_oldEPC
+                                      aAccessTagData:&access_result
+                                         aMemoryBank:SRFID_MEMORYBANK_EPC
+                                             aOffset:2                      // Not sure where 2 came from....
+                                               aData:_newEPC
+                                           aPassword:0x00
+                                       aDoBlockWrite:NO
+                                      aStatusMessage:&error_response];
+    
+    if (SRFID_RESULT_SUCCESS == result) {
+        // Check result code of access operation
+        if (NO == [access_result getOperationSucceed]) {
+            NSLog(@"Tag programming UNSUCCESSFUL with error: %@\n", [access_result getOperationStatus]);
             [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
             _failImg.hidden = FALSE;
         }
         else {
-            NSLog(@"Tag programming UNSUCCESSFUL: Request failed\n");
-            [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
-            _failImg.hidden = FALSE;
+            NSLog(@"Tag programmed successfully\n");
+            [self.view setBackgroundColor:UIColorFromRGB(0xA4CD39)];
+            _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _newEPC];
+            _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
+            
+            // Increment the serial number for another run and update
+            NSInteger serInt = [[_serFld text] intValue];
+            [_serFld setText:[NSString stringWithFormat:@"%d", (int)(++serInt)]];
+            [self updateAll];
+            _successImg.hidden = FALSE;
+            _tagEncoded = TRUE;
         }
+    }
+    else if (SRFID_RESULT_RESPONSE_ERROR == result) {
+        NSLog(@"Tag programming UNSUCCESSFUL with error response from RFID reader: %@\n", error_response);
+        [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
+        _failImg.hidden = FALSE;
+    }
+    else if (SRFID_RESULT_RESPONSE_TIMEOUT == result) {
+        NSLog(@"Tag programming UNSUCCESSFUL: Timeout occurred\n");
+        [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
+        _failImg.hidden = FALSE;
+    }
+    else {
+        NSLog(@"Tag programming UNSUCCESSFUL: Request failed\n");
+        [self.view setBackgroundColor:UIColorFromRGB(0xCC0000)];
+        _failImg.hidden = FALSE;
     }
     
     // If our work is done
     if (_tagEncoded) [_oldEPC setString:@""];
-}
-
-// uGrokit RFID Reader
-#pragma mark - uGrokit Delegates
-
-/*!
- * @discussion New tag found with uGrokit reader.
- * Display the tag, stop the reader and check if ready to encode.
- * @param tag The RFID tag
- * @param detailedPerReadData The detailed data about the RFID tag
- */
-- (void) inventoryTagFound:(UgiTag *)tag
-   withDetailedPerReadData:(NSArray *)detailedPerReadData {
-    // Tag was found for the first time
-    
-    // New input data
-    _successImg.hidden = TRUE;
-    _failImg.hidden = TRUE;
-    
-    // Set the old EPC
-    [_oldEPC setString:[tag.epc toString]];
-
-    // Get the RFID tag
-    _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _oldEPC];
-    _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
-       
-    // After the first read, we know which reader
-    _rfidFound = TRUE;
-    if (!_ugiReaderConnected) {
-        [_rfidSdkApi srfidStopRapidRead:_readerID aStatusMessage:nil];
-        [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
-    }
-    _ugiReaderConnected = TRUE;
-    _zebraReaderConnected = FALSE;
-    
-    if (_encoding) {
-        [self endEncode:_oldEPC];
-        _encoding = FALSE;
-    }
-    else {
-        _rfidFound = TRUE;
-        
-        // Check to see if ready to encode
-        [self readyToEncode];
-    }
-    
-    // Log the read tag
-    NSLog(@"\nRFID tag read: %@\n", _oldEPC);
-}
-
-/*!
- * @discussion State changed with uGrokit reader - Adjust to the new state.
- * Listen for one of the following:
- *    UGI_CONNECTION_STATE_NOT_CONNECTED -          Nothing connected to audio port
- *    UGI_CONNECTION_STATE_CONNECTING -             Something connected to audio port, trying to connect
- *    UGI_CONNECTION_STATE_INCOMPATIBLE_READER -    Connected to an reader with incompatible firmware
- *    UGI_CONNECTION_STATE_CONNECTED -              Connected to reader
- * @param notification The notification info
- */
-- (void)connectionStateChanged:(NSNotification *) notification {
-    NSNumber *n = notification.object;
-    UgiConnectionStates connectionState = n.intValue;
-    if (connectionState == UGI_CONNECTION_STATE_CONNECTED) {
-        // Update the battery life with a new connection before starting an inventory
-        UgiBatteryInfo batteryInfo;
-        if ([[Ugi singleton] getBatteryInfo:&batteryInfo]) {
-            _batteryLifeView.progress = (batteryInfo.percentRemaining)/100.;
-            _batteryLifeLbl.backgroundColor =
-            (batteryInfo.percentRemaining > 20)?UIColorFromRGB(0xA4CD39):
-            (batteryInfo.percentRemaining > 5 )?UIColorFromRGB(0xCC9900):
-                                                UIColorFromRGB(0xCC0000);
-            
-            _batteryLifeLbl.text = [NSString stringWithFormat:@"RFID Battery Life: %d%%", batteryInfo.percentRemaining];
-        }
-        
-        // Start scanning for RFID tags - when a tag is found, the inventoryTagFound delegate will be called
-        _rfidLbl.text = @"RFID: (scanning for tags)";
-        [[Ugi singleton] startInventory:self withConfiguration:_ugiConfig];
-        return;
-    }
-    if (connectionState == UGI_CONNECTION_STATE_CONNECTING) {
-        _rfidLbl.text = @"RFID: (connecting to reader)";
-        _rfidLbl.backgroundColor = UIColorFromRGB(0xCC9900);
-        return;
-    }
-    if (connectionState == UGI_CONNECTION_STATE_INCOMPATIBLE_READER) {
-        // With no reader, just ignore the RFID reads
-        _rfidLbl.text = @"RFID: (no compatible reader)";
-        _rfidLbl.backgroundColor = UIColorFromRGB(0xCC0000);
-        _batteryLifeView.progress = 0.;
-        _batteryLifeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-        _batteryLifeLbl.text = @"RFID Battery Life";
-        _rfidFound = FALSE;
-        return;
-    }
-    if (connectionState == UGI_CONNECTION_STATE_NOT_CONNECTED ) {
-        // Reader not connected, just ignore the RFID reads
-        _rfidLbl.text = @"RFID: (reader not connected)";
-        _rfidLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-        _batteryLifeView.progress = 0.;
-        _batteryLifeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
-        _batteryLifeLbl.text = @"RFID Battery Life";
-        _rfidFound = FALSE;
-        return;
-    }
 }
 
 // Zebra RFID Reader
@@ -1173,16 +1041,18 @@
 {
     NSLog(@"Zebra Communication Established - Name: %@", [activeReader getReaderName]);
     
-    // Set the volume
-    NSString *statusMessage = nil;
-    [_rfidSdkApi srfidSetBeeperConfig:[activeReader getReaderID] aBeeperConfig:SRFID_BEEPERCONFIG_LOW aStatusMessage:&statusMessage];
-    
     // Set the reader
-    _readerID = [activeReader getReaderID];
+    _zebraReaderID = [activeReader getReaderID];
     
     // Establish ASCII connection
-    if ([_rfidSdkApi srfidEstablishAsciiConnection:_readerID aPassword:nil] == SRFID_RESULT_SUCCESS)
+    if ([_rfidSdkApi srfidEstablishAsciiConnection:_zebraReaderID aPassword:nil] == SRFID_RESULT_SUCCESS)
     {
+        // Set the volume
+        NSString *statusMessage = nil;
+        [_rfidSdkApi srfidSetBeeperConfig:_zebraReaderID
+                            aBeeperConfig:SRFID_BEEPERCONFIG_LOW
+                           aStatusMessage:&statusMessage];
+        
         // Success, now read tags
         [self zebraRapidRead];
     }
@@ -1202,8 +1072,8 @@
                        });
         
         // Terminate sesssion
-        [_rfidSdkApi srfidTerminateCommunicationSession:_readerID];
-        _readerID = -1;
+        [_rfidSdkApi srfidTerminateCommunicationSession:_zebraReaderID];
+        _zebraReaderID = -1;
         _rfidLbl.backgroundColor = UIColorFromRGB(0xCC0000);
         _rfidLbl.text = @"RFID: Zebra connection failed";
     }
@@ -1235,14 +1105,8 @@
                        _rfidLbl.text = [NSString stringWithFormat:@"RFID: %@", _oldEPC];
                        _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
                        
-                       // After the first read, we know which reader
+                       // We've found a tag
                        _rfidFound = TRUE;
-                       if (!_zebraReaderConnected) {
-                           [[Ugi singleton].activeInventory stopInventory];
-                           [[Ugi singleton] closeConnection];
-                       }
-                       _ugiReaderConnected = FALSE;
-                       _zebraReaderConnected = TRUE;
                        
                        if (_encoding) {
                            [self endEncode:_oldEPC];

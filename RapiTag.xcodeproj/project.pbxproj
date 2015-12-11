@@ -14,11 +14,6 @@
 		B70244741B018CF600B9B47F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B70244721B018CF600B9B47F /* LaunchScreen.xib */; };
 		B70244801B018CF600B9B47F /* RapiTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B702447F1B018CF600B9B47F /* RapiTagTests.m */; };
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
-		B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */; };
-		B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */; };
-		B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244A91B018EE500B9B47F /* MediaPlayer.framework */; };
-		B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AB1B018EEE00B9B47F /* AVFoundation.framework */; };
-		B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B70244AD1B018EF800B9B47F /* AudioToolbox.framework */; };
 		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
 		B71237DD1B8FFC6B00EBDA19 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237DC1B8FFC6B00EBDA19 /* NewRelicAgent.framework */; };
 		B71237E31B8FFCB100EBDA19 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237E21B8FFCB100EBDA19 /* CoreTelephony.framework */; };
@@ -26,12 +21,15 @@
 		B71237E91B8FFCD800EBDA19 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237E81B8FFCD800EBDA19 /* libz.dylib */; };
 		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
-		B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */; };
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
 		B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */; };
 		B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */; };
 		B7D5C9BD1BCE0C6A00EDCCC0 /* EPCEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */; };
 		B7D5C9BE1BCE0CC300EDCCC0 /* EPCEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */; };
+		B7F7714F1C1B8548006D8FF9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F7714E1C1B8548006D8FF9 /* AVFoundation.framework */; };
+		B7F771511C1B855E006D8FF9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F771501C1B855E006D8FF9 /* AudioToolbox.framework */; };
+		B7F771531C1B856F006D8FF9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F771521C1B856F006D8FF9 /* MediaPlayer.framework */; };
+		B7F771551C1B857F006D8FF9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F771541C1B857F006D8FF9 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +56,6 @@
 		B702447F1B018CF600B9B47F /* RapiTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RapiTagTests.m; sourceTree = "<group>"; };
 		B70244891B018D7700B9B47F /* EncoderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncoderViewController.h; sourceTree = "<group>"; };
 		B702448A1B018D7700B9B47F /* EncoderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncoderViewController.m; sourceTree = "<group>"; };
-		B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B70244A91B018EE500B9B47F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		B70244AB1B018EEE00B9B47F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		B70244AD1B018EF800B9B47F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B7117D3E1B33362A00968426 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B7117D3F1B33362A00968426 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B71237DC1B8FFC6B00EBDA19 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
@@ -87,26 +80,14 @@
 		B77B31EA1BBC0C150017348E /* UgiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UgiUtil.h; sourceTree = "<group>"; };
 		B77C52E71B7F0B200049D701 /* ConverterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterTests.m; sourceTree = "<group>"; };
 		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
-		B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUGrokItApi.a; path = uGrokit/libUGrokItApi.a; sourceTree = "<group>"; };
-		B7801CE71B8BF3CD001E1E6C /* Ugi_antennaTuning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_antennaTuning.h; path = uGrokit/include/Ugi_antennaTuning.h; sourceTree = SOURCE_ROOT; };
-		B7801CE81B8BF3CD001E1E6C /* Ugi_firmwareUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_firmwareUpdate.h; path = uGrokit/include/Ugi_firmwareUpdate.h; sourceTree = SOURCE_ROOT; };
-		B7801CE91B8BF3CD001E1E6C /* Ugi_regions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi_regions.h; path = uGrokit/include/Ugi_regions.h; sourceTree = SOURCE_ROOT; };
-		B7801CEA1B8BF3CD001E1E6C /* Ugi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Ugi.h; path = uGrokit/include/Ugi.h; sourceTree = SOURCE_ROOT; };
-		B7801CEB1B8BF3CD001E1E6C /* UgiConfigurationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiConfigurationDelegate.h; path = uGrokit/include/UgiConfigurationDelegate.h; sourceTree = SOURCE_ROOT; };
-		B7801CEC1B8BF3CD001E1E6C /* UgiDefaultConfigurationUi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiDefaultConfigurationUi.h; path = uGrokit/include/UgiDefaultConfigurationUi.h; sourceTree = SOURCE_ROOT; };
-		B7801CED1B8BF3CD001E1E6C /* UgiEpc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiEpc.h; path = uGrokit/include/UgiEpc.h; sourceTree = SOURCE_ROOT; };
-		B7801CEE1B8BF3CD001E1E6C /* UgiInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiInventory.h; path = uGrokit/include/UgiInventory.h; sourceTree = SOURCE_ROOT; };
-		B7801CEF1B8BF3CD001E1E6C /* UgiInventoryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiInventoryDelegate.h; path = uGrokit/include/UgiInventoryDelegate.h; sourceTree = SOURCE_ROOT; };
-		B7801CF01B8BF3CD001E1E6C /* UgiJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiJson.h; path = uGrokit/include/UgiJson.h; sourceTree = SOURCE_ROOT; };
-		B7801CF11B8BF3CD001E1E6C /* UgiRfidConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiRfidConfiguration.h; path = uGrokit/include/UgiRfidConfiguration.h; sourceTree = SOURCE_ROOT; };
-		B7801CF21B8BF3CD001E1E6C /* UgiTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiTag.h; path = uGrokit/include/UgiTag.h; sourceTree = SOURCE_ROOT; };
-		B7801CF31B8BF3CD001E1E6C /* UgiTagReadState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiTagReadState.h; path = uGrokit/include/UgiTagReadState.h; sourceTree = SOURCE_ROOT; };
-		B7801CF41B8BF3CD001E1E6C /* UgiUiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUiUtil.h; path = uGrokit/include/UgiUiUtil.h; sourceTree = SOURCE_ROOT; };
-		B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UgiUtil.h; path = uGrokit/include/UgiUtil.h; sourceTree = SOURCE_ROOT; };
 		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		B785F88F1BA0D7E50020C753 /* libsymbolrfid-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsymbolrfid-sdk.a"; path = "Zebra/libsymbolrfid-sdk.a"; sourceTree = "<group>"; };
 		B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EPCEncoder.framework; sourceTree = "<group>"; };
+		B7F7714E1C1B8548006D8FF9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B7F771501C1B855E006D8FF9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B7F771521C1B856F006D8FF9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		B7F771541C1B857F006D8FF9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,17 +95,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F771551C1B857F006D8FF9 /* SystemConfiguration.framework in Frameworks */,
+				B7F771531C1B856F006D8FF9 /* MediaPlayer.framework in Frameworks */,
+				B7F771511C1B855E006D8FF9 /* AudioToolbox.framework in Frameworks */,
+				B7F7714F1C1B8548006D8FF9 /* AVFoundation.framework in Frameworks */,
 				B71237E91B8FFCD800EBDA19 /* libz.dylib in Frameworks */,
 				B71237E71B8FFCCC00EBDA19 /* libc++.dylib in Frameworks */,
 				B71237E31B8FFCB100EBDA19 /* CoreTelephony.framework in Frameworks */,
-				B70244AE1B018EF800B9B47F /* AudioToolbox.framework in Frameworks */,
 				B7D5C9BD1BCE0C6A00EDCCC0 /* EPCEncoder.framework in Frameworks */,
-				B70244AC1B018EEE00B9B47F /* AVFoundation.framework in Frameworks */,
-				B70244AA1B018EE500B9B47F /* MediaPlayer.framework in Frameworks */,
-				B70244A81B018EDD00B9B47F /* SystemConfiguration.framework in Frameworks */,
-				B7801CE61B8BF3BB001E1E6C /* libUGrokItApi.a in Frameworks */,
 				B71237DD1B8FFC6B00EBDA19 /* NewRelicAgent.framework in Frameworks */,
-				B70244A61B018ECB00B9B47F /* libz.1.2.5.dylib in Frameworks */,
 				B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */,
 				B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */,
 				B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */,
@@ -149,7 +128,7 @@
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
 				B7D5C9BB1BCE0C4B00EDCCC0 /* EPCEncoder */,
 				B70244611B018CF600B9B47F /* Products */,
-				B7801CE41B8B9BC1001E1E6C /* uGrokit */,
+				B7F7714D1C1B851B006D8FF9 /* Scanner */,
 				B785F8891BA0D6060020C753 /* Zebra */,
 				B71237DA1B8FFC3300EBDA19 /* NewRelic */,
 			);
@@ -210,28 +189,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B70244951B018E3D00B9B47F /* include */ = {
-			isa = PBXGroup;
-			children = (
-				B7801CE71B8BF3CD001E1E6C /* Ugi_antennaTuning.h */,
-				B7801CE81B8BF3CD001E1E6C /* Ugi_firmwareUpdate.h */,
-				B7801CE91B8BF3CD001E1E6C /* Ugi_regions.h */,
-				B7801CEA1B8BF3CD001E1E6C /* Ugi.h */,
-				B7801CEB1B8BF3CD001E1E6C /* UgiConfigurationDelegate.h */,
-				B7801CEC1B8BF3CD001E1E6C /* UgiDefaultConfigurationUi.h */,
-				B7801CED1B8BF3CD001E1E6C /* UgiEpc.h */,
-				B7801CEE1B8BF3CD001E1E6C /* UgiInventory.h */,
-				B7801CEF1B8BF3CD001E1E6C /* UgiInventoryDelegate.h */,
-				B7801CF01B8BF3CD001E1E6C /* UgiJson.h */,
-				B7801CF11B8BF3CD001E1E6C /* UgiRfidConfiguration.h */,
-				B7801CF21B8BF3CD001E1E6C /* UgiTag.h */,
-				B7801CF31B8BF3CD001E1E6C /* UgiTagReadState.h */,
-				B7801CF41B8BF3CD001E1E6C /* UgiUiUtil.h */,
-				B7801CF51B8BF3CD001E1E6C /* UgiUtil.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 		B71237DA1B8FFC3300EBDA19 /* NewRelic */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,20 +223,6 @@
 			path = uGrokit/include;
 			sourceTree = "<group>";
 		};
-		B7801CE41B8B9BC1001E1E6C /* uGrokit */ = {
-			isa = PBXGroup;
-			children = (
-				B7801CE51B8BF3BB001E1E6C /* libUGrokItApi.a */,
-				B70244951B018E3D00B9B47F /* include */,
-				B70244AB1B018EEE00B9B47F /* AVFoundation.framework */,
-				B70244AD1B018EF800B9B47F /* AudioToolbox.framework */,
-				B70244A91B018EE500B9B47F /* MediaPlayer.framework */,
-				B70244A71B018EDD00B9B47F /* SystemConfiguration.framework */,
-				B70244A51B018ECB00B9B47F /* libz.1.2.5.dylib */,
-			);
-			name = uGrokit;
-			sourceTree = "<group>";
-		};
 		B785F8891BA0D6060020C753 /* Zebra */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +240,17 @@
 				B7D5C9BC1BCE0C6A00EDCCC0 /* EPCEncoder.framework */,
 			);
 			name = EPCEncoder;
+			sourceTree = "<group>";
+		};
+		B7F7714D1C1B851B006D8FF9 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				B7F7714E1C1B8548006D8FF9 /* AVFoundation.framework */,
+				B7F771501C1B855E006D8FF9 /* AudioToolbox.framework */,
+				B7F771521C1B856F006D8FF9 /* MediaPlayer.framework */,
+				B7F771541C1B857F006D8FF9 /* SystemConfiguration.framework */,
+			);
+			name = Scanner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

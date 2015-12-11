@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "Ugi.h"
 
 @interface AppDelegate ()
 
@@ -18,11 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Ugi createSingleton];
-    [[Ugi singleton] openConnection];
-    
-// TPM - uncomment this for useful debugging info
-//    [Ugi singleton].loggingStatus |= UGI_LOGGING_INTERNAL_PACKET_PROTOCOL;
     
     // This for NewRelic monitoring of app
 // TPM - uncomment this for useful debugging info
@@ -54,9 +48,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    
-    // Release the uGrokit reader
-    [Ugi releaseSingleton];
 }
 
 @end

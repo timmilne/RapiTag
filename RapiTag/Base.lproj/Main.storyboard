@@ -63,9 +63,6 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="SuccessImage" translatesAutoresizingMaskIntoConstraints="NO" id="2CW-Cg-w6I">
                                 <rect key="frame" x="100" y="50" width="400" height="400"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="FailImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-VF-Mh5">
-                                <rect key="frame" x="100" y="50" width="400" height="400"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9o-K0-LDd">
                                 <rect key="frame" x="16" y="180" width="42" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -126,12 +123,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Scan Scan Encode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPL-pi-cfu">
+                                <rect key="frame" x="381" y="111" width="144" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1J4-yG-zFl">
                                 <rect key="frame" x="531" y="75" width="51" height="31"/>
                                 <connections>
                                     <action selector="update:" destination="AEa-fn-Pz3" eventType="touchUpInside" id="Orm-V9-qwS"/>
                                 </connections>
                             </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uRr-sr-lGq">
+                                <rect key="frame" x="531" y="111" width="51" height="31"/>
+                                <connections>
+                                    <action selector="reset:" destination="AEa-fn-Pz3" eventType="touchUpInside" id="Zws-kc-fPs"/>
+                                </connections>
+                            </switch>
+                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="FailImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-VF-Mh5">
+                                <rect key="frame" x="100" y="50" width="400" height="400"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -139,6 +151,8 @@
                             <constraint firstAttribute="centerX" secondItem="3Kt-VF-Mh5" secondAttribute="centerX" id="5sy-u5-k7T"/>
                             <constraint firstAttribute="centerX" secondItem="2CW-Cg-w6I" secondAttribute="centerX" id="aet-O1-p6r"/>
                             <constraint firstItem="1J4-yG-zFl" firstAttribute="trailing" secondItem="an7-rK-mLo" secondAttribute="trailingMargin" id="b0t-tD-mE3"/>
+                            <constraint firstItem="uRr-sr-lGq" firstAttribute="leading" secondItem="hPL-pi-cfu" secondAttribute="trailing" constant="6" id="haq-c8-33O"/>
+                            <constraint firstItem="uRr-sr-lGq" firstAttribute="trailing" secondItem="an7-rK-mLo" secondAttribute="trailingMargin" id="sso-NZ-dLt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="RapiTag" id="pvz-B9-gdj">
@@ -166,6 +180,7 @@
                         <outlet property="_itmLbl" destination="nje-y1-jRW" id="Sqf-n9-cgn"/>
                         <outlet property="_replaceSwt" destination="1J4-yG-zFl" id="gKr-0s-ZJc"/>
                         <outlet property="_resetBtn" destination="6KJ-3Y-PRk" id="gXN-Fv-nsG"/>
+                        <outlet property="_scanScanEncodeSwt" destination="uRr-sr-lGq" id="Mkx-5T-q2e"/>
                         <outlet property="_serFld" destination="Uny-Cx-OPD" id="liX-Ic-jCj"/>
                         <outlet property="_serLbl" destination="p9o-K0-LDd" id="Ano-aR-Ujz"/>
                         <outlet property="_successImg" destination="2CW-Cg-w6I" id="gWY-Vl-pNW"/>
