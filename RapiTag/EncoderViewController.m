@@ -945,7 +945,19 @@
     if ([_newEPC length] == 0) return;
     
     // Test tag reset: check for one of the special reset barcodes, if found, encode with the reset value
-    if ([[_gtinFld text] isEqual:@"999999999962"]){
+    if ([[_gtinFld text] isEqual:@"999999999924"]){
+        [_newEPC setString:@"E28011606000020610B772C2"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999931"]){
+        [_newEPC setString:@"E28011606000020610B772E2"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999948"]){
+        [_newEPC setString:@"E28011606000020610B7E232"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999955"]){
+        [_newEPC setString:@"E28011606000020610B85282"];
+    }
+    else if ([[_gtinFld text] isEqual:@"999999999962"]){
         [_newEPC setString:@"3BF0000000271471148F0E9C"];
     }
     else if ([[_gtinFld text] isEqual:@"999999999979"]){
