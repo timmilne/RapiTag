@@ -514,13 +514,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/uGrokit",
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower).daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "uGrokit/include/** Zebra/include/**";
+				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
 			name = Debug;
 		};
@@ -539,13 +538,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/uGrokit",
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower).daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "uGrokit/include/** Zebra/include/**";
+				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
 			name = Release;
 		};
