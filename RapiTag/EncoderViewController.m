@@ -211,10 +211,6 @@
  * @param sender The ID of the sender object (not used)
  */
 - (IBAction)reset:(id)sender {
-    
-// TPM - uncomment this line to test a NewRelic crash
-//    [NewRelic crashNow:@"Crashed on Reset"];
-    
     // Reset all controls and variables
     _barcodeFound = FALSE;
     _rfidFound = FALSE;

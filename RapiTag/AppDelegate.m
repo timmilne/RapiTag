@@ -17,14 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    // This for NewRelic monitoring of app
-// TPM - uncomment this for useful debugging info
-//    [NRLogger setLogLevels:NRLogLevelALL];
-// TPM - Dev
-    [NewRelicAgent startWithApplicationToken:@"AA05b761137741ce2793b00558793020f1bb97f36d"];
-// TPM - Prod
-//    [NewRelicAgent startWithApplicationToken:@"AA62c0975822073b37ec6a9dd385877adf250617a4"];
     return YES;
 }
 

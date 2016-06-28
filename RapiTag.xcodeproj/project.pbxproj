@@ -15,10 +15,6 @@
 		B70244801B018CF600B9B47F /* RapiTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B702447F1B018CF600B9B47F /* RapiTagTests.m */; };
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
 		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
-		B71237DD1B8FFC6B00EBDA19 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237DC1B8FFC6B00EBDA19 /* NewRelicAgent.framework */; };
-		B71237E31B8FFCB100EBDA19 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237E21B8FFCB100EBDA19 /* CoreTelephony.framework */; };
-		B71237E71B8FFCCC00EBDA19 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237E61B8FFCCC00EBDA19 /* libc++.dylib */; };
-		B71237E91B8FFCD800EBDA19 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B71237E81B8FFCD800EBDA19 /* libz.dylib */; };
 		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
@@ -58,11 +54,6 @@
 		B702448A1B018D7700B9B47F /* EncoderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncoderViewController.m; sourceTree = "<group>"; };
 		B7117D3E1B33362A00968426 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B7117D3F1B33362A00968426 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		B71237DC1B8FFC6B00EBDA19 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
-		B71237E21B8FFCB100EBDA19 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		B71237E61B8FFCCC00EBDA19 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		B71237E81B8FFCD800EBDA19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		B71237EC1B8FFD2900EBDA19 /* RapiTag-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RapiTag-Prefix.pch"; sourceTree = "<group>"; };
 		B77B31DC1BBC0C150017348E /* Ugi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi.h; sourceTree = "<group>"; };
 		B77B31DD1BBC0C150017348E /* Ugi_antennaTuning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_antennaTuning.h; sourceTree = "<group>"; };
 		B77B31DE1BBC0C150017348E /* Ugi_firmwareUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ugi_firmwareUpdate.h; sourceTree = "<group>"; };
@@ -99,11 +90,7 @@
 				B7F771531C1B856F006D8FF9 /* MediaPlayer.framework in Frameworks */,
 				B7F771511C1B855E006D8FF9 /* AudioToolbox.framework in Frameworks */,
 				B7F7714F1C1B8548006D8FF9 /* AVFoundation.framework in Frameworks */,
-				B71237E91B8FFCD800EBDA19 /* libz.dylib in Frameworks */,
-				B71237E71B8FFCCC00EBDA19 /* libc++.dylib in Frameworks */,
-				B71237E31B8FFCB100EBDA19 /* CoreTelephony.framework in Frameworks */,
 				B7D5C9BD1BCE0C6A00EDCCC0 /* EPCEncoder.framework in Frameworks */,
-				B71237DD1B8FFC6B00EBDA19 /* NewRelicAgent.framework in Frameworks */,
 				B785F8911BA0D7E50020C753 /* libsymbolrfid-sdk.a in Frameworks */,
 				B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */,
 				B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */,
@@ -130,7 +117,6 @@
 				B70244611B018CF600B9B47F /* Products */,
 				B7F7714D1C1B851B006D8FF9 /* Scanner */,
 				B785F8891BA0D6060020C753 /* Zebra */,
-				B71237DA1B8FFC3300EBDA19 /* NewRelic */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,7 +151,6 @@
 			children = (
 				B70244641B018CF600B9B47F /* Info.plist */,
 				B70244651B018CF600B9B47F /* main.m */,
-				B71237EC1B8FFD2900EBDA19 /* RapiTag-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -187,17 +172,6 @@
 				B702447E1B018CF600B9B47F /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B71237DA1B8FFC3300EBDA19 /* NewRelic */ = {
-			isa = PBXGroup;
-			children = (
-				B71237DC1B8FFC6B00EBDA19 /* NewRelicAgent.framework */,
-				B71237E21B8FFCB100EBDA19 /* CoreTelephony.framework */,
-				B71237E61B8FFCCC00EBDA19 /* libc++.dylib */,
-				B71237E81B8FFCD800EBDA19 /* libz.dylib */,
-			);
-			name = NewRelic;
 			sourceTree = "<group>";
 		};
 		B77B31DB1BBC0C150017348E /* include */ = {
@@ -263,7 +237,6 @@
 				B702445C1B018CF600B9B47F /* Sources */,
 				B702445D1B018CF600B9B47F /* Frameworks */,
 				B702445E1B018CF600B9B47F /* Resources */,
-				B71237EE1B90009300EBDA19 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -349,22 +322,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B71237EE1B90009300EBDA19 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n/bin/sh \"${SCRIPT}\" \"AA62c0975822073b37ec6a9dd385877adf250617a4\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B702445C1B018CF600B9B47F /* Sources */ = {
@@ -504,11 +461,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/RapiTag/RapiTag-Prefix.pch";
 				INFOPLIST_FILE = RapiTag/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -532,7 +489,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/RapiTag/RapiTag-Prefix.pch";
 				INFOPLIST_FILE = RapiTag/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
