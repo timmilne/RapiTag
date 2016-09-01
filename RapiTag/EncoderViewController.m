@@ -143,7 +143,7 @@
     [self.view addSubview:_batteryLifeView];
     
     // Version label
-    _versionLbl.text = [NSString stringWithFormat:@"%@",
+    _versionLbl.text = [NSString stringWithFormat:@"Version: %@",
                         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     
     // Initialize the bar code scanner session, device, input, output, and preview layer
