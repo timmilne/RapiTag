@@ -474,7 +474,7 @@
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower).daily";
+				PRODUCT_BUNDLE_IDENTIFIER = com.target.stores.rapitag.daily.tim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
@@ -497,7 +497,7 @@
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower).daily";
+				PRODUCT_BUNDLE_IDENTIFIER = com.target.stores.rapitag.daily.tim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
