@@ -35,6 +35,7 @@
     __weak IBOutlet UIImageView     *_failImg;
     __weak IBOutlet UISwitch        *_replaceSwt;
     __weak IBOutlet UISwitch        *_scanScanEncodeSwt;
+    __weak IBOutlet UILabel         *_versionLbl;
     
     BOOL                            _barcodeFound;
     BOOL                            _rfidFound;
@@ -140,6 +141,10 @@
     _batteryLifeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     _batteryLifeView.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     [self.view addSubview:_batteryLifeView];
+    
+    // Version label
+    _versionLbl.text = [NSString stringWithFormat:@"%@",
+                        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     
     // Initialize the bar code scanner session, device, input, output, and preview layer
     _session = [[AVCaptureSession alloc] init];
