@@ -276,10 +276,11 @@
 				TargetAttributes = {
 					B702445F1B018CF600B9B47F = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 56H62Y5EBN;
+						DevelopmentTeam = 6B6T6M8GHY;
 					};
 					B70244781B018CF600B9B47F = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 6B6T6M8GHY;
 						TestTargetID = B702445F1B018CF600B9B47F;
 					};
 				};
@@ -462,6 +463,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6B6T6M8GHY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -474,7 +476,7 @@
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.target.stores.rapitag.daily.tim;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timmilne.rapitag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
@@ -485,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6B6T6M8GHY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -497,7 +500,7 @@
 					"$(PROJECT_DIR)/Zebra",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.target.stores.rapitag.daily.tim;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timmilne.rapitag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Zebra/include/**";
 			};
@@ -507,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6B6T6M8GHY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -527,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6B6T6M8GHY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "EncodeIcon-01.png"
+      "filename" : "EncodeIcon-01.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "EncodeIcon-02.png"
+      "filename" : "EncodeIcon-02.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "EncodeIcon-02-1.png"
+      "filename" : "EncodeIcon-3.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
