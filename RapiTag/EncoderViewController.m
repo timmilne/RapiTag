@@ -1005,8 +1005,8 @@
             _rfidLbl.backgroundColor = UIColorFromRGB(0xA4CD39);
             
             // Increment the serial number for another run and update
-            NSInteger serInt = [[_serFld text] intValue];
-            [_serFld setText:[NSString stringWithFormat:@"%d", (int)(++serInt)]];
+            long long serLong = [[_serFld text] longLongValue];
+            [_serFld setText:[NSString stringWithFormat:@"%lld", (++serLong)]];
             [self updateAll];
             _successImg.hidden = FALSE;
             _tagEncoded = TRUE;
