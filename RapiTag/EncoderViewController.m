@@ -970,6 +970,9 @@
     else if ([[_gtinFld text] isEqual:@"999999999993"]){
         [_newEPC setString:@"3BF0000000271471148F0E9F"];
     }
+
+// TPM hard code some tags
+//    [_newEPC setString:@"777777777777777777777777"];
     
     // Assume failure (many ways to fail)
     _tagEncoded = FALSE;
