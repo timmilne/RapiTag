@@ -1,6 +1,6 @@
 //
 //  EPCEncoderTests.m
-//  ValiTag
+//  RapiTagTests
 //
 //  Created by Tim.Milne on 8/14/15.
 //  Copyright (c) 2015 Tim.Milne. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <EPCEncoder/EPCEncoder.h>     // To encode the scanned barcode for comparison
+#import <RFIDEncoder/EPCEncoder.h>     // To encode the scanned barcode for comparison
 
 @interface EPCEncoderTests : XCTestCase
 {

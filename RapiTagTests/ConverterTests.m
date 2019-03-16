@@ -1,6 +1,6 @@
 //
 //  ConverterTests.m
-//  ValiTag
+//  RapiTagTests
 //
 //  Created by Tim.Milne on 8/14/15.
 //  Copyright (c) 2015 Tim.Milne. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <EPCEncoder/Converter.h>      // To convert to binary for comparison
+#import <RFIDEncoder/Converter.h>      // To convert to binary for comparison
 
 @interface ConverterTests : XCTestCase
 {

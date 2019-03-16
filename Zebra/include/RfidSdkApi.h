@@ -13,7 +13,6 @@
  *  Notes:
  *
  ******************************************************************************/
-
 #import "RfidSdkDefs.h"
 #import "RfidSdkApiDelegate.h"
 #import "RfidReportConfig.h"
@@ -29,6 +28,10 @@
 #import "RfidRegulatoryConfig.h"
 #import "RfidPreFilter.h"
 #import "RfidAttribute.h"
+#import "RfidAccessCriteria.h"
+#import "RfidAccessParameters.h"
+#import "RfidUniqueTagsReport.h"
+#import "RfidUntraceableConfig.h"
 
 #ifndef __RFID_SDK_API__
 #define __RFID_SDK_API__
@@ -98,6 +101,7 @@
 - (SRFID_RESULT) srfidSetPreFilters:(int)readerID aPreFilters:(NSMutableArray*)filtersList aStatusMessage:(NSString**)statusMessage;
 
 - (SRFID_RESULT) srfidStartTagLocationing:(int)readerID aTagEpcId:(NSString*)epcID aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidStartTagLocationing:(int)readerID aTagEpcId:(NSString*)epcID aTagEpcMask:(NSString*)epcMask aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidStopTagLocationing:(int)readerID aStatusMessage:(NSString**)statusMessage;
 
 - (SRFID_RESULT) srfidSaveReaderConfiguration:(int)readerID aSaveCustomDefaults:(BOOL)saveCustomDefaults aStatusMessage:(NSString**)statusMessage;
@@ -107,11 +111,18 @@
 - (SRFID_RESULT) srfidWriteTag:(int)readerID aTagID:(NSString*)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aData:(NSString*)data aPassword:(long)password aDoBlockWrite:(BOOL)blockWrite aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidKillTag:(int)readerID aTagID:(NSString*)tagID aAccessTagData:(srfidTagData**)accessTagData aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidLockTag:(int)readerID aTagID:(NSString*)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aAccessPermissions:(SRFID_ACCESSPERMISSION)accessPermissions aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
-
 - (SRFID_RESULT) srfidBlockErase:(int)readerID aTagID:(NSString *)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidBlockPermaLock:(int)readerID aTagID:(NSString *)tagID aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aDoLock:(BOOL)doLock aBlockPtr:(short)blockPtr aBlockRange:(short)blockRange aBlockMask:(NSString *)blockMask aPassword:(long)password aStatusMessage:(NSString **)statusMessage;
 
+- (SRFID_RESULT) srfidReadTag:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidWriteTag:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aData:(NSString*)data aPassword:(long)password aDoBlockWrite:(BOOL)blockWrite aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidKillTag:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidLockTag:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aAccessPermissions:(SRFID_ACCESSPERMISSION)accessPermissions aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidBlockErase:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidBlockPermaLock:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessTagData:(srfidTagData**)accessTagData aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aDoLock:(BOOL)doLock aBlockPtr:(short)blockPtr aBlockRange:(short)blockRange aBlockMask:(NSString *)blockMask aPassword:(long)password aStatusMessage:(NSString **)statusMessage;
+
 - (SRFID_RESULT) srfidRequestBatteryStatus:(int)readerID;
+- (SRFID_RESULT) srfidRequestDeviceStatus:(int)readerID aBattery:(BOOL)getBattery aTemperature:(BOOL)getTemperature aPower:(BOOL)getPower;
 
 - (SRFID_RESULT) srfidGetBatchModeConfig:(int)readerID aBatchModeConfig:(SRFID_BATCHMODECONFIG*)batchModeConfig aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidSetBatchModeConfig:(int)readerID aBatchModeConfig:(SRFID_BATCHMODECONFIG)batchModeConfig aStatusMessage:(NSString**)statusMessage;
@@ -120,7 +131,43 @@
 
 - (SRFID_RESULT) srfidPurgeTags:(int)readerID aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidSetAttribute:(int)readerId attributeNumber:(int)attrNum attributeValue:(int)attrVal attributeType:(NSString*)attrType aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidSetAttribute:(int)readerID aAttrInfo:(srfidAttribute*)attrInfo aStatusMessage:(NSString**)statusMessage;
 - (SRFID_RESULT) srfidGetAttribute:(int)readerID aAttrNum:(int)attrNum aAttrInfo:(srfidAttribute**)attrInfo aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidLocateReader:(int)readerID doEnabled:(BOOL)doEnabled aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidSetAccessCommandOperationWaitTimeout :(int)readerID aTimeoutMs:(int)timeoutMs;
+
+- (SRFID_RESULT) srfidEnableDebugLog;
+- (SRFID_RESULT) srfidDisableDebugLog;
+- (SRFID_RESULT) srfidResetDebugLog;
+- (SRFID_RESULT) srfidRetrieveDebugLog:(NSString **)debugLog;
+
+
+- (SRFID_RESULT) srfidReadTagAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidWriteTagAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aData:(NSString*)data aPassword:(long)password aDoBlockWrite:(BOOL)blockWrite aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidLockTagAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aAccessPermissions:(SRFID_ACCESSPERMISSION)accessPermissions aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidKillTagAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidBlockPermaLockAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aDoLock:(BOOL)doLock aBlockPtr:(short)blockPtr aBlockRange:(short)blockRange aBlockMask:(NSString *)blockMask aPassword:(long)password aStatusMessage:(NSString **)statusMessage;
+
+- (SRFID_RESULT) srfidBlockEraseAsync:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aMemoryBank:(SRFID_MEMORYBANK)memoryBankID aOffset:(short)offset aLength:(short)length aPassword:(long)password aStatusMessage:(NSString**)statusMessage;
+
+- (SRFID_RESULT) srfidPerformAccessInSequence:(int)readerID aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessParameters: (NSArray *)accessParameters aStatusMessage:(NSString**)statusMessage;
+#pragma mark UniqueTagsReport
+- (SRFID_RESULT) srfidSetUniqueTagReportConfiguration:(int)readerID aUtrConfiguration:(srfidUniqueTagsReport*)UtrConfiguration aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidGetUniqueTagReportConfiguration:(int)readerID aUtrConfiguration:(srfidUniqueTagsReport**)UtrConfiguration aStatusMessage:(NSString**)statusMessage;
+- (SRFID_RESULT) srfidSetCommandResponseTimeout:(int)readerID  atimeout:(int)timeoutMs;
+
+/* g2v2 */
+- (SRFID_RESULT) srfidAuthenticate:(int)readerId aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessConfig:(srfidAccessConfig*)accessConfig aPassword:(long)password aMsgLength:(int)msgLength aMsgData:(NSString *)msgData aRespLength:(int)respLength aCsi:(int)csi aDoSendRes:(BOOL)doSendRes aDoIncresplen:(BOOL)doIncresplen aStatusMessage:(NSString **)statusMessage;
+- (SRFID_RESULT) srfidUntraceable:(int)readerId aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessConfig:(srfidAccessConfig*)accessConfig aPassword:(long)password aUntraceableConfig:(srfidUntraceableConfig*)untraceableConfig aStatusMessage:(NSString **)statusMessage;
+- (SRFID_RESULT) srfidReadBuffer:(int)readerId aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessConfig:(srfidAccessConfig*)accessConfig aPassword:(long)password aWordPtr:(int)wordPtr aBitCount:(int)bitCount aStatusMessage:(NSString **)statusMessage;
+- (SRFID_RESULT) srfidSetCryptoSuite:(int)readerId aAccessCriteria:(srfidAccessCriteria*)accessCriteria aAccessConfig:(srfidAccessConfig*)accessConfig aPassword:(long)password aKeyId:(int)keyId aIChallenge:(NSString *)iChallenge aIncCustom:(BOOL)incCustom aProfile:(int)profile aOffset:(int)offset aBlockCount:(int)blockCount aProtMode:(int)protMode aStatusMessage:(NSString **)statusMessage;
+
+- (SRFID_RESULT) srfidStopOperation:(int)readerId aStatusMessage:(NSString **)statusMesssage;
 
 @end
 

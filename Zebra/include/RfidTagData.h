@@ -23,7 +23,7 @@
     NSMutableString *m_TagId;
     long m_FirstSeenTime;
     long m_LastSeenTime;
-    int m_PC;
+    NSMutableString* m_PC;
     short m_PeakRSSI;
     short m_PhaseInfo;
     short m_ChannelIndex;
@@ -34,6 +34,9 @@
     SRFID_MEMORYBANK m_MemoryBank;
     NSMutableString *m_MemoryBankData;
     NSMutableString *m_PermaLockData;
+    int m_ModifiedWordCount;
+    NSMutableString *m_g2v2Result;
+    NSMutableString *m_g2v2Response;
 }
 
 - (NSString*)getTagId;
@@ -42,8 +45,8 @@
 - (void)setFirstSeenTime:(long)val;
 - (long)getLastSeenTime;
 - (void)setLastSeenTime:(long)val;
-- (int)getPC;
-- (void)setPC:(int)val;
+- (NSString*)getPC;
+- (void)setPC:(NSString*)val;
 - (short)getPeakRSSI;
 - (void)setPeakRSSI:(short)val;
 - (short)getChannelIndex;
@@ -64,5 +67,11 @@
 - (void)setMemoryBankData:(NSString*)val;
 - (void)setPermaLockData:(NSString*)val;
 - (NSString*)getPermaLockData;
+- (void)setModifiedWordCount:(int)val;
+- (int)getModifiedWordCount;
+-(void)setg2v2Result:(NSString*)val;
+-(NSString *)getg2v2Result;
+-(void)setg2v2Response:(NSString*)val;
+-(NSString *)getg2v2Response;
 
 @end

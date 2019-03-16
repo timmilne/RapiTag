@@ -66,6 +66,10 @@ enum {
     SRFID_EVENT_MASK_TRIGGER                = (0x01 << 8),
     SRFID_EVENT_MASK_BATTERY                = (0x01 << 9),
     SRFID_EVENT_MASK_STATUS_OPERENDSUMMARY  = (0x01 << 10),
+    SRFID_EVENT_MASK_TEMPERATURE            = (0x01 << 11),
+    SRFID_EVENT_MASK_POWER                  = (0x01 << 12),
+    SRFID_EVENT_MASK_DATABASE                = (0x01 << 13),
+    SRFID_EVENT_MASK_RADIOERROR             = (0x01 << 14)
 };
 
 /* supported device models */
@@ -82,7 +86,11 @@ typedef enum {
     SRFID_EVENT_STATUS_OPERATION_START       = 0x00,
     SRFID_EVENT_STATUS_OPERATION_STOP        = 0x01,
     SRFID_EVENT_STATUS_OPERATION_BATCHMODE   = 0x02,
-    SRFID_EVENT_STATUS_OPERATION_END_SUMMARY = 0x03
+    SRFID_EVENT_STATUS_OPERATION_END_SUMMARY = 0x03,
+    SRFID_EVENT_STATUS_TEMPERATURE           = 0x04,
+    SRFID_EVENT_STATUS_POWER                 = 0x05,
+    SRFID_EVENT_STATUS_DATABASE              = 0x06,
+    SRFID_EVENT_STATUS_RADIOERROR            = 0x07
 } SRFID_EVENT_STATUS;
 
 
@@ -226,6 +234,19 @@ typedef enum {
     SRFID_HOPPINGCONFIG_ENABLED                        = 0x01,
     SRFID_HOPPINGCONFIG_DISABLED                       = 0x02,
 } SRFID_HOPPINGCONFIG;
+
+typedef enum {
+    SRFID_TID_SHOW                          = 0,
+    SRFID_TID_HIDE_SOME                     = 1,
+    SRFID_TID_HIDE_ALL                      = 2
+} SRFID_CONFIG_TID;
+
+typedef enum {
+    SRFID_RANGE_NONE                        = 0,
+    SRFID_RANGE_TOGGLE                      = 1,
+    SRFID_RANGE_REDUCE                      = 2
+} SRFID_CONFIG_RANGE;
+
 
 #endif /* __RFID_SDK_DEFS__ */
 

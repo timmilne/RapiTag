@@ -26,7 +26,7 @@
 }
 
 - (NSString*)getDeviceVersion;
-- (void)setDeviceVersion:(NSString*)val;
+- (void)setReaderDeviceVersion:(NSString*)val;
 - (NSString*)getBluetoothVersion;
 - (void)setBluetoothVersion:(NSString*)val;
 - (NSString*)getNGEVersion;

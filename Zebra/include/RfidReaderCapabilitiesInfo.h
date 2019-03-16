@@ -35,7 +35,7 @@
 }
 
 - (NSString*)getSerialNumber;
-- (void)setSerialNumber:(NSString*)val;
+- (void)setReaderSerialNumber:(NSString*)val;
 - (NSString*)getModel;
 - (void)setModel:(NSString*)val;
 - (NSString*)getManufacturer;
