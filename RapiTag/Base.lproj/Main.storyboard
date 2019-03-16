@@ -228,7 +228,7 @@
                                     <constraint firstAttribute="height" constant="30" id="vk2-bW-ac8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                 <connections>
                                     <action selector="update:" destination="AEa-fn-Pz3" eventType="editingDidEnd" id="7Xw-Wq-ZPq"/>
                                     <outlet property="delegate" destination="AEa-fn-Pz3" id="IEt-Lm-gjU"/>
