@@ -97,11 +97,12 @@ typedef enum {
 typedef enum {
     SRFID_MEMORYBANK_EPC                    = 0x01,
     SRFID_MEMORYBANK_TID                    = 0x02,
-    SRFID_MEMORYBANK_USER                   = 0x03,
-    SRFID_MEMORYBANK_RESV                   = 0x04,
-    SRFID_MEMORYBANK_NONE                   = 0x05,
-    SRFID_MEMORYBANK_ACCESS                 = 0x06,
-    SRFID_MEMORYBANK_KILL                   = 0x07
+    SRFID_MEMORYBANK_USER                   = 0x04,
+    SRFID_MEMORYBANK_RESV                   = 0x08,
+    SRFID_MEMORYBANK_NONE                   = 0x10,
+    SRFID_MEMORYBANK_ACCESS                 = 0x20,
+    SRFID_MEMORYBANK_KILL                   = 0x40,
+    SRFID_MEMORYBANK_ALL                    = 0x67,
 } SRFID_MEMORYBANK;
 
 typedef enum
