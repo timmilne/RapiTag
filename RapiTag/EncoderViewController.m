@@ -155,8 +155,9 @@
     
     // Battery life view
     _batteryLifeView = [[UIProgressView alloc] init];
-    _batteryLifeView.frame = CGRectMake(0, self.view.bounds.size.height - 8, self.view.bounds.size.width, 40);
+    _batteryLifeView.frame = CGRectMake(0, self.view.bounds.size.height - 35, self.view.bounds.size.width, 40);
     _batteryLifeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    _batteryLifeView.progressTintColor = [UIColor whiteColor];
     _batteryLifeView.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     [self.view addSubview:_batteryLifeView];
     
