@@ -1400,17 +1400,8 @@
     else
     {
         // Error, alert
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Zebra Error"
-                              message:@"Failed to establish connection with Zebra RFID reader"
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        
-        dispatch_async(dispatch_get_main_queue(),
-                       ^{
-                           [alert show];
-                       });
+        [self alertDialog:@"Zebra Error"
+              withMessage:@"Failed to establish connection with Zebra RFID reader"];
         
         // Terminate sesssion
         [_rfidSdkApi srfidTerminateCommunicationSession:_zebraReaderID];
@@ -1513,6 +1504,26 @@
 - (void)srfidEventTriggerNotify:(int)readerID aTriggerEvent:(SRFID_TRIGGEREVENT)triggerEvent
 {
     NSLog(@"Zebra Reader - Event trigger notify: %@\n", ((triggerEvent == SRFID_TRIGGEREVENT_PRESSED)?@"Pressed":@"Released"));
+}
+
+- (void)alertDialog:(NSString *)title withMessage:(NSString *)message {
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:title
+                                 message:message
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    [alert addAction:ok];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:YES completion:nil];
+    });
+    
+    NSLog (@"%@", message);
 }
 
 /*
