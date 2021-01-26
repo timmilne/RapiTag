@@ -25,11 +25,14 @@ static NSString *TCIN_Bin_Prefix   = @"00001000";
 @property NSString *tcin_hex;
 @property NSString *tcin_uri;
 
+// Generate a random serial number
 - (void)withTCIN:(NSString *)tcin;
 
+// Generate a random serial number with a seed, up to 13 digits
 - (void)withTCIN:(NSString *)tcin
              seed:(long long)seed;
 
+// Use the specified serial number
 - (void)withTCIN:(NSString *)tcin
              ser:(NSString *)ser;
 
