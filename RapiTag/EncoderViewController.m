@@ -92,9 +92,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // Set the status bar to white (iOS bug)
-    // Also had to add the statusBarStyle entry to info.plist
-    self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
+    // Set the navigation bar background color to gray
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     
     // Initialize variables
     _encodeEPC = [EPCEncoder alloc];
@@ -1160,7 +1159,7 @@
     [_aidFld setText:aid];
     
     if (([tiai length] > 0) && ([aid length] > 0))  {
-        // Update the TCINEncoder object
+        // Update the TIAIEncoder object
         (isNumeric && type == 0)?
             [_encodeTIAI withAssetRef:tiai assetIDDec:aid]:(type == 1)?
             [_encodeTIAI withAssetRef:tiai assetIDChar:aid]:
