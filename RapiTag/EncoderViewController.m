@@ -166,7 +166,7 @@
     
     // Initialize the bar code scanner session, device, input, output, and preview layer
     _session = [[AVCaptureSession alloc] init];
-    _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    _device = [self configureCamera];
     NSError *error = nil;
     _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];
     if (_input) {
@@ -384,6 +384,38 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Camera
+#pragma mark - Camera
+
+/*!
+ * @discussion Initialize camera device
+ */
+- (AVCaptureDevice *)configureCamera {
+    if (@available(iOS 13.0, *)) {
+        // Create a discovery session to confirm the desired camera is available
+        NSArray *deviceTypes = @[AVCaptureDeviceTypeBuiltInUltraWideCamera];
+        AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession
+                                                             discoverySessionWithDeviceTypes:deviceTypes
+                                                             mediaType:AVMediaTypeVideo
+                                                             position:AVCaptureDevicePositionBack];
+        NSArray *devices = discoverySession.devices;
+        AVCaptureDevice *ultraWideCamera = devices.firstObject;
+        
+        if (ultraWideCamera) {
+            NSLog(@"\nFound Ultra-Wide Camera: %@\n", ultraWideCamera.localizedName);
+            return([AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInUltraWideCamera
+                                                         mediaType:AVMediaTypeVideo
+                                                          position:AVCaptureDevicePositionBack]);
+        } else {
+            NSLog(@"\nUltra-Wide Camera not available on this device.\n");
+            return ([AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo]);
+        }
+    } else {
+        NSLog(@"\nUltra-Wide Camera not available on this device.\n");
+        return([AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo]);
+    }
 }
 
 // Zebra RFID Reader
@@ -820,7 +852,12 @@
             }
         }
         
-        // Still scanning for barcodes
+        // If we had a previously scanned barcode, leave it until a replacement found
+        else if (_barcodeFound) {
+            
+        }
+        
+        // Still scanning for barcodes (this can zero out a previously scanned barcode without the previous check)
         else {
             _barcodeLbl.text = @"Barcode: (scanning for barcodes)";
             _barcodeLbl.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
