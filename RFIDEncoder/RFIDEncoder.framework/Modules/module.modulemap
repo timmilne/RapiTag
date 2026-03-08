@@ -1,6 +1,0 @@
-framework module RFIDEncoder {
-  umbrella header "RFIDEncoder.h"
-
-  export *
-  module * { export * }
-}

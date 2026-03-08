@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,8 +20,8 @@
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
 		B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */; };
-		B799907B2235CB250081E11F /* RFIDEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B799907A2235CB250081E11F /* RFIDEncoder.framework */; };
-		B799907C2235CB4B0081E11F /* RFIDEncoder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B799907A2235CB250081E11F /* RFIDEncoder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B7A05FC42F5CD73500639B4B /* RFIDEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A05FC32F5CD73500639B4B /* RFIDEncoder.framework */; };
+		B7A05FC52F5CD73500639B4B /* RFIDEncoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A05FC32F5CD73500639B4B /* RFIDEncoder.framework */; };
 		B7F7714F1C1B8548006D8FF9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F7714E1C1B8548006D8FF9 /* AVFoundation.framework */; };
 		B7F771511C1B855E006D8FF9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F771501C1B855E006D8FF9 /* AudioToolbox.framework */; };
 		B7F771531C1B856F006D8FF9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F771521C1B856F006D8FF9 /* MediaPlayer.framework */; };
@@ -45,7 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B799907C2235CB4B0081E11F /* RFIDEncoder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +105,7 @@
 		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
 		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B785F88C1BA0D6380020C753 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
-		B799907A2235CB250081E11F /* RFIDEncoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFIDEncoder.framework; sourceTree = "<group>"; };
+		B7A05FC32F5CD73500639B4B /* RFIDEncoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFIDEncoder.framework; sourceTree = "<group>"; };
 		B7F7714E1C1B8548006D8FF9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B7F771501C1B855E006D8FF9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B7F771521C1B856F006D8FF9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -124,7 +123,7 @@
 				B7F771511C1B855E006D8FF9 /* AudioToolbox.framework in Frameworks */,
 				B7F7714F1C1B8548006D8FF9 /* AVFoundation.framework in Frameworks */,
 				B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */,
-				B799907B2235CB250081E11F /* RFIDEncoder.framework in Frameworks */,
+				B7A05FC42F5CD73500639B4B /* RFIDEncoder.framework in Frameworks */,
 				B785F88D1BA0D6380020C753 /* ExternalAccessory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7A05FC52F5CD73500639B4B /* RFIDEncoder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +144,7 @@
 			children = (
 				B70244621B018CF600B9B47F /* RapiTag */,
 				B702447C1B018CF600B9B47F /* RapiTagTests */,
-				B7227C2A222B227100A81EDC /* RFIDEncoder */,
+				B7A05FC32F5CD73500639B4B /* RFIDEncoder.framework */,
 				B785F8891BA0D6060020C753 /* Zebra */,
 				B7F7714D1C1B851B006D8FF9 /* Scanner */,
 				B70244611B018CF600B9B47F /* Products */,
@@ -245,14 +245,6 @@
 			path = include;
 			sourceTree = "<group>";
 		};
-		B7227C2A222B227100A81EDC /* RFIDEncoder */ = {
-			isa = PBXGroup;
-			children = (
-				B799907A2235CB250081E11F /* RFIDEncoder.framework */,
-			);
-			path = RFIDEncoder;
-			sourceTree = "<group>";
-		};
 		B785F8891BA0D6060020C753 /* Zebra */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,7 +327,7 @@
 				};
 			};
 			buildConfigurationList = B702445B1B018CF600B9B47F /* Build configuration list for PBXProject "RapiTag" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -540,11 +532,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/RFIDEncoder",
 				);
 				INFOPLIST_FILE = RapiTag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -566,11 +560,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/RFIDEncoder",
 				);
 				INFOPLIST_FILE = RapiTag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -591,14 +587,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/RFIDEncoder",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = RapiTagTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapiTag.app/RapiTag";
@@ -613,10 +613,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/RFIDEncoder",
 				);
 				INFOPLIST_FILE = RapiTagTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.target.stores.$(PRODUCT_NAME:rfc1034identifier:lower)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapiTag.app/RapiTag";
