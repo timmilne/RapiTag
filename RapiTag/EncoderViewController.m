@@ -212,7 +212,21 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation orientation;
+    UIWindowScene *windowScene = nil;
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive &&
+            [scene isKindOfClass:[UIWindowScene class]]) {
+            windowScene = (UIWindowScene *)scene;
+            break;
+        }
+    }
+    if (windowScene != nil) {
+        orientation = windowScene.interfaceOrientation;
+    } else {
+        orientation = UIInterfaceOrientationUnknown;
+    }
+    
     switch ((int)orientation) {
         case UIInterfaceOrientationPortrait:
             [_prevLayer.connection setVideoOrientation:AVCaptureVideoOrientationPortrait];

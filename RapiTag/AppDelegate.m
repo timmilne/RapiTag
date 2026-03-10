@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SceneDelegate.h"
 
 @interface AppDelegate ()
 
@@ -40,6 +41,21 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark - UISceneSession lifecycle
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
+    
+    // Called when a new scene session is being created.
+    // Use this method to select a configuration to create the new scene with.
+    UISceneConfiguration *configuration = [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
+    configuration.delegateClass = [SceneDelegate class]; // Specify your SceneDelegate
+    return configuration;
+}
+
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
+    // Called when the user discards a scene session.
 }
 
 @end

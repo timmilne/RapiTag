@@ -16,6 +16,7 @@
 		B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B702448A1B018D7700B9B47F /* EncoderViewController.m */; };
 		B7117D401B33362A00968426 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7117D3F1B33362A00968426 /* NavigationController.m */; };
 		B7227AA0222B040700A81EDC /* libsymbolrfid-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7227A9F222B040700A81EDC /* libsymbolrfid-sdk.a */; };
+		B753D8C72F5E2F920036BBC5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B753D8C62F5E2F910036BBC5 /* SceneDelegate.m */; };
 		B77C52E81B7F0B200049D701 /* ConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E71B7F0B200049D701 /* ConverterTests.m */; };
 		B77C52EA1B7F0B270049D701 /* EPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */; };
 		B785F88B1BA0D6270020C753 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */; };
@@ -101,6 +102,8 @@
 		B7227A9D222B040700A81EDC /* RfidStopTriggerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RfidStopTriggerConfig.h; sourceTree = "<group>"; };
 		B7227A9E222B040700A81EDC /* RfidUniqueTagsReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RfidUniqueTagsReport.h; sourceTree = "<group>"; };
 		B7227A9F222B040700A81EDC /* libsymbolrfid-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libsymbolrfid-sdk.a"; sourceTree = "<group>"; };
+		B753D8C52F5E2F890036BBC5 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		B753D8C62F5E2F910036BBC5 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		B77C52E71B7F0B200049D701 /* ConverterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterTests.m; sourceTree = "<group>"; };
 		B77C52E91B7F0B270049D701 /* EPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPCEncoderTests.m; sourceTree = "<group>"; };
 		B785F88A1BA0D6270020C753 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -165,6 +168,8 @@
 			children = (
 				B70244671B018CF600B9B47F /* AppDelegate.h */,
 				B70244681B018CF600B9B47F /* AppDelegate.m */,
+				B753D8C52F5E2F890036BBC5 /* SceneDelegate.h */,
+				B753D8C62F5E2F910036BBC5 /* SceneDelegate.m */,
 				B70244891B018D7700B9B47F /* EncoderViewController.h */,
 				B702448A1B018D7700B9B47F /* EncoderViewController.m */,
 				B7117D3E1B33362A00968426 /* NavigationController.h */,
@@ -372,6 +377,7 @@
 			files = (
 				B702448B1B018D7700B9B47F /* EncoderViewController.m in Sources */,
 				B70244691B018CF600B9B47F /* AppDelegate.m in Sources */,
+				B753D8C72F5E2F920036BBC5 /* SceneDelegate.m in Sources */,
 				B7117D401B33362A00968426 /* NavigationController.m in Sources */,
 				B70244661B018CF600B9B47F /* main.m in Sources */,
 			);
